@@ -1,6 +1,6 @@
 /* Suite Shop Scanner service worker: caches the app shell so it installs
    as a PWA and keeps working offline after the first load. */
-var CACHE = "suite-shop-v7";
+var CACHE = "suite-shop-v16";
 var ASSETS = [
   "./",
   "./index.html",
