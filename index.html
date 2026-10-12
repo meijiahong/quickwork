@@ -119,6 +119,9 @@
   .modtile { background: #fff; border: 1px solid #e3e8f1; border-radius: 16px; padding: 22px 12px; display: flex; flex-direction: column; align-items: center; gap: 6px; cursor: pointer; box-shadow: 0 2px 8px rgba(0,46,90,.06); font-family: inherit; }
   .modtile:active { transform: scale(.97); }
   .modicon { font-size: 42px; }
+  .modicon svg { width: 46px; height: 46px; display: block; }
+  .check svg { width: 22px; height: 22px; vertical-align: -5px; }
+  #homeGearBtn svg { width: 26px; height: 26px; vertical-align: -4px; display: block; }
   .modname { font-weight: 800; font-size: 16px; color: #1c2440; }
   .moddesc { font-size: 12px; color: #7a8499; text-align: center; }
   .modhead { display: flex; align-items: center; gap: 10px; padding: 14px 14px 8px; max-width: 640px; margin: 0 auto; }
@@ -164,90 +167,144 @@
   .sumline .info { flex: 1; min-width: 0; }
   .sumline .name { font-weight: 600; font-size: 15px; }
   .sumline .sub { font-size: 12px; color: #7a8499; }
+
+#templateUseModal, #templateEditModal { display: none; position: fixed; inset: 0; background: rgba(10,14,25,.6); z-index: 60; align-items: flex-end; justify-content: center; }
+#templateUseModal.open, #templateEditModal.open { display: flex; }
+#templateUseBox, #templateEditBox { background: #fff; width: 100%; max-width: 480px; border-radius: 18px 18px 0 0; padding: 20px 18px 28px; max-height: 92vh; overflow-y: auto; }
+#templateUseBox h2, #templateEditBox h2 { margin: 0 0 8px; font-size: 19px; }
+#templateEditBox textarea { width: 100%; padding: 13px; font-size: 16px; border: 1.5px solid #c9d2e3; border-radius: 10px; margin-bottom: 10px; font-family: inherit; }
+/* ---------- dark theme (v17) ---------- */
+body[data-theme="dark"] { background: #0b1220; color: #e6ebf4; }
+body[data-theme="dark"] .card { background: #141d31; box-shadow: 0 1px 3px rgba(0,0,0,.4); }
+body[data-theme="dark"] input[type=text], body[data-theme="dark"] input[type=number], body[data-theme="dark"] input[type=search],
+body[data-theme="dark"] select, body[data-theme="dark"] textarea { background: #0e1628; border-color: #2a3a5c; color: #e6ebf4; }
+body[data-theme="dark"] input::placeholder, body[data-theme="dark"] textarea::placeholder { color: #6b7690; }
+body[data-theme="dark"] label { color: #9aa6bc; }
+body[data-theme="dark"] .item { border-bottom-color: #1e2a44; }
+body[data-theme="dark"] .item .sub, body[data-theme="dark"] .hint, body[data-theme="dark"] .moddesc,
+body[data-theme="dark"] .homehead p, body[data-theme="dark"] .modsub, body[data-theme="dark"] .rec-card .rmeta,
+body[data-theme="dark"] .sumline .sub, body[data-theme="dark"] .rmeta { color: #93a0b8; }
+body[data-theme="dark"] .btn-ghost { background: #1c2942; color: #cfe0ff; }
+body[data-theme="dark"] .btn-danger { background: #3a1d1d; color: #ff9d94; }
+body[data-theme="dark"] .iconbtn { background: #1c2942; color: #cfe0ff; }
+body[data-theme="dark"] .qty button { background: #0e1628; border-color: #2a3a5c; color: #e6ebf4; }
+body[data-theme="dark"] .results .item { background: #141d31; border-color: #243354; }
+body[data-theme="dark"] .modtile { background: #141d31; border-color: #243354; }
+body[data-theme="dark"] .modname { color: #eef2fa; }
+body[data-theme="dark"] .homehead h1, body[data-theme="dark"] .modhead h1 { color: #9cc3ff; }
+body[data-theme="dark"] .backbtn { background: #141d31; border-color: #243354; color: #9cc3ff; }
+body[data-theme="dark"] #modalBox, body[data-theme="dark"] #confirmBox, body[data-theme="dark"] #promptBox,
+body[data-theme="dark"] #contactModalBox, body[data-theme="dark"] #importTargetBox, body[data-theme="dark"] #sheetBox,
+body[data-theme="dark"] #priceModalBox, body[data-theme="dark"] #templateUseBox, body[data-theme="dark"] #templateEditBox { background: #141d31; }
+body[data-theme="dark"] #confirmBox p, body[data-theme="dark"] #promptBox p, body[data-theme="dark"] #modalBox h2,
+body[data-theme="dark"] #contactModalBox h2, body[data-theme="dark"] #importTargetBox h2, body[data-theme="dark"] #sheetBox .pname,
+body[data-theme="dark"] #templateUseBox h2, body[data-theme="dark"] #templateEditBox h2 { color: #eef2fa; }
+body[data-theme="dark"] #promptBox input, body[data-theme="dark"] #cashInput { background: #0e1628; border-color: #2a3a5c; color: #e6ebf4; }
+body[data-theme="dark"] .pickchip { background: #0e1628; border-color: #2a3a5c; color: #dbe4f3; }
+body[data-theme="dark"] .pickchip.on { background: #17479D; border-color: #17479D; color: #fff; }
+body[data-theme="dark"] .paybtn { background: #0e1628; border-color: #2a3a5c; color: #dbe4f3; }
+body[data-theme="dark"] .paybtn.active { background: #17479D; border-color: #17479D; color: #fff; }
+body[data-theme="dark"] .rec-card { background: #101a2e; border-color: #243354; }
+body[data-theme="dark"] .rec-card .rtitle { color: #eef2fa; }
+body[data-theme="dark"] .rec-card .rcomp { color: #8fb8ff; }
+body[data-theme="dark"] .badge { background: #1c2c4e; color: #9cc3ff; }
+body[data-theme="dark"] .profilecard { background: #141d31; border-color: #243354; }
+body[data-theme="dark"] .profilemain .modname { color: #eef2fa; }
+body[data-theme="dark"] .totals .grand { border-top-color: #2a3a5c; }
+body[data-theme="dark"] .sumline { border-bottom-color: #1e2a44; }
+body[data-theme="dark"] .changerow.short { color: #ff8a80; }
+body[data-theme="dark"] kbd.code { background: #1c2942; }
+body[data-theme="dark"] .thumb, body[data-theme="dark"] #imgPreview { background: #1c2942; }
+body[data-theme="dark"] #summaryOverlay { background: #0b1220; }
+body[data-theme="dark"] .feerow input[type=text], body[data-theme="dark"] .feerow input[type=number], body[data-theme="dark"] .feerow select,
+body[data-theme="dark"] .comprow select, body[data-theme="dark"] .comprow input, body[data-theme="dark"] .setrow input[type=number],
+body[data-theme="dark"] .setrow input[type=text] { background: #0e1628; border-color: #2a3a5c; color: #e6ebf4; }
+body[data-theme="dark"] select option { background: #141d31; }
+body[data-theme="dark"] .toast { background: #1c2942; }
 </style>
 </head>
 <body>
 
 <div id="view-profiles" style="display:none">
   <div class="homehead">
-    <div><h1>QuickWork</h1><p>Choose a job to continue.</p></div>
+    <div><h1>QuickWork</h1><p data-i18n="choose_job">Choose a job to continue.</p></div>
   </div>
   <div id="profileList" style="max-width:640px;margin:0 auto;padding:8px 18px"></div>
   <div style="max-width:640px;margin:0 auto;padding:0 18px 24px">
-    <button class="btn btn-dark" onclick="addProfile()">+ New job</button>
+    <button class="btn btn-dark" onclick="addProfile()" data-i18n="new_job">+ New job</button>
   </div>
 </div>
 
 <div id="view-home">
   <div class="homehead">
-    <div><h1>QuickWork</h1><p>Everything for the shift, in one place.</p></div>
-    <button class="iconbtn big" onclick="showView('settings')" aria-label="Settings">⚙️</button>
+    <div><h1>QuickWork</h1><p data-i18n="tagline">Everything for the shift, in one place.</p></div>
+    <button class="iconbtn big" onclick="showView('settings')" aria-label="Settings" id="homeGearBtn"></button>
   </div>
   <div id="moduleGrid" class="modgrid"></div>
-  <p class="hint" style="text-align:center;padding:0 20px">Tap ⚙️ to choose which apps appear here.</p>
+  <p class="hint" style="text-align:center;padding:0 20px" data-i18n="tap_gear">Tap ⚙️ to choose which apps appear here.</p>
 </div>
 
 <div id="view-shop" style="display:none">
   <div class="modhead"><button class="backbtn" onclick="goHome()">‹</button><div style="flex:1;min-width:0"><h1>Quick Shop</h1><p id="appTitle" class="modsub">Suite Shop</p></div><span class="modhead-sp"></span></div>
 <nav>
-  <button id="tabBtnCheckout" class="active" onclick="showTab('checkout')">Checkout</button>
-  <button id="tabBtnProducts" onclick="showTab('products')">Products</button>
+  <button id="tabBtnCheckout" class="active" onclick="showTab('checkout')" data-i18n="nav_checkout">Checkout</button>
+  <button id="tabBtnProducts" onclick="showTab('products')" data-i18n="nav_products">Products</button>
 </nav>
 
 <main>
   <!-- CHECKOUT -->
   <section id="tab-checkout">
     <div class="card">
-      <button class="btn btn-primary" onclick="startScan('checkout')">📷 Scan item</button>
-      <label for="search">Or find by name / barcode</label>
-      <input type="search" id="search" placeholder="Name or last digits of barcode…" autocomplete="off" oninput="renderSearch()">
+      <button class="btn btn-primary" onclick="startScan('checkout')" data-i18n="shop_scan_item">📷 Scan item</button>
+      <label for="search" data-i18n="shop_or_find">Or find by name / barcode</label>
+      <input type="search" id="search" placeholder="Name or last digits of barcode…" data-i18n-ph="shop_search_ph2" autocomplete="off" oninput="renderSearch()">
       <div id="searchResults" class="results"></div>
     </div>
     <div class="card">
-      <div id="orderList"><div class="empty">No items yet.<br>Scan or search to add items.</div></div>
+      <div id="orderList"><div class="empty" data-i18n="shop_no_items">No items yet.<br>Scan or search to add items.</div></div>
     </div>
     <div class="card totals">
-      <div class="row grand"><span>Total</span><span id="grandTotal">$0.00</span></div>
+      <div class="row grand"><span data-i18n="sum_total">Total</span><span id="grandTotal">$0.00</span></div>
     </div>
     <div class="btn-row">
-      <button class="btn btn-primary" onclick="showSummary()">Done ✓</button>
-      <button class="btn btn-ghost" onclick="clearOrder()">Clear</button>
+      <button class="btn btn-primary" onclick="showSummary()" data-i18n="shop_done">Done ✓</button>
+      <button class="btn btn-ghost" onclick="clearOrder()" data-i18n="shop_clear">Clear</button>
     </div>
   </section>
 
   <!-- PRODUCTS -->
   <section id="tab-products" style="display:none">
     <div class="card">
-      <button class="btn btn-dark" onclick="startScan('product')">📷 Scan to add / edit product</button>
+      <button class="btn btn-dark" onclick="startScan('product')" data-i18n="prod_scan_addedit">📷 Scan to add / edit product</button>
       <div class="btn-row">
-        <button class="btn btn-ghost" onclick="exportData()">⬆ Export list</button>
-        <button class="btn btn-ghost" onclick="document.getElementById('importFile').click()">⬇ Import list</button>
+        <button class="btn btn-ghost" onclick="exportData()" data-i18n="prod_export">⬆ Export list</button>
+        <button class="btn btn-ghost" onclick="document.getElementById('importFile').click()" data-i18n="prod_import">⬇ Import list</button>
       </div>
       <input type="file" id="importFile" accept=".json,application/json" style="display:none" onchange="importData(this)">
-      <label for="shopName">Shop name</label>
-      <input type="text" id="shopName" placeholder="Suite Shop" onchange="shopNameChanged()">
-      <p class="hint" style="margin:10px 0 0">Each phone keeps its own list. When prices change, one person taps <b>Export list</b>, sends the file in the group chat, and everyone else taps <b>Import list</b>.</p>
+      <label for="shopName" data-i18n="prod_shop_name">Shop name</label>
+      <input type="text" id="shopName" placeholder="My Shop" data-i18n-ph="prod_shop_name_ph" onchange="shopNameChanged()">
+      <p class="hint" style="margin:10px 0 0" data-i18n="prod_share_hint">Each phone keeps its own list. When prices change, one person taps Export list, sends the file in the group chat, and everyone else taps Import list.</p>
     </div>
     <div class="card">
-      <h3 style="margin:0 0 6px;font-size:16px">⚙️ Shop settings</h3>
-      <label class="check"><input type="checkbox" id="setTaxOn" onchange="saveShopSettings()"> Enable tax</label>
+      <h3 style="margin:0 0 6px;font-size:16px" data-i18n="sset_title">⚙️ Shop settings</h3>
+      <label class="check"><input type="checkbox" id="setTaxOn" onchange="saveShopSettings()"> <span data-i18n="sset_tax">Enable tax</span></label>
       <div class="setrow">
-        <label for="setTaxRate">Tax rate</label>
+        <label for="setTaxRate" data-i18n="sset_rate">Tax rate</label>
         <input type="number" id="setTaxRate" inputmode="decimal" min="0" step="0.01" onchange="saveShopSettings()">
         <span>%</span>
       </div>
       <div class="setrow">
-        <span>Apply tax to:</span>
-        <label class="check"><input type="checkbox" id="setTaxCash" onchange="saveShopSettings()"> Cash</label>
-        <label class="check"><input type="checkbox" id="setTaxCard" onchange="saveShopSettings()"> Card</label>
+        <span data-i18n="sset_apply">Apply tax to:</span>
+        <label class="check"><input type="checkbox" id="setTaxCash" onchange="saveShopSettings()"> <span data-i18n="sset_cash">Cash</span></label>
+        <label class="check"><input type="checkbox" id="setTaxCard" onchange="saveShopSettings()"> <span data-i18n="sset_card">Card</span></label>
       </div>
-      <label class="check"><input type="checkbox" id="setDenoms" onchange="saveShopSettings()"> Cash: recommend bills &amp; coins for change</label>
-      <div style="margin:12px 0 4px;font-weight:700">Cash quick amounts</div>
+      <label class="check"><input type="checkbox" id="setDenoms" onchange="saveShopSettings()"> <span data-i18n="sset_breakdown">Cash: recommend bills &amp; coins for change</span></label>
+      <div style="margin:12px 0 4px;font-weight:700" data-i18n="sset_picks">Cash quick amounts</div>
       <div id="cashPickSettings" class="setrow"></div>
-      <div style="margin:12px 0 4px;font-weight:700">Other fees</div>
+      <div style="margin:12px 0 4px;font-weight:700" data-i18n="sset_fees">Other fees</div>
       <div id="feeList"></div>
       <div class="btn-row" style="margin-top:8px">
-        <button class="btn btn-ghost" onclick="addFee()">+ Add fee</button>
+        <button class="btn btn-ghost" onclick="addFee()" data-i18n="sset_add_fee">+ Add fee</button>
       </div>
       <p class="hint" style="margin:10px 0 0">Tax applies to subtotal + fees. When "Apply tax to Card" is off, card totals stay pre-tax and your PMS adds the tax.</p>
     </div>
@@ -269,28 +326,34 @@
   <div class="modhead"><button class="backbtn" onclick="goHome()">‹</button><h1>Quick Contacts</h1><span class="modhead-sp"></span></div>
   <main>
     <div class="card">
-      <input type="search" id="contactSearch" placeholder="Search name or department…" oninput="renderContacts()">
+      <input type="search" id="contactSearch" placeholder="Search name or department…" data-i18n-ph="con_search_ph" oninput="renderContacts()">
       <div id="deptChips" class="setrow"></div>
     </div>
     <div class="card">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-        <h3 style="margin:0;font-size:16px">People</h3>
-        <button class="btn btn-ghost" style="width:auto;padding:8px 18px;margin:0" onclick="openContactModal()">+ Add</button>
+        <h3 style="margin:0;font-size:16px" data-i18n="con_people">People</h3>
+        <button class="btn btn-ghost" style="width:auto;padding:8px 18px;margin:0" onclick="openContactModal()" data-i18n="con_add">+ Add</button>
       </div>
       <div id="contactList"></div>
     </div>
     <div class="card">
-      <h3 style="margin:0 0 8px;font-size:16px">Departments</h3>
+      <h3 style="margin:0 0 8px;font-size:16px" data-i18n="tpl_title">Message templates</h3>
+      <p class="hint" style="margin:0 0 8px" data-i18n="tpl_hint">Write it once — fill in the blanks and send it.</p>
+      <div id="templateList"></div>
+      <div class="btn-row" style="margin-top:8px"><button class="btn btn-ghost" onclick="openTemplateEdit(null)" data-i18n="tpl_new">+ New template</button></div>
+    </div>
+    <div class="card">
+      <h3 style="margin:0 0 8px;font-size:16px" data-i18n="con_departments">Departments</h3>
       <div id="deptList"></div>
-      <div class="btn-row" style="margin-top:8px"><button class="btn btn-ghost" onclick="addDepartment()">+ Add</button></div>
+      <div class="btn-row" style="margin-top:8px"><button class="btn btn-ghost" onclick="addDepartment()" data-i18n="con_add">+ Add</button></div>
     </div>
     <div class="card">
       <div class="btn-row">
-        <button class="btn btn-ghost" onclick="exportContacts()">⬆ Export</button>
-        <button class="btn btn-ghost" onclick="document.getElementById('importContactsFile').click()">⬇ Import</button>
+        <button class="btn btn-ghost" onclick="exportContacts()" data-i18n="con_export">⬆ Export</button>
+        <button class="btn btn-ghost" onclick="document.getElementById('importContactsFile').click()" data-i18n="con_import">⬇ Import</button>
       </div>
       <input type="file" id="importContactsFile" accept=".json,application/json" style="display:none" onchange="importContacts(this)">
-      <p class="hint" style="margin:10px 0 0">Share your team list — one person exports, everyone else imports.</p>
+      <p class="hint" style="margin:10px 0 0" data-i18n="con_share_hint">Share your team list — one person exports, everyone else imports.</p>
     </div>
   </main>
 </div>
@@ -300,51 +363,56 @@
   <main>
     <div class="card">
       <div style="display:flex;justify-content:flex-end;margin-bottom:4px">
-        <button class="btn btn-ghost" id="recoveryEditBtn" style="width:auto;padding:8px 18px;margin:0" onclick="toggleRecoveryEdit()">Edit</button>
+        <button class="btn btn-ghost" id="recoveryEditBtn" style="width:auto;padding:8px 18px;margin:0" onclick="toggleRecoveryEdit()" data-i18n="rec_edit">Edit</button>
       </div>
-      <p class="hint" style="margin:0 0 10px">What the front desk can offer per situation — set by the AGM. Anything beyond these limits: call the AGM.</p>
+      <p class="hint" style="margin:0 0 10px" data-i18n="rec_guide_hint">What the front desk can offer per situation — set by the AGM. Anything beyond these limits: call the AGM.</p>
       <div id="situationList"></div>
       <div class="btn-row" id="addSituationRow" style="display:none;margin-top:8px">
-        <button class="btn btn-ghost" onclick="addSituation()">+ Add situation</button>
+        <button class="btn btn-ghost" onclick="addSituation()" data-i18n="rec_add_sit">+ Add situation</button>
       </div>
     </div>
     <div class="card" id="compTypeCard" style="display:none">
-      <h3 style="margin:0 0 8px;font-size:16px">Compensation types</h3>
+      <h3 style="margin:0 0 8px;font-size:16px" data-i18n="rec_comp_types">Compensation types</h3>
       <div id="compTypeList"></div>
       <div class="btn-row" style="margin-top:8px">
-        <button class="btn btn-ghost" onclick="addPreset('compTypes')">+ Add</button>
+        <button class="btn btn-ghost" onclick="addPreset('compTypes')" data-i18n="rec_add">+ Add</button>
       </div>
     </div>
     <div class="card">
       <div class="btn-row">
-        <button class="btn btn-ghost" onclick="exportRecovery()">⬆ Export guide</button>
-        <button class="btn btn-ghost" onclick="document.getElementById('importRecoveryFile').click()">⬇ Import guide</button>
+        <button class="btn btn-ghost" onclick="exportRecovery()" data-i18n="rec_export">⬆ Export guide</button>
+        <button class="btn btn-ghost" onclick="document.getElementById('importRecoveryFile').click()" data-i18n="rec_import">⬇ Import guide</button>
       </div>
       <input type="file" id="importRecoveryFile" accept=".json,application/json" style="display:none" onchange="importRecovery(this)">
-      <p class="hint" style="margin:10px 0 0">The AGM fills in the limits and exports the guide — the team imports it and always knows what they can offer.</p>
+      <p class="hint" style="margin:10px 0 0" data-i18n="rec_share_hint2">The AGM fills in the limits and exports the guide — the team imports it and always knows what they can offer.</p>
     </div>
   </main>
 </div>
 
 <div id="view-settings" style="display:none">
-  <div class="modhead"><button class="backbtn" onclick="goHome()">‹</button><h1>Settings</h1><span class="modhead-sp"></span></div>
+  <div class="modhead"><button class="backbtn" onclick="goHome()">‹</button><h1 data-i18n="settings">Settings</h1><span class="modhead-sp"></span></div>
   <main>
     <div class="card">
-      <h3 style="margin:0 0 8px;font-size:16px">Job profiles</h3>
+      <h3 style="margin:0 0 8px;font-size:16px" data-i18n="set_profiles">Job profiles</h3>
       <div id="settingsProfileRow" class="rmeta" style="margin-bottom:8px"></div>
       <div class="btn-row">
-        <button class="btn btn-ghost" onclick="showView('profiles')">Switch / manage jobs</button>
+        <button class="btn btn-ghost" onclick="showView('profiles')" data-i18n="set_switch">Switch / manage jobs</button>
       </div>
     </div>
     <div class="card">
-      <h3 style="margin:0 0 8px;font-size:16px">Display</h3>
+      <h3 style="margin:0 0 8px;font-size:16px" data-i18n="set_display">Display</h3>
+      <label data-i18n="set_theme">Theme</label>
+      <div class="setrow" id="themeRow"></div>
+      <label data-i18n="set_textsize">Text size</label>
       <div class="setrow" id="fontSizeRow"></div>
-      <p class="hint" style="margin:8px 0 0">Text size applies across the whole app.</p>
+      <label data-i18n="set_language">Language</label>
+      <div class="setrow" id="langRow"></div>
+      <p class="hint" style="margin:8px 0 0" data-i18n="set_font_hint">Text size applies across the whole app.</p>
     </div>
     <div class="card">
-      <h3 style="margin:0 0 8px;font-size:16px">Apps on home screen</h3>
+      <h3 style="margin:0 0 8px;font-size:16px" data-i18n="set_apps">Apps on home screen</h3>
       <div id="moduleToggles"></div>
-      <p class="hint" style="margin:10px 0 0">Hide the apps you don't use. Turn them back on anytime.</p>
+      <p class="hint" style="margin:10px 0 0" data-i18n="set_apps_hint">Hide the apps you don't use. Turn them back on anytime.</p>
     </div>
   </main>
 </div>
@@ -352,19 +420,19 @@
 
 <!-- SCANNER OVERLAY -->
 <div id="scanOverlay">
-  <h2 id="scanTitle">Scan barcode</h2>
+  <h2 id="scanTitle" data-i18n="scan_title">Scan barcode</h2>
   <div id="reader"></div>
   <div style="max-width:480px;margin:0 auto;width:100%">
-    <button class="btn btn-ghost" id="focusBtn" style="display:none;margin-top:8px" onclick="tapFocus()">◉ Tap to focus</button>
-    <p class="hint" id="zoomHint" style="display:none;color:#9fb0cc;text-align:center;margin:6px 0 0">Pinch to zoom</p>
+    <button class="btn btn-ghost" id="focusBtn" style="display:none;margin-top:8px" onclick="tapFocus()" data-i18n="scan_tapfocus">◉ Tap to focus</button>
+    <p class="hint" id="zoomHint" style="display:none;color:#9fb0cc;text-align:center;margin:6px 0 0" data-i18n="scan_pinch">Pinch to zoom</p>
   </div>
   <p id="scanHint">Point the camera at the product barcode.</p>
   <div style="max-width:480px;margin:0 auto;width:100%">
-    <button class="btn btn-ghost" onclick="stopScan()">Cancel</button>
-    <button class="btn btn-dark" onclick="manualCode()">Type barcode manually</button>
-    <button class="btn btn-dark" onclick="document.getElementById('scanFileInput').click()">🖼 Scan from a photo instead</button>
+    <button class="btn btn-ghost" onclick="stopScan()" data-i18n="cancel">Cancel</button>
+    <button class="btn btn-dark" onclick="manualCode()" data-i18n="scan_manual">Type barcode manually</button>
+    <button class="btn btn-dark" onclick="document.getElementById('scanFileInput').click()" data-i18n="scan_photo">🖼 Scan from a photo instead</button>
     <input type="file" id="scanFileInput" accept="image/*" style="display:none" onchange="scanFromFile(this)">
-    <p class="hint" style="color:#9fb0cc;text-align:center;margin:4px 0 0">Camera not starting? Snap the barcode with your camera app, then use “Scan from a photo”.</p>
+    <p class="hint" style="color:#9fb0cc;text-align:center;margin:4px 0 0" data-i18n="scan_hint2">Camera not starting? Snap the barcode with your camera app, then use “Scan from a photo”.</p>
   </div>
 </div>
 
@@ -373,25 +441,25 @@
   <div id="modalBox">
     <h2 id="modalTitle">Add product</h2>
     <div id="modalCodeWrap">
-      <label for="fCode">Barcode</label>
+      <label for="fCode" data-i18n="prod_barcode">Barcode</label>
       <input type="text" id="fCode" inputmode="numeric">
     </div>
-    <label for="fName">Product name</label>
+    <label for="fName" data-i18n="prod_name">Product name</label>
     <input type="text" id="fName" placeholder="e.g. Coca-Cola 20oz">
-    <label for="fPrice">Price ($)</label>
+    <label for="fPrice" data-i18n="prod_price">Price ($)</label>
     <input type="number" id="fPrice" inputmode="decimal" step="0.01" min="0" placeholder="0.00">
-    <label>Product photo (optional)</label>
+    <label data-i18n="prod_photo">Product photo (optional)</label>
     <div class="photoBtnRow">
       <img id="imgPreview" alt="">
       <div style="flex:1">
-        <button class="btn btn-ghost" style="margin-bottom:8px" onclick="document.getElementById('fPhoto').click()">📷 Take / choose photo</button>
-        <button class="btn btn-ghost" onclick="clearPhoto()">Remove photo</button>
+        <button class="btn btn-ghost" style="margin-bottom:8px" onclick="document.getElementById('fPhoto').click()" data-i18n="prod_take_photo">📷 Take / choose photo</button>
+        <button class="btn btn-ghost" onclick="clearPhoto()" data-i18n="prod_remove_photo">Remove photo</button>
       </div>
     </div>
     <input type="file" id="fPhoto" accept="image/*" capture="environment" style="display:none" onchange="photoChosen(this)">
     <div class="btn-row">
-      <button class="btn btn-primary" onclick="saveModal()">Save</button>
-      <button class="btn btn-ghost" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="saveModal()" data-i18n="save">Save</button>
+      <button class="btn btn-ghost" onclick="closeModal()" data-i18n="cancel">Cancel</button>
     </div>
   </div>
 </div>
@@ -403,10 +471,10 @@
     <div class="pname" id="sheetName"></div>
     <div id="sheetCode" style="margin-bottom:2px"></div>
     <div class="pprice" id="sheetPrice"></div>
-    <button class="btn btn-primary" onclick="sheetAdd()">Add to order</button>
+    <button class="btn btn-primary" onclick="sheetAdd()" data-i18n="price_add">Add to order</button>
     <div class="btn-row">
-      <button class="btn btn-ghost" onclick="sheetAdjust()">Adjust price</button>
-      <button class="btn btn-ghost" onclick="closeSheet()">Cancel</button>
+      <button class="btn btn-ghost" onclick="sheetAdjust()" data-i18n="price_adjust">Adjust price</button>
+      <button class="btn btn-ghost" onclick="closeSheet()" data-i18n="cancel">Cancel</button>
     </div>
   </div>
 </div>
@@ -414,24 +482,24 @@
 <!-- PRICE ADJUST -->
 <div id="priceModal">
   <div id="priceModalBox">
-    <h2 style="margin:0 0 4px;font-size:19px">Adjust price</h2>
+    <h2 style="margin:0 0 4px;font-size:19px" data-i18n="price_adjust">Adjust price</h2>
     <p class="hint" id="priceModalName" style="margin:0 0 6px"></p>
-    <label for="fNewPrice">New price ($)</label>
+    <label for="fNewPrice" data-i18n="price_new">New price ($)</label>
     <input type="number" id="fNewPrice" inputmode="decimal" step="0.01" min="0">
-    <button class="btn btn-primary" onclick="priceSave('order')">Save for this order only</button>
-    <button class="btn btn-dark" onclick="priceSave('future')">Save for future orders</button>
-    <button class="btn btn-ghost" onclick="closePriceModal()">Cancel</button>
+    <button class="btn btn-primary" onclick="priceSave('order')" data-i18n="price_order_only">Save for this order only</button>
+    <button class="btn btn-dark" onclick="priceSave('future')" data-i18n="price_future">Save for future orders</button>
+    <button class="btn btn-ghost" onclick="closePriceModal()" data-i18n="cancel">Cancel</button>
   </div>
 </div>
 
 <!-- ORDER SUMMARY -->
 <div id="summaryOverlay">
-  <header><h1>Order summary</h1><p id="summaryMeta"></p></header>
+  <header><h1 data-i18n="sum_title">Order summary</h1><p id="summaryMeta"></p></header>
   <div id="summaryBody"></div>
   <div style="padding:12px 14px 26px;width:100%;max-width:640px;margin:0 auto">
     <div class="btn-row">
-      <button class="btn btn-ghost" onclick="closeSummary()">← Back</button>
-      <button class="btn btn-primary" onclick="newOrderAfterSummary()">New order</button>
+      <button class="btn btn-ghost" onclick="closeSummary()" data-i18n="back">← Back</button>
+      <button class="btn btn-primary" onclick="newOrderAfterSummary()" data-i18n="sum_new">New order</button>
     </div>
   </div>
 </div>
@@ -447,6 +515,446 @@ if (typeof Html5Qrcode === "undefined") {
 <script>
 "use strict";
 var LS_KEY = "[SECURITY_DATA]";
+var I18N = {
+en: {
+// shared
+ok: "OK", cancel: "Cancel", save: "Save", delete_: "Delete", edit: "Edit", add: "Add", done: "Done ✓", close: "Close", back: "← Back", search: "Search", all: "All", remove: "Remove",
+could_not_read: "Could not read that file.",
+shared_pick: "Shared ✓ — pick where to send it.",
+export_failed: "Export failed on this browser — try Chrome.",
+saved_dl: "Saved to Downloads as {f}",
+// home
+tagline: "Everything for the shift, in one place.",
+tap_gear: "Tap ⚙️ to choose which apps appear here.",
+tile_shop_d: "Scan barcodes, price & checkout",
+tile_contacts_d: "Call or text the team",
+tile_recovery_d: "What you can offer",
+hold_reorder: "Hold a tile to rearrange",
+all_hidden: "All apps are hidden — tap ⚙️ to turn them back on.",
+// profiles
+choose_job: "Choose a job to continue.",
+new_job: "+ New job",
+current_badge: "current",
+counts: "{p} products · {c} contacts",
+prompt_job_name: "Job name:",
+job_word: "Job",
+switched: "Switched to {v}.",
+need_one_job: "You need at least one job.",
+del_profile: 'Delete "{name}" and all its data?',
+created_imported: 'Created \u201C{v}\u201D and imported.',
+// settings
+settings: "Settings",
+set_profiles: "Job profiles",
+set_current: "Current job: {v}",
+set_switch: "Switch / manage jobs",
+set_display: "Display",
+set_theme: "Theme", theme_light: "Light", theme_dark: "Dark",
+set_textsize: "Text size",
+set_font_hint: "Text size applies across the whole app.",
+set_language: "Language",
+set_apps: "Apps on home screen",
+set_apps_hint: "Hide the apps you don't use. Turn them back on anytime.",
+font_small: "Small", font_medium: "Normal", font_large: "Large", font_xl: "Extra large",
+// import target
+import_into: "Import into…",
+import_desc: 'Import this {label} (current job: "{job}")…',
+import_merge: "Merge into current job",
+import_replace: "Replace current job's data",
+import_new: "Create new job…",
+imported_1: "Imported 1 product.", imported_n: "Imported {n} products.",
+list_replaced: "Product list replaced.",
+contacts_replaced: "Contacts replaced.",
+guide_updated: "Guide updated.",
+label_products: "product list", label_contacts: "contacts", label_guide: "recovery guide",
+// shop nav
+nav_checkout: "Checkout", nav_products: "Products",
+// scanner
+scan_title: "Scan product",
+scan_item_add: "Scan item to add",
+scan_point: "Point the camera at the product barcode.",
+scan_loading: "Scanner is still loading — check your internet connection, wait a few seconds, then close and reopen the scanner.",
+scan_https: "The camera needs a secure (https) page. Open the website link instead of a downloaded file.",
+scan_blocked: "Camera permission was blocked. In Chrome, tap the lock/tune icon in the address bar → Permissions → Camera → Allow, then scan again.",
+scan_nocam: "No camera was found on this device.",
+scan_fail: "Camera couldn't start ({e}). Open this page in Chrome (not an in-app preview) and allow the camera when asked — or use “Scan from a photo” below.",
+scan_fail2: "Could not start the camera. Use “Scan from a photo” or type the barcode manually.",
+scan_focus_na: "Focus control isn't supported on this camera.",
+scan_busy: "Scanner is busy — close it and reopen.",
+scan_tapfocus: "◉ Tap to focus",
+scan_pinch: "Pinch to zoom",
+scan_manual: "Type barcode manually",
+scan_photo: "🖼 Scan from a photo instead",
+scan_hint2: "Camera not starting? Snap the barcode with your camera app, then use “Scan from a photo”.",
+prompt_barcode: "Enter barcode (full number or just the last few digits):",
+scan_nomatch_digits: "No product matches those digits.",
+scan_matches: "{n} matches — tap the right one.",
+scan_nomatch: "No match.",
+scan_it: "Scan it",
+scan_to_add: "to add it.",
+// shop main
+shop_scan_item: "📷 Scan item",
+shop_or_find: "Or find by name / barcode",
+shop_search_ph: "Search products",
+shop_search_ph2: "Name or last digits of barcode\u2026",
+shop_no_items: "No items yet.",
+shop_scan_search: "Scan or search to add items.",
+shop_total: "Total",
+shop_done: "Done ✓",
+shop_clear: "Clear",
+shop_confirm_clear: "Clear this order?",
+shop_select: "Select",
+shop_selected: "{n} selected",
+shop_select_first: "Select some products first.",
+shop_set_price: "Set price",
+shop_set_price_n: "Set price for {n} products:",
+shop_valid_price: "Enter a valid price.",
+scan_focused: "Focused.",
+scan_reading: "Reading barcode from photo…",
+shop_no_products: "No products saved yet.",
+shop_updated: "Updated {n} prices.",
+shop_deleted: "Deleted {n}.",
+shop_each_tap: "{p} each · tap to adjust price",
+shop_no_matches: "No matches.",
+shop_nothing_saved: "Nothing saved yet.<br>Tap “Scan to add / edit product” and scan each item once.",
+// product modal
+prod_add: "Add product", prod_edit: "Edit product",
+prod_barcode: "Barcode", prod_name: "Product name", prod_price: "Price ($)", prod_photo: "Product photo (optional)",
+prod_take_photo: "📷 Take / choose photo", prod_remove_photo: "Remove photo",
+prod_barcode_req: "Barcode is required.", prod_name_req: "Product name is required.",
+prod_scan_addedit: "📷 Scan to add / edit product",
+prod_export: "⬆ Export list", prod_import: "⬇ Import list",
+prod_shop_name: "Shop name", prod_shop_name_ph: "My Shop",
+prod_share_hint: "Each phone keeps its own list. When prices change, one person taps Export list, sends the file in the group chat, and everyone else taps Import list.",
+prod_no_export: "No products saved yet — scan some items first.",
+prod_share_title: "Product list",
+prod_no_valid: "No valid products in that file.",
+prod_photo_fail: "Could not read that photo.",
+// price sheet
+price_add: "Add to order", price_adjust: "Adjust price", price_new: "New price ($)",
+price_order_only: "Save for this order only", price_future: "Save for future orders",
+// summary
+sum_title: "Order summary", sum_new: "New order",
+sum_subtotal: "Subtotal", sum_tax: "Tax ({r}%)", sum_total: "Total",
+sum_cash: "💵 Cash", sum_card: "💳 Card",
+sum_cash_given: "Cash given",
+sum_owed: "Still owed: {v}", sum_change: "Change due: {v}", sum_give: "Give: {v}",
+sum_no_items: "No items in this order yet.",
+// shop settings
+sset_title: "⚙️ Shop settings",
+sset_tax: "Enable tax", sset_rate: "Tax rate", sset_apply: "Apply tax to:",
+sset_cash: "Cash", sset_card: "Card",
+sset_breakdown: "Cash: recommend bills & coins for change",
+sset_picks: "Cash quick amounts",
+sset_fees: "Other fees", sset_add_fee: "+ Add fee", sset_no_fees: "No fees yet.",
+// contacts
+con_search_ph: "Search name or department…",
+con_people: "People", con_add: "+ Add",
+con_departments: "Departments",
+con_call: "📞 Call", con_text: "💬 Text",
+con_no_contacts: "No contacts yet. Tap + Add to add your team.",
+con_share_hint: "Share your team list — one person exports, everyone else imports.",
+con_export: "⬆ Export", con_import: "⬇ Import",
+con_add_title: "Add contact", con_edit_title: "Edit contact",
+con_name: "Name", con_phone: "Phone", con_phone_ph: "e.g. 555-123-4567", con_dept: "Department",
+con_dept_ph: "Or type a new department",
+con_name_req: "Name is required.", con_phone_req: "Phone is required.",
+con_saved: "Saved.",
+con_other: "Other",
+con_del: "Delete this contact?",
+con_new_dept: "New department:",
+con_del_dept_n: "{n} contact(s) use this department. Delete it? (They keep the name.)",
+con_del_dept: "Delete this department?",
+con_no_export: "No contacts — nothing to export.",
+con_share_title: "Team contacts",
+con_no_valid: "No valid contacts in that file.",
+con_imported_1: "Imported 1 contact.", con_imported_n: "Imported {n} contacts.",
+con_add_group_hint: "Add your first group above to organize contacts.",
+// templates
+tpl_title: "Message templates",
+tpl_hint: "Write it once — fill in the blanks and send it.",
+tpl_new: "+ New template",
+tpl_use: "Use",
+tpl_name: "Template name",
+tpl_text: "Message text",
+tpl_help: "Use {curly braces} for fill-in blanks, e.g. {name}, {room}.",
+tpl_fill: "Fill in the blanks",
+tpl_choose: "Choose a contact",
+tpl_search_ph: "Search contacts…",
+tpl_del: "Delete this template?",
+tpl_no: "No templates yet. Tap + New template.",
+tpl_untitled: "Untitled",
+tpl_text_req: "Message text is required.",
+// recovery
+rec_edit: "Edit", rec_done: "Done",
+rec_add_sit: "+ Add situation",
+rec_comp_types: "Compensation types",
+rec_add: "+ Add",
+rec_export: "⬆ Export guide", rec_import: "⬇ Import guide",
+rec_custom: "✏️ Custom…",
+rec_custom_type: "Custom type",
+rec_add_comp: "+ Compensation",
+rec_sit_name: "Situation name",
+rec_new_sit: "New situation:",
+rec_del_sit: "Delete this situation and its limits?",
+rec_custom_ctype: "Custom compensation type:",
+rec_no_sit: "No situations yet. Tap Edit, then + Add situation.",
+rec_footer_label: "Team note (shown under the guide)",
+rec_footer_ph: "e.g. Anything beyond these limits: check with your manager.",
+rec_guide_hint: "What can be offered per situation \u2014 set by the person in charge.",
+rec_share_hint2: "The person in charge fills in the limits and exports the guide \u2014 the team imports it and always knows what they can offer.",
+rec_no_export: "Guide is empty — nothing to export.",
+rec_share_title: "Service recovery guide",
+rec_not_file: "That file is not a recovery guide.",
+rec_min: "Min", rec_max: "Max",
+rec_back_list: "Back to list",
+default_footer: "Anything beyond these limits: check with your manager.",
+my_shop: "My Shop"
+},
+es: {
+// shared
+ok: "Aceptar", cancel: "Cancelar", save: "Guardar", delete_: "Eliminar", edit: "Editar", add: "Agregar", done: "Listo ✓", close: "Cerrar", back: "← Atrás", search: "Buscar", all: "Todos", remove: "Quitar",
+could_not_read: "No se pudo leer ese archivo.",
+shared_pick: "Compartido ✓ — elige dónde enviarlo.",
+export_failed: "La exportación falló en este navegador — prueba Chrome.",
+saved_dl: "Guardado en Descargas como {f}",
+// home
+tagline: "Todo para tu turno, en un solo lugar.",
+tap_gear: "Toca ⚙️ para elegir qué apps aparecen aquí.",
+tile_shop_d: "Escanea códigos, precios y cobros",
+tile_contacts_d: "Llama o envía mensajes al equipo",
+tile_recovery_d: "Lo que puedes ofrecer",
+hold_reorder: "Mantén presionado para reordenar",
+all_hidden: "Todas las apps están ocultas — toca ⚙️ para reactivarlas.",
+// profiles
+choose_job: "Elige un trabajo para continuar.",
+new_job: "+ Nuevo trabajo",
+current_badge: "actual",
+counts: "{p} productos · {c} contactos",
+prompt_job_name: "Nombre del trabajo:",
+job_word: "Trabajo",
+switched: "Cambiaste a {v}.",
+need_one_job: "Necesitas al menos un trabajo.",
+del_profile: '¿Eliminar "{name}" y todos sus datos?',
+created_imported: '"\u201C{v}\u201D creado e importado.',
+// settings
+settings: "Ajustes",
+set_profiles: "Perfiles de trabajo",
+set_current: "Trabajo actual: {v}",
+set_switch: "Cambiar / gestionar trabajos",
+set_display: "Pantalla",
+set_theme: "Tema", theme_light: "Claro", theme_dark: "Oscuro",
+set_textsize: "Tamaño del texto",
+set_font_hint: "El tamaño se aplica a toda la app.",
+set_language: "Idioma",
+set_apps: "Apps en el inicio",
+set_apps_hint: "Oculta las apps que no uses. Reactívalas cuando quieras.",
+font_small: "Pequeño", font_medium: "Normal", font_large: "Grande", font_xl: "Extra grande",
+// import target
+import_into: "Importar en…",
+import_desc: 'Importar {label} (trabajo actual: "{job}")…',
+import_merge: "Combinar con el trabajo actual",
+import_replace: "Reemplazar los datos del trabajo actual",
+import_new: "Crear nuevo trabajo…",
+imported_1: "Se importó 1 producto.", imported_n: "Se importaron {n} productos.",
+list_replaced: "Lista de productos reemplazada.",
+contacts_replaced: "Contactos reemplazados.",
+guide_updated: "Guía actualizada.",
+label_products: "la lista de productos", label_contacts: "los contactos", label_guide: "la guía de recuperación",
+// shop nav
+nav_checkout: "Cobrar", nav_products: "Productos",
+// scanner
+scan_title: "Escanear producto",
+scan_item_add: "Escanear para agregar",
+scan_point: "Apunta la cámara al código de barras del producto.",
+scan_loading: "El escáner aún está cargando — revisa tu conexión a internet, espera unos segundos, luego cierra y vuelve a abrir el escáner.",
+scan_https: "La cámara necesita una página segura (https). Abre el enlace del sitio web en vez de un archivo descargado.",
+scan_blocked: "El permiso de la cámara fue bloqueado. En Chrome, toca el ícono del candado en la barra de direcciones → Permisos → Cámara → Permitir, e intenta de nuevo.",
+scan_nocam: "No se encontró cámara en este dispositivo.",
+scan_fail: "No se pudo iniciar la cámara ({e}). Abre esta página en Chrome (no en vista previa) y permite la cámara cuando se pida — o usa «Escanear desde una foto».",
+scan_fail2: "No se pudo iniciar la cámara. Usa «Escanear desde una foto» o escribe el código manualmente.",
+scan_focus_na: "Esta cámara no admite control de enfoque.",
+scan_busy: "El escáner está ocupado — ciérralo y vuelve a abrirlo.",
+scan_tapfocus: "◉ Toca para enfocar",
+scan_pinch: "Pellizca para acercar",
+scan_manual: "Escribir código manualmente",
+scan_photo: "🖼 Escanear desde una foto",
+scan_hint2: "¿La cámara no inicia? Toma una foto del código con tu app de cámara y usa «Escanear desde una foto».",
+prompt_barcode: "Escribe el código (completo o solo los últimos dígitos):",
+scan_nomatch_digits: "Ningún producto coincide con esos dígitos.",
+scan_matches: "{n} coincidencias — toca la correcta.",
+scan_nomatch: "Sin coincidencia.",
+scan_it: "Escanéalo",
+scan_to_add: "para agregarlo.",
+// shop main
+shop_scan_item: "📷 Escanear",
+shop_or_find: "O busca por nombre / código",
+shop_search_ph: "Buscar productos",
+shop_search_ph2: "Nombre o \u00faltimos d\u00edgitos del c\u00f3digo\u2026",
+shop_no_items: "Sin artículos aún.",
+shop_scan_search: "Escanea o busca para agregar artículos.",
+shop_total: "Total",
+shop_done: "Listo ✓",
+shop_clear: "Vaciar",
+shop_confirm_clear: "¿Vaciar esta orden?",
+shop_select: "Seleccionar",
+shop_selected: "{n} seleccionados",
+shop_select_first: "Selecciona algunos productos primero.",
+shop_set_price: "Poner precio",
+shop_set_price_n: "Pon precio a {n} productos:",
+shop_valid_price: "Escribe un precio válido.",
+scan_focused: "Enfocado.",
+scan_reading: "Leyendo el código de la foto…",
+shop_no_products: "Aún no hay productos.",
+shop_updated: "Se actualizaron {n} precios.",
+shop_deleted: "Se eliminaron {n}.",
+shop_each_tap: "{p} c/u · toca para ajustar el precio",
+shop_no_matches: "Sin coincidencias.",
+shop_nothing_saved: "Nada guardado aún.<br>Toca «Escanear para agregar / editar» y escanea cada artículo una vez.",
+// product modal
+prod_add: "Agregar producto", prod_edit: "Editar producto",
+prod_barcode: "Código", prod_name: "Nombre del producto", prod_price: "Precio ($)", prod_photo: "Foto del producto (opcional)",
+prod_take_photo: "📷 Tomar / elegir foto", prod_remove_photo: "Quitar foto",
+prod_barcode_req: "El código es obligatorio.", prod_name_req: "El nombre es obligatorio.",
+prod_scan_addedit: "📷 Escanear para agregar / editar",
+prod_export: "⬆ Exportar lista", prod_import: "⬇ Importar lista",
+prod_shop_name: "Nombre de la tienda", prod_shop_name_ph: "Mi tienda",
+prod_share_hint: "Cada teléfono guarda su propia lista. Cuando cambien los precios, una persona toca Exportar lista, envía el archivo al chat del grupo y los demás tocan Importar lista.",
+prod_no_export: "Aún no hay productos — escanea algunos primero.",
+prod_share_title: "Lista de productos",
+prod_no_valid: "No hay productos válidos en ese archivo.",
+prod_photo_fail: "No se pudo leer esa foto.",
+// price sheet
+price_add: "Agregar a la orden", price_adjust: "Ajustar precio", price_new: "Nuevo precio ($)",
+price_order_only: "Solo para esta orden", price_future: "Para futuras órdenes",
+// summary
+sum_title: "Resumen de la orden", sum_new: "Nueva orden",
+sum_subtotal: "Subtotal", sum_tax: "Impuesto ({r}%)", sum_total: "Total",
+sum_cash: "💵 Efectivo", sum_card: "💳 Tarjeta",
+sum_cash_given: "Efectivo recibido",
+sum_owed: "Aún debe: {v}", sum_change: "Cambio: {v}", sum_give: "Entrega: {v}",
+sum_no_items: "Aún no hay artículos en esta orden.",
+// shop settings
+sset_title: "⚙️ Ajustes de la tienda",
+sset_tax: "Activar impuesto", sset_rate: "Tasa de impuesto", sset_apply: "Aplicar impuesto a:",
+sset_cash: "Efectivo", sset_card: "Tarjeta",
+sset_breakdown: "Efectivo: sugerir billetes y monedas para el cambio",
+sset_picks: "Montos rápidos en efectivo",
+sset_fees: "Otros cargos", sset_add_fee: "+ Agregar cargo", sset_no_fees: "Sin cargos aún.",
+// contacts
+con_search_ph: "Buscar nombre o departamento…",
+con_people: "Personas", con_add: "+ Agregar",
+con_departments: "Departamentos",
+con_call: "📞 Llamar", con_text: "💬 Mensaje",
+con_no_contacts: "Sin contactos aún. Toca + Agregar.",
+con_share_hint: "Comparte tu lista — una persona exporta y los demás importan.",
+con_export: "⬆ Exportar", con_import: "⬇ Importar",
+con_add_title: "Agregar contacto", con_edit_title: "Editar contacto",
+con_name: "Nombre", con_phone: "Teléfono", con_phone_ph: "ej. 555-123-4567", con_dept: "Departamento",
+con_dept_ph: "O escribe un departamento nuevo",
+con_name_req: "El nombre es obligatorio.", con_phone_req: "El teléfono es obligatorio.",
+con_saved: "Guardado.",
+con_other: "Otro",
+con_del: "¿Eliminar este contacto?",
+con_new_dept: "Nuevo departamento:",
+con_del_dept_n: "{n} contacto(s) usan este departamento. ¿Eliminarlo? (Conservan el nombre.)",
+con_del_dept: "¿Eliminar este departamento?",
+con_no_export: "Sin contactos — nada que exportar.",
+con_share_title: "Contactos del equipo",
+con_no_valid: "No hay contactos válidos en ese archivo.",
+con_imported_1: "Se importó 1 contacto.", con_imported_n: "Se importaron {n} contactos.",
+con_add_group_hint: "Agrega tu primer grupo arriba para organizar contactos.",
+// templates
+tpl_title: "Plantillas de mensajes",
+tpl_hint: "Escríbelo una vez — completa los espacios y envíalo.",
+tpl_new: "+ Nueva plantilla",
+tpl_use: "Usar",
+tpl_name: "Nombre de la plantilla",
+tpl_text: "Texto del mensaje",
+tpl_help: "Usa {llaves} para los espacios a completar, ej. {name}, {room}.",
+tpl_fill: "Completa los espacios",
+tpl_choose: "Elige un contacto",
+tpl_search_ph: "Buscar contactos…",
+tpl_del: "¿Eliminar esta plantilla?",
+tpl_no: "Sin plantillas aún. Toca + Nueva plantilla.",
+tpl_untitled: "Sin título",
+tpl_text_req: "El texto es obligatorio.",
+// recovery
+rec_edit: "Editar", rec_done: "Listo",
+rec_add_sit: "+ Agregar situación",
+rec_comp_types: "Tipos de compensación",
+rec_add: "+ Agregar",
+rec_export: "⬆ Exportar guía", rec_import: "⬇ Importar guía",
+rec_custom: "✏️ Personalizado…",
+rec_custom_type: "Tipo personalizado",
+rec_add_comp: "+ Compensación",
+rec_sit_name: "Nombre de la situación",
+rec_new_sit: "Nueva situación:",
+rec_del_sit: "¿Eliminar esta situación y sus límites?",
+rec_custom_ctype: "Tipo de compensación personalizado:",
+rec_no_sit: "Sin situaciones aún. Toca Editar, luego + Agregar situación.",
+rec_footer_label: "Nota para el equipo (bajo la guía)",
+rec_footer_ph: "ej. Lo que exceda estos límites: consulta con tu gerente.",
+rec_guide_hint: "Lo que se puede ofrecer por situación — lo define el encargado.",
+rec_share_hint2: "El encargado completa los límites y exporta la guía — el equipo la importa y siempre sabe qué puede ofrecer.",
+rec_no_export: "La guía está vacía — nada que exportar.",
+rec_share_title: "Guía de recuperación",
+rec_not_file: "Ese archivo no es una guía de recuperación.",
+rec_min: "Mín", rec_max: "Máx",
+rec_back_list: "Volver a la lista",
+default_footer: "Lo que exceda estos límites, consulta con tu gerente.",
+my_shop: "Mi tienda"
+}
+};
+
+/* ---------- i18n + theme core (v17) ---------- */
+function curLang() { return (typeof DB !== "undefined" && DB && DB.appSettings && DB.appSettings.lang) || "en"; }
+function t(k) {
+  var L = I18N[curLang()] || I18N.en;
+  if (L[k] !== undefined) return L[k];
+  return I18N.en[k] !== undefined ? I18N.en[k] : k;
+}
+function tf(k, map) {
+  var s = t(k);
+  for (var key in map) { if (Object.prototype.hasOwnProperty.call(map, key)) s = s.split("{" + key + "}").join(map[key]); }
+  return s;
+}
+function applyI18n() {
+  var els = document.querySelectorAll("[data-i18n]");
+  for (var i = 0; i < els.length; i++) els[i].textContent = t(els[i].getAttribute("data-i18n"));
+  var phs = document.querySelectorAll("[data-i18n-ph]");
+  for (var j = 0; j < phs.length; j++) phs[j].setAttribute("placeholder", t(phs[j].getAttribute("data-i18n-ph")));
+}
+function setLang(l) {
+  if (!DB.appSettings) DB.appSettings = {};
+  DB.appSettings.lang = (l === "es") ? "es" : "en";
+  saveState(); applyI18n(); renderAll();
+}
+function curTheme() { return (DB && DB.appSettings && DB.appSettings.theme) || "light"; }
+function applyTheme() { document.body.setAttribute("data-theme", curTheme()); }
+function setTheme(th) {
+  if (!DB.appSettings) DB.appSettings = {};
+  DB.appSettings.theme = (th === "dark") ? "dark" : "light";
+  saveState(); applyTheme(); renderThemeRow();
+}
+function renderThemeRow() {
+  var cur = curTheme();
+  document.getElementById("themeRow").innerHTML =
+    '<button class="pickchip' + (cur === "light" ? " on" : "") + '" onclick="setTheme(\'light\')">' + t("theme_light") + "</button>" +
+    '<button class="pickchip' + (cur === "dark" ? " on" : "") + '" onclick="setTheme(\'dark\')">' + t("theme_dark") + "</button>";
+}
+function renderLangRow() {
+  var cur = curLang();
+  document.getElementById("langRow").innerHTML =
+    '<button class="pickchip' + (cur === "en" ? " on" : "") + '" onclick="setLang(\'en\')">English</button>' +
+    '<button class="pickchip' + (cur === "es" ? " on" : "") + '" onclick="setLang(\'es\')">Español</button>';
+}
+function renderAll() {
+  renderHome(); renderOrder(); renderShopName(); loadShopSettingsUI();
+  renderContacts(); renderRecovery(); renderModuleToggles();
+  renderSettingsProfile(); renderFontSizeRow(); renderThemeRow(); renderLangRow();
+  if (document.getElementById("view-profiles").style.display !== "none") renderProfiles();
+}
+
 var DB = loadDB();
 var state = DB.profiles[DB.activeProfileId];
 var order = [];            // [{code,name,price,qty}]
@@ -491,15 +999,25 @@ function loadLegacyState() {
   return null;
 }
 function blankProfile(name) {
-  return { name: name, products: {}, shopName: "Suite Shop", shopSettings: defaultShopSettings(),
-    recovery: defaultRecovery(), contacts: defaultContacts(),
+  return { name: name, products: {}, shopName: "", shopSettings: defaultShopSettings(),
+    recovery: { compTypes: [], situations: [], footerNote: t("default_footer") },
+    contacts: { departments: [], people: [], templates: starterTemplates(), lastDept: "" },
     modules: { shop: true, contacts: true, recovery: true }, moduleOrder: ["shop", "contacts", "recovery"] };
+}
+function migrateProfile(p) {
+  if (!p.recovery) p.recovery = defaultRecovery();
+  if (p.recovery.footerNote === undefined) p.recovery.footerNote = "Anything beyond these limits: check with the AGM.";
+  if (!p.contacts) p.contacts = defaultContacts();
+  if (!Array.isArray(p.contacts.templates)) p.contacts.templates = starterTemplates();
+  if (p.contacts.lastDept === undefined) p.contacts.lastDept = "";
+  return p;
 }
 function loadDB() {
   var db = null;
   try { db = JSON.parse(localStorage.getItem(LS_KEY) || "null"); } catch (e) {}
   if (db && db.profiles && db.activeProfileId && db.profiles[db.activeProfileId]) {
     if (!db.appSettings) db.appSettings = { fontSize: "medium" };
+    Object.keys(db.profiles).forEach(function(pid){ migrateProfile(db.profiles[pid]); });
     return db;
   }
   var legacy = loadLegacyState();
@@ -510,9 +1028,9 @@ function loadDB() {
     legacy.modules = (legacy.ui && legacy.ui.modules) || { shop: true, contacts: true, recovery: true };
     delete legacy.ui;
     legacy.moduleOrder = ["shop", "contacts", "recovery"];
-    ndb.profiles[pid] = legacy;
+    ndb.profiles[pid] = migrateProfile(legacy);
   } else {
-    ndb.profiles[pid] = blankProfile("Hampton Inn");
+    ndb.profiles[pid] = blankProfile("");
   }
   return ndb;
 }
@@ -545,10 +1063,13 @@ function confirmChoice(val) {
 }
 /* ---------- prompt dialog ---------- */
 var promptResolve = null;
-function appPrompt(msg, def) {
+function appPrompt(msg, def, numeric) {
   return new Promise(function(resolve) {
     document.getElementById("promptMsg").textContent = msg;
-    document.getElementById("promptInput").value = def || "";
+    var pi = document.getElementById("promptInput");
+    if (numeric) { pi.type = "number"; pi.inputMode = "decimal"; pi.min = "0"; pi.step = "0.01"; pi.placeholder = "0.00"; }
+    else { pi.type = "text"; pi.inputMode = ""; pi.removeAttribute("min"); pi.removeAttribute("step"); pi.placeholder = ""; }
+    pi.value = def || "";
     document.getElementById("promptOverlay").classList.add("open");
     promptResolve = resolve;
     setTimeout(function(){ var i = document.getElementById("promptInput"); if (i) i.focus(); }, 300);
@@ -564,7 +1085,7 @@ function promptChoice(val) {
 var selectMode = false;
 var selected = {};
 function toggleSelectMode() {
-  if (!selectMode && !Object.keys(state.products).length) { toast("No products saved yet."); return; }
+  if (!selectMode && !Object.keys(state.products).length) { toast(t("shop_no_products")); return; }
   selectMode = !selectMode;
   selected = {};
   document.body.classList.toggle("selecting", selectMode);
@@ -583,34 +1104,34 @@ function selectAll() {
 }
 function updateBulkBar() {
   var n = Object.keys(selected).length;
-  document.getElementById("bulkCount").textContent = n + " selected";
+  document.getElementById("bulkCount").textContent = tf("shop_selected", { n: n });
   document.getElementById("bulkBar").classList.toggle("open", selectMode);
   document.getElementById("selectToggleBtn").textContent = selectMode ? "Done" : "Select";
 }
 function bulkSetPrice() {
   var n = Object.keys(selected).length;
-  if (!n) { toast("Select some products first."); return; }
-  appPrompt("Set price for " + n + " product" + (n === 1 ? "" : "s") + ":", "").then(function(val){
+  if (!n) { toast(t("shop_select_first")); return; }
+  appPrompt(tf("shop_set_price_n", { n: n }), "", true).then(function(val){
     if (val === null) return;
     var v = parseFloat(val);
-    if (isNaN(v) || v < 0) { toast("Enter a valid price."); return; }
+    if (isNaN(v) || v < 0) { toast(t("shop_valid_price")); return; }
     v = Math.round(v * 100) / 100;
     for (var code in selected) {
       if (state.products[code]) { state.products[code].price = v; state.products[code].updatedAt = Date.now(); }
     }
     saveState(); renderProducts();
-    toast("Updated " + n + " price" + (n === 1 ? "" : "s") + " to " + fmt(v) + ".");
+    toast(tf("shop_updated", { n: n }));
   });
 }
 function bulkDelete() {
   var n = Object.keys(selected).length;
-  if (!n) { toast("Select some products first."); return; }
+  if (!n) { toast(t("shop_select_first")); return; }
   appConfirm("Delete " + n + " product" + (n === 1 ? "" : "s") + "?").then(function(ok){
     if (!ok) return;
     for (var code in selected) delete state.products[code];
     saveState(); selected = {};
     renderProducts(); updateBulkBar();
-    toast("Deleted " + n + " product" + (n === 1 ? "" : "s") + ".");
+    toast(tf("shop_deleted", { n: n }));
   });
 }
 
@@ -623,10 +1144,37 @@ function showTab(which) {
   if (which === "products") renderProducts();
 }
 /* ---------- views & home ---------- */
+
+/* ---------- custom module icons (v17, matches Swoosh Q logo) ---------- */
+var SVG_BG = '<rect x="4" y="4" width="40" height="40" rx="11" fill="#002E5A"/>';
+var ICON_SHOP = '<svg viewBox="0 0 48 48">' + SVG_BG +
+  '<path d="M13 14h5l3 13h12l3-8H19" stroke="#fff" stroke-width="3.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>' +
+  '<circle cx="22" cy="34" r="2.6" fill="#FFD65A"/><circle cx="31" cy="34" r="2.6" fill="#FFD65A"/></svg>';
+var ICON_CONTACTS = '<svg viewBox="0 0 48 48">' + SVG_BG +
+  '<circle cx="19" cy="18" r="5.5" fill="#fff"/>' +
+  '<path d="M10 34c0-5.5 4-9 9-9s9 3.5 9 9" stroke="#fff" stroke-width="3.2" fill="none" stroke-linecap="round"/>' +
+  '<circle cx="32" cy="19" r="4" fill="#FFD65A"/>' +
+  '<path d="M29 34c.8-4 3.5-6.5 7-6.5" stroke="#FFD65A" stroke-width="3" fill="none" stroke-linecap="round"/></svg>';
+var ICON_RECOVERY = '<svg viewBox="0 0 48 48">' + SVG_BG +
+  '<path d="M24 11c-5.5 0-9 4-9 10v6l-3 5h24l-3-5v-6c0-6-3.5-10-9-10z" fill="#fff"/>' +
+  '<circle cx="24" cy="36" r="3" fill="#FFD65A"/>' +
+  '<rect x="22.6" y="7" width="2.8" height="5" rx="1.4" fill="#fff"/></svg>';
+var ICON_GEAR = '<svg viewBox="0 0 48 48">' + SVG_BG +
+  '<g fill="#fff"><circle cx="24" cy="24" r="8"/>' +
+  '<rect x="21.5" y="11" width="5" height="7" rx="1.5"/>' +
+  '<rect x="21.5" y="30" width="5" height="7" rx="1.5"/>' +
+  '<rect x="11" y="21.5" width="7" height="5" rx="1.5"/>' +
+  '<rect x="30" y="21.5" width="7" height="5" rx="1.5"/>' +
+  '<rect x="21.5" y="11" width="5" height="7" rx="1.5" transform="rotate(45 24 24)"/>' +
+  '<rect x="21.5" y="11" width="5" height="7" rx="1.5" transform="rotate(135 24 24)"/>' +
+  '<rect x="21.5" y="11" width="5" height="7" rx="1.5" transform="rotate(225 24 24)"/>' +
+  '<rect x="21.5" y="11" width="5" height="7" rx="1.5" transform="rotate(315 24 24)"/></g>' +
+  '<circle cx="24" cy="24" r="3.2" fill="#002E5A"/></svg>';
+
 var MODULES = [
-  { id: "shop", name: "Quick Shop", icon: "🛒", desc: "Scan barcodes, price & checkout" },
-  { id: "contacts", name: "Quick Contacts", icon: "📇", desc: "Call or text the team" },
-  { id: "recovery", name: "Quick Recovery", icon: "🛎️", desc: "What you can offer guests" }
+  { id: "shop", name: "Quick Shop", icon: ICON_SHOP, descKey: "tile_shop_d" },
+  { id: "contacts", name: "Quick Contacts", icon: ICON_CONTACTS, descKey: "tile_contacts_d" },
+  { id: "recovery", name: "Quick Recovery", icon: ICON_RECOVERY, descKey: "tile_recovery_d" }
 ];
 function showView(v) {
   ["home", "shop", "contacts", "recovery", "settings", "profiles"].forEach(function(x){
@@ -637,7 +1185,7 @@ function showView(v) {
   if (v === "home") renderHome();
   if (v === "contacts") renderContacts();
   if (v === "recovery") renderRecovery();
-  if (v === "settings") { renderModuleToggles(); renderSettingsProfile(); renderFontSizeRow(); }
+  if (v === "settings") { renderModuleToggles(); renderSettingsProfile(); renderFontSizeRow(); renderThemeRow(); renderLangRow(); }
   if (v === "profiles") renderProfiles();
 }
 function goHome() { showView("home"); }
@@ -732,8 +1280,8 @@ function renderProfiles() {
     var active = pid === DB.activeProfileId;
     return '<div class="profilecard">' +
       '<button class="profilemain" onclick="switchProfile(\'' + pid + '\')">' +
-        '<span class="modname">' + esc(p.name) + (active ? ' <span class="badge">current</span>' : '') + '</span>' +
-        '<span class="moddesc">' + np + ' products \u00B7 ' + nc + ' contacts</span></button>' +
+        '<span class="modname">' + esc(p.name) + (active ? ' <span class="badge">' + t("current_badge") + '</span>' : '') + '</span>' +
+        '<span class="moddesc">' + tf("counts", { p: np, c: nc }) + '</span></button>' +
       '<button class="iconbtn" onclick="renameProfile(\'' + pid + '\')">\u270E</button>' +
       '<button class="iconbtn" onclick="deleteProfile(\'' + pid + '\')">\u2715</button></div>';
   }).join("");
@@ -747,17 +1295,17 @@ function switchProfile(pid) {
   showView("home");
 }
 function addProfile() {
-  appPrompt("Job name:", "").then(function(val){
+  appPrompt(t("prompt_job_name"), "").then(function(val){
     if (val === null) return; val = val.trim(); if (!val) return;
     var pid = uid("p");
     DB.profiles[pid] = blankProfile(val);
     switchProfile(pid);
-    toast("Switched to " + val + ".");
+    toast(tf("switched", { v: val }));
   });
 }
 function renameProfile(pid) {
   var p = DB.profiles[pid]; if (!p) return;
-  appPrompt("Job name:", p.name).then(function(val){
+  appPrompt(t("prompt_job_name"), p.name).then(function(val){
     if (val === null) return; val = val.trim(); if (!val) return;
     p.name = val;
     saveState(); renderProfiles(); renderSettingsProfile();
@@ -765,9 +1313,9 @@ function renameProfile(pid) {
 }
 function deleteProfile(pid) {
   var ids = Object.keys(DB.profiles);
-  if (ids.length <= 1) { toast("You need at least one job."); return; }
+  if (ids.length <= 1) { toast(t("need_one_job")); return; }
   var wasActive = (pid === DB.activeProfileId);
-  appConfirm('Delete "' + DB.profiles[pid].name + '" and all its data?').then(function(ok){
+  appConfirm(tf("del_profile", { name: DB.profiles[pid].name })).then(function(ok){
     if (!ok) return;
     delete DB.profiles[pid];
     saveState();
@@ -777,10 +1325,10 @@ function deleteProfile(pid) {
 }
 function renderSettingsProfile() {
   var el = document.getElementById("settingsProfileRow");
-  if (el) el.textContent = "Current job: " + (state.name || "Job");
+  if (el) el.textContent = tf("set_current", { v: (state.name || t("job_word")) });
 }
 /* ---------- display settings ---------- */
-var FONT_SIZES = [["small", "Small", 0.9], ["medium", "Normal", 1], ["large", "Large", 1.15], ["xl", "Extra large", 1.3]];
+var FONT_SIZES = [["small", "font_small", 0.9], ["medium", "font_medium", 1], ["large", "font_large", 1.15], ["xl", "font_xl", 1.3]];
 function applyFontSize() {
   var k = (DB.appSettings && DB.appSettings.fontSize) || "medium";
   var f = FONT_SIZES.filter(function(x){ return x[0] === k; })[0] || FONT_SIZES[1];
@@ -789,7 +1337,7 @@ function applyFontSize() {
 function renderFontSizeRow() {
   var k = (DB.appSettings && DB.appSettings.fontSize) || "medium";
   document.getElementById("fontSizeRow").innerHTML = FONT_SIZES.map(function(f){
-    return '<button class="pickchip' + (f[0] === k ? ' on' : '') + '" onclick="setFontSize(\'' + f[0] + '\')">' + f[1] + '</button>';
+    return '<button class="pickchip' + (f[0] === k ? ' on' : '') + '" onclick="setFontSize(\'' + f[0] + '\')">' + t(f[1]) + '</button>';
   }).join("");
 }
 function setFontSize(k) {
@@ -801,15 +1349,15 @@ function setFontSize(k) {
 /* ---------- scanner ---------- */
 function startScan(mode) {
   scanMode = mode;
-  document.getElementById("scanTitle").textContent = mode === "checkout" ? "Scan item to add" : "Scan product";
-  document.getElementById("scanHint").textContent = "Point the camera at the product barcode.";
+  document.getElementById("scanTitle").textContent = mode === "checkout" ? t("scan_item_add") : t("scan_title");
+  document.getElementById("scanHint").textContent = t("scan_point");
   document.getElementById("scanOverlay").classList.add("open");
   if (typeof Html5Qrcode === "undefined") {
-    document.getElementById("scanHint").textContent = "Scanner is still loading — check your internet connection, wait a few seconds, then close and reopen the scanner.";
+    document.getElementById("scanHint").textContent = t("scan_loading");
     return;
   }
   if (!window.isSecureContext) {
-    document.getElementById("scanHint").textContent = "The camera needs a secure (https) page. Please open the Netlify link instead of the downloaded file.";
+    document.getElementById("scanHint").textContent = t("scan_https");
     return;
   }
   try {
@@ -825,16 +1373,16 @@ function startScan(mode) {
       var e = String((err && err.name) || err);
       var msg;
       if (e.indexOf("NotAllowedError") !== -1) {
-        msg = "Camera permission was blocked. In Chrome, tap the lock/tune icon in the address bar → Permissions → Camera → Allow, then scan again.";
+        msg = t("scan_blocked");
       } else if (e.indexOf("NotFoundError") !== -1 || e.indexOf("OverconstrainedError") !== -1) {
-        msg = "No camera was found on this device.";
+        msg = t("scan_nocam");
       } else {
-        msg = "Camera couldn't start (" + e + "). Open this page in Chrome (not an in-app preview) and allow the camera when asked — or use “Scan from a photo” below.";
+        msg = tf("scan_fail", { e: e });
       }
       document.getElementById("scanHint").textContent = msg;
     });
   } catch (e) {
-    document.getElementById("scanHint").textContent = "Could not start the camera. Use “Scan from a photo” or type the barcode manually.";
+    document.getElementById("scanHint").textContent = t("scan_fail2");
   }
 }
 function stopCameraOnly() {
@@ -905,24 +1453,24 @@ function setupPinchZoom() {
 function tapFocus() {
   if (!scanner || !scanning) return;
   var caps = camCaps();
-  if (!caps || !caps.focusMode) { toast("Focus control isn't supported on this camera."); return; }
+  if (!caps || !caps.focusMode) { toast(t("scan_focus_na")); return; }
   var mode = caps.focusMode.indexOf("single-shot") !== -1 ? "single-shot" : "continuous";
   try {
     scanner.applyVideoConstraints({ advanced: [{ focusMode: mode }] })
-      .then(function(){ if (mode === "single-shot") toast("Focused."); })
-      .catch(function(){ toast("Focus control isn't supported on this camera."); });
-  } catch (e) { toast("Focus control isn't supported on this camera."); }
+      .then(function(){ if (mode === "single-shot") toast(t("scan_focused")); })
+      .catch(function(){ toast(t("scan_focus_na")); });
+  } catch (e) { toast(t("scan_focus_na")); }
 }
 function scanFromFile(input) {
   var f = input.files && input.files[0];
   input.value = "";
   if (!f || !scanMode) return;
   if (typeof Html5Qrcode === "undefined") { document.getElementById("scanHint").textContent = "Scanner isn't loaded yet — check your internet connection and try again."; return; }
-  document.getElementById("scanHint").textContent = "Reading barcode from photo…";
+  document.getElementById("scanHint").textContent = t("scan_reading");
   stopCameraOnly().then(function() {
     var decoder;
     try { decoder = new Html5Qrcode("reader"); }
-    catch (e) { document.getElementById("scanHint").textContent = "Scanner is busy — close it and reopen."; return; }
+    catch (e) { document.getElementById("scanHint").textContent = t("scan_busy");; return; }
     decoder.scanFile(f, true).then(function(code) {
       try { decoder.clear(); } catch (e) {}
       onScan(String(code));
@@ -939,7 +1487,7 @@ function onScan(code) {
   handleCode(code);
 }
 function manualCode() {
-  appPrompt("Enter barcode (full number or just the last few digits):", "").then(function(val){
+  appPrompt(t("prompt_barcode"), "").then(function(val){
     if (val === null) return;
     var code = val.trim();
     if (!code) return;
@@ -948,7 +1496,7 @@ function manualCode() {
     var q = code.toLowerCase(), hits = [];
     for (var c in state.products) { if (c.toLowerCase().indexOf(q) !== -1) hits.push(c); }
     if (hits.length === 1) { stopScan(); handleCode(hits[0]); return; }
-    if (!hits.length) { toast("No product matches those digits."); return; }
+    if (!hits.length) { toast(t("scan_nomatch_digits")); return; }
     stopScan();
     if (mode === "product") {
       showTab("products");
@@ -959,7 +1507,7 @@ function manualCode() {
       document.getElementById("search").value = code;
       renderSearch();
     }
-    toast(hits.length + " matches — tap the right one.");
+    toast(tf("scan_matches", { n: hits.length }));
   });
 }
 function handleCode(code) {
@@ -993,7 +1541,7 @@ function chQty(idx, d) {
 function rmLine(idx) { order.splice(idx, 1); renderOrder(); }
 function clearOrder() {
   if (!order.length) return;
-  appConfirm("Clear this order?").then(function(ok){ if (ok) { order = []; renderOrder(); } });
+  appConfirm(t("shop_confirm_clear")).then(function(ok){ if (ok) { order = []; renderOrder(); } });
 }
 function renderSearch() {
   var q = document.getElementById("search").value.trim().toLowerCase();
@@ -1016,13 +1564,13 @@ function renderSearch() {
 function renderOrder() {
   var list = document.getElementById("orderList");
   if (!order.length) {
-    list.innerHTML = '<div class="empty">No items yet.<br>Scan or search to add items.</div>';
+    list.innerHTML = '<div class="empty">' + t("shop_no_items") + "<br>" + t("shop_scan_search") + "</div>";
   } else {
     list.innerHTML = order.map(function(l, i) {
       return '<div class="item">' +
         (l.img ? '<img class="thumb" src="' + l.img + '" alt="">' : '<div class="thumb"></div>') +
         '<div class="info" onclick="lineAdjust(' + i + ')" style="cursor:pointer"><div class="name">' + esc(l.name) + '</div>' +
-        '<div class="sub">' + fmt(l.price) + ' each · tap to adjust price</div></div>' +
+        '<div class="sub">' + tf("shop_each_tap", { p: fmt(l.price) }) + '</div></div>' +
         '<div class="qty"><button onclick="chQty(' + i + ',-1)">−</button><span>' + l.qty + '</span><button onclick="chQty(' + i + ',1)">+</button></div>' +
         '<div class="line-total">' + fmt(l.price * l.qty) + '</div>' +
         '<button class="iconbtn" onclick="rmLine(' + i + ')">✕</button></div>';
@@ -1046,7 +1594,7 @@ function renderProducts() {
   document.getElementById("productCount").textContent = codes.length + " product" + (codes.length === 1 ? "" : "s") + " saved on this phone";
   var list = document.getElementById("productList");
   if (!shown.length) {
-    list.innerHTML = '<div class="empty">' + (codes.length ? "No matches." : "Nothing saved yet.<br>Tap “Scan to add / edit product” and scan each item once.") + "</div>";
+    list.innerHTML = '<div class="empty">' + (codes.length ? t("shop_no_matches") : t("shop_nothing_saved")) + "</div>";
     return;
   }
   list.innerHTML = shown.map(function(c) {
@@ -1066,14 +1614,14 @@ function deleteProduct(code) {
   var p = state.products[code];
   if (!p) return;
   appConfirm('Delete "' + p.name + '"?').then(function(ok){
-    if (ok) { delete state.products[code]; saveState(); renderProducts(); toast("Deleted " + p.name + "."); }
+    if (ok) { delete state.products[code]; saveState(); renderProducts(); toast(tf("shop_deleted", { n: 1 })); }
   });
 }
 
 /* ---------- modal ---------- */
 function openModal(code, isNew, afterSave) {
   modalCode = code; modalIsNew = isNew; modalAfterSave = afterSave || null;
-  document.getElementById("modalTitle").textContent = isNew ? "Add product" : "Edit product";
+  document.getElementById("modalTitle").textContent = isNew ? t("prod_add") : t("prod_edit");
   var codeInput = document.getElementById("fCode");
   codeInput.value = code || "";
   codeInput.readOnly = !isNew;
@@ -1091,9 +1639,9 @@ function saveModal() {
   var code = document.getElementById("fCode").value.trim();
   var name = document.getElementById("fName").value.trim();
   var price = parseFloat(document.getElementById("fPrice").value);
-  if (!code) { toast("Barcode is required."); return; }
-  if (!name) { toast("Product name is required."); return; }
-  if (isNaN(price) || price < 0) { toast("Enter a valid price."); return; }
+  if (!code) { toast(t("prod_barcode_req")); return; }
+  if (!name) { toast(t("prod_name_req")); return; }
+  if (isNaN(price) || price < 0) { toast(t("shop_valid_price")); return; }
   state.products[code] = { name: name, price: Math.round(price * 100) / 100, updatedAt: Date.now(), img: modalImg || null };
   saveState(); closeModal(); renderProducts();
   if (modalAfterSave) { var f = modalAfterSave; modalAfterSave = null; f(); }
@@ -1102,11 +1650,11 @@ function saveModal() {
 /* ---------- export / import ---------- */
 function exportData() {
   var count = Object.keys(state.products).length;
-  if (!count) { toast("No products saved yet — scan some items first."); return; }
+  if (!count) { toast(t("prod_no_export")); return; }
   var payload = { app: "suite-shop-scanner", version: 2, exportedAt: new Date().toISOString(), products: state.products, shopSettings: state.shopSettings };
   var blob = new Blob([JSON.stringify(payload)], { type: "application/json" });
   var fname = "quickwork-products-" + profileSlug() + ".json";
-  shareOrDownload(blob, fname, "Suite shop product list");
+  shareOrDownload(blob, fname, t("prod_share_title"));
 }
 function downloadExport(blob, fname) {
   try {
@@ -1116,9 +1664,9 @@ function downloadExport(blob, fname) {
     document.body.appendChild(a);
     a.click();
     setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 800);
-    toast("Saved to Downloads as " + fname);
+    toast(tf("saved_dl", { f: fname }));
   } catch (e) {
-    toast("Export failed on this browser — try Chrome.");
+    toast(t("export_failed"));
   }
 }
 var pendingImport = null;
@@ -1137,16 +1685,16 @@ function importData(input) {
         var p = incoming[code];
         if (p && typeof p.name === "string" && !isNaN(parseFloat(p.price))) valid++;
       }
-      if (!valid) { toast("No valid products in that file."); return; }
+      if (!valid) { toast(t("prod_no_valid")); return; }
       pendingImport = { kind: "products", data: incoming,
         shopSettings: (data.shopSettings && typeof data.shopSettings === "object") ? data.shopSettings : null, count: valid };
-      showImportTarget("product list", true);
-    } catch (e) { toast("Could not read that file."); }
+      showImportTarget("label_products", true);
+    } catch (e) { toast(t("could_not_read")); }
   };
   r.readAsText(f);
 }
 function showImportTarget(label, allowMerge) {
-  document.getElementById("importTargetDesc").textContent = 'Import this ' + label + ' (current job: "' + (state.name || "Job") + '")…';
+  document.getElementById("importTargetDesc").textContent = tf("import_desc", { label: t(label), job: (state.name || t("job_word")) });
   document.getElementById("importOptMerge").style.display = allowMerge ? "" : "none";
   document.getElementById("importTargetModal").classList.add("open");
 }
@@ -1164,15 +1712,15 @@ function importChoice(mode) {
       doImport(pi, "replace");
       saveState(); closeImportTarget();
       renderHome(); showView("home");
-      toast("Created \u201C" + val.trim() + "\u201D and imported.");
+      toast(tf("created_imported", { v: val.trim() }));
     });
     return;
   }
   doImport(pi, mode);
   saveState(); closeImportTarget();
-  if (pi.kind === "products") { renderProducts(); toast(mode === "replace" ? "Product list replaced." : "Imported " + pi.count + " product" + (pi.count === 1 ? "" : "s") + "."); }
-  if (pi.kind === "contacts") { renderContacts(); toast(mode === "replace" ? "Contacts replaced." : "Imported " + pi.added + " contact" + (pi.added === 1 ? "" : "s") + "."); }
-  if (pi.kind === "recovery") { renderRecovery(); toast("Guide updated."); }
+  if (pi.kind === "products") { renderProducts(); toast(mode === "replace" ? t("list_replaced") : (pi.count === 1 ? t("imported_1") : tf("imported_n", { n: pi.count }))); }
+  if (pi.kind === "contacts") { renderContacts(); toast(mode === "replace" ? t("contacts_replaced") : (pi.added === 1 ? t("con_imported_1") : tf("con_imported_n", { n: pi.added }))); }
+  if (pi.kind === "recovery") { renderRecovery(); toast(t("guide_updated")); }
 }
 function doImport(pi, mode) {
   if (pi.kind === "products") {
@@ -1241,7 +1789,7 @@ function closePriceModal() { document.getElementById("priceModal").classList.rem
 function priceSave(scope) {
   if (!priceCtx) return;
   var v = parseFloat(document.getElementById("fNewPrice").value);
-  if (isNaN(v) || v < 0) { toast("Enter a valid price."); return; }
+  if (isNaN(v) || v < 0) { toast(t("shop_valid_price")); return; }
   v = Math.round(v * 100) / 100;
   if (scope === "future") {
     state.products[priceCtx.code].price = v;
@@ -1261,7 +1809,7 @@ function priceSave(scope) {
 /* ---------- order summary ---------- */
 var payMethod = "card";
 function showSummary() {
-  if (!order.length) { toast("No items in this order yet."); return; }
+  if (!order.length) { toast(t("sum_no_items")); return; }
   payMethod = "card";
   renderSummary();
   document.getElementById("summaryOverlay").classList.add("open");
@@ -1294,17 +1842,17 @@ function renderSummary() {
       '<div class="line-total">' + fmt(l.price * l.qty) + '</div></div>';
   }).join("");
   html += '<div class="card totals" style="margin-top:12px">' +
-    '<div class="sumline2"><span>Subtotal</span><span>' + fmt(t.sub) + '</span></div>';
+    '<div class="sumline2"><span>' + t("sum_subtotal") + '</span><span>' + fmt(t.sub) + '</span></div>';
   t.feeLines.forEach(function(f){
     html += '<div class="sumline2"><span>' + esc(f.name) + '</span><span>' + fmt(f.amt) + '</span></div>';
   });
   if (t.taxApplies) {
-    html += '<div class="sumline2"><span>Tax (' + (parseFloat(state.shopSettings.taxRate) || 0) + '%)</span><span>' + fmt(t.tax) + '</span></div>';
+    html += '<div class="sumline2"><span>' + tf("sum_tax", { r: (parseFloat(state.shopSettings.taxRate) || 0) }) + '</span><span>' + fmt(t.tax) + '</span></div>';
   }
-  html += '<div class="row grand"><span>Total</span><span>' + fmt(t.total) + '</span></div></div>';
+  html += '<div class="row grand"><span>' + t("sum_total") + '</span><span>' + fmt(t.total) + '</span></div></div>';
   html += '<div class="btn-row" style="margin-top:12px">' +
-    '<button class="paybtn' + (payMethod === "cash" ? " active" : "") + '" onclick="setPayMethod(\'cash\')">💵 Cash</button>' +
-    '<button class="paybtn' + (payMethod === "card" ? " active" : "") + '" onclick="setPayMethod(\'card\')">💳 Card</button></div>';
+    '<button class="paybtn' + (payMethod === "cash" ? " active" : "") + '" onclick="setPayMethod(\'cash\')">" + t("sum_cash") + "</button>' +
+    '<button class="paybtn' + (payMethod === "card" ? " active" : "") + '" onclick="setPayMethod(\'card\')">" + t("sum_card") + "</button></div>';
   html += '<div id="cashSection">' + (payMethod === "cash" ? cashSectionHTML() : "") + '</div>';
   document.getElementById("summaryBody").innerHTML = html;
 }
@@ -1313,7 +1861,7 @@ function cashSectionHTML() {
   var btns = picks.map(function(a){
     return '<button class="pickchip" onclick="setCashGiven(' + a + ')">$' + a + '</button>';
   }).join("");
-  return '<label for="cashInput" style="margin-top:12px">Cash given</label>' +
+  return '<label for="cashInput" style="margin-top:12px">' + t("sum_cash_given") + '</label>' +
     (btns ? '<div class="setrow" style="margin:6px 0 2px">' + btns + '</div>' : '') +
     '<input type="number" id="cashInput" inputmode="decimal" min="0" step="0.01" placeholder="0.00" oninput="updateChange(this.value)">' +
     '<div id="changeBox"></div>';
@@ -1336,11 +1884,11 @@ function updateChange(val) {
   if (isNaN(g)) { box.innerHTML = ""; return; }
   var diff = Math.round((g - t.total) * 100) / 100;
   if (diff < 0) {
-    box.innerHTML = '<div class="changerow short">Still owed: ' + fmt(-diff) + '</div>';
+    box.innerHTML = '<div class="changerow short">' + tf("sum_owed", { v: fmt(-diff) }) + '</div>';
   } else {
-    var html = '<div class="changerow">Change due: ' + fmt(diff) + '</div>';
+    var html = '<div class="changerow">' + tf("sum_change", { v: fmt(diff) }) + '</div>';
     if (state.shopSettings.changeDenoms !== false && diff > 0) {
-      html += '<div class="hint">Give: ' + changeBreakdown(Math.round(diff * 100)) + '</div>';
+      html += '<div class="hint">' + tf("sum_give", { v: changeBreakdown(Math.round(diff * 100)) }) + '</div>';
     }
     box.innerHTML = html;
   }
@@ -1371,7 +1919,7 @@ function photoChosen(input) {
   if (!f) return;
   processImage(f, function(dataUrl) {
     if (dataUrl) { modalImg = dataUrl; document.getElementById("imgPreview").src = dataUrl; }
-    else toast("Could not read that photo.");
+    else toast(t("prod_photo_fail"));
   });
 }
 function clearPhoto() {
@@ -1381,7 +1929,7 @@ function clearPhoto() {
 
 /* ---------- shop name ---------- */
 function renderShopName() {
-  var n = state.shopName || "Suite Shop";
+  var n = state.shopName || t("my_shop");
   document.getElementById("appTitle").textContent = n;
   document.title = n;
   var inp = document.getElementById("shopName");
@@ -1416,7 +1964,7 @@ function loadShopSettingsUI() {
 function renderFees() {
   var box = document.getElementById("feeList");
   var fees = state.shopSettings.fees;
-  if (!fees.length) { box.innerHTML = '<div class="hint">No fees yet.</div>'; return; }
+  if (!fees.length) { box.innerHTML = '<div class="hint">' + t("sset_no_fees") + '</div>'; return; }
   box.innerHTML = fees.map(function(f, i){
     return '<div class="feerow">' +
       '<input type="text" value="' + esc(f.name) + '" onchange="feeChanged(' + i + ',\'name\',this.value)" placeholder="Fee name">' +
@@ -1470,7 +2018,7 @@ var recoveryEditing = false;
 function toggleRecoveryEdit() { recoveryEditing = !recoveryEditing; renderRecovery(); }
 function renderRecovery() {
   var btn = document.getElementById("recoveryEditBtn");
-  if (btn) btn.textContent = recoveryEditing ? "Done" : "Edit";
+  if (btn) btn.textContent = recoveryEditing ? t("rec_done") : t("rec_edit");
   var ar = document.getElementById("addSituationRow");
   if (ar) ar.style.display = recoveryEditing ? "" : "none";
   var cc = document.getElementById("compTypeCard");
@@ -1485,31 +2033,40 @@ function fmtRange(min, max) {
   if (max) return "up to " + max;
   return "";
 }
+function footerNoteHTML() {
+  var fn = state.recovery.footerNote;
+  if (recoveryEditing) {
+    return '<div style="margin-top:10px"><label>' + t("rec_footer_label") + '</label>' +
+      '<input type="text" value="' + esc(fn || "") + '" placeholder="' + esc(t("rec_footer_ph")) + '" onchange="footerNoteChanged(this.value)"></div>';
+  }
+  return fn ? '<p class="hint" style="margin:10px 0 0">' + esc(fn) + '</p>' : '';
+}
+function footerNoteChanged(v) { state.recovery.footerNote = v; saveState(); }
 function renderSituations() {
   var box = document.getElementById("situationList");
   if (!box) return;
   var list = state.recovery.situations;
-  if (!list.length) { box.innerHTML = '<div class="empty">No situations yet. Tap Edit, then + Add situation.</div>'; return; }
+  if (!list.length) { box.innerHTML = '<div class="empty">' + t("rec_no_sit") + '</div>' + footerNoteHTML(); return; }
   box.innerHTML = list.map(function(s, si){
     var body;
     if (recoveryEditing) {
-      body = '<div class="feerow"><input type="text" value="' + esc(s.name) + '" onchange="renameSituation(' + si + ',this.value)" placeholder="Situation name">' +
+      body = '<div class="feerow"><input type="text" value="' + esc(s.name) + '" onchange="renameSituation(' + si + ',this.value)" placeholder="' + t("rec_sit_name") + '">' +
         '<button class="iconbtn" onclick="delSituation(' + si + ')">✕</button></div>' +
         s.comps.map(function(c, ci){
           var custom = state.recovery.compTypes.indexOf(c.type) === -1;
           var typeCtl = custom
-            ? '<input type="text" value="' + esc(c.type) + '" placeholder="Custom type" onchange="compChanged(' + si + ',' + ci + ',\'type\',this.value)" style="flex:1.5;min-width:0">' +
-              '<button class="iconbtn" onclick="resetCompType(' + si + ',' + ci + ')" title="Back to list">↺</button>'
+            ? '<input type="text" value="' + esc(c.type) + '" placeholder="' + t("rec_custom_type") + '" onchange="compChanged(' + si + ',' + ci + ',\'type\',this.value)" style="flex:1.5;min-width:0">' +
+              '<button class="iconbtn" onclick="resetCompType(' + si + ',' + ci + ')" title="' + t("rec_back_list") + '">↺</button>'
             : '<select onchange="compTypeChanged(' + si + ',' + ci + ',this)">' +
               state.recovery.compTypes.map(function(t){ return '<option' + (t === c.type ? ' selected' : '') + '>' + esc(t) + '</option>'; }).join("") +
-              '<option value="__custom">✏️ Custom…</option>' +
+              '<option value="__custom">' + t("rec_custom") + '</option>' +
               '</select>';
           return '<div class="comprow">' + typeCtl +
-            '<input type="text" inputmode="decimal" value="' + esc(c.min) + '" placeholder="Min" onchange="compChanged(' + si + ',' + ci + ',\'min\',this.value)">' +
-            '<input type="text" inputmode="decimal" value="' + esc(c.max) + '" placeholder="Max" onchange="compChanged(' + si + ',' + ci + ',\'max\',this.value)">' +
+            '<input type="text" inputmode="decimal" value="' + esc(c.min) + '" placeholder="' + t("rec_min") + '" onchange="compChanged(' + si + ',' + ci + ',\'min\',this.value)">' +
+            '<input type="text" inputmode="decimal" value="' + esc(c.max) + '" placeholder="' + t("rec_max") + '" onchange="compChanged(' + si + ',' + ci + ',\'max\',this.value)">' +
             '<button class="iconbtn" onclick="delComp(' + si + ',' + ci + ')">✕</button></div>';
         }).join("") +
-        '<button class="btn btn-ghost" style="margin-top:6px" onclick="addComp(' + si + ')">+ Compensation</button>';
+        '<button class="btn btn-ghost" style="margin-top:6px" onclick="addComp(' + si + ')">' + t("rec_add_comp") + '</button>';
     } else {
       body = '<div class="rtitle" style="margin-bottom:4px">' + esc(s.name) + '</div>' +
         (s.comps.length
@@ -1517,10 +2074,10 @@ function renderSituations() {
               var r = fmtRange(c.min, c.max);
               return '<div class="rcomp">★ ' + esc(c.type) + (r ? ': ' + esc(r) : '') + '</div>';
             }).join("")
-          : '<div class="hint">No pre-authorized comps — check with the AGM.</div>');
+          : '');
     }
     return '<div class="rec-card">' + body + '</div>';
-  }).join("");
+  }).join("") + footerNoteHTML();
 }
 function renderCompTypeList() {
   var box = document.getElementById("compTypeList");
@@ -1544,7 +2101,7 @@ function delPreset(key, i) {
   saveState(); renderCompTypeList();
 }
 function addSituation() {
-  appPrompt("New situation:", "").then(function(val){
+  appPrompt(t("rec_new_sit"), "").then(function(val){
     if (val === null) return;
     val = val.trim();
     if (!val) return;
@@ -1553,7 +2110,7 @@ function addSituation() {
   });
 }
 function delSituation(si) {
-  appConfirm("Delete this situation and its limits?").then(function(ok){
+  appConfirm(t("rec_del_sit")).then(function(ok){
     if (!ok) return;
     state.recovery.situations.splice(si, 1);
     saveState(); renderSituations();
@@ -1577,7 +2134,7 @@ function compChanged(si, ci, field, val) {
 }
 function compTypeChanged(si, ci, sel) {
   if (sel.value === "__custom") {
-    appPrompt("Custom compensation type:", "").then(function(val){
+    appPrompt(t("rec_custom_ctype"), "").then(function(val){
       if (val === null || !val.trim()) { renderSituations(); return; }
       state.recovery.situations[si].comps[ci].type = val.trim();
       saveState(); renderSituations();
@@ -1599,7 +2156,116 @@ var editingContactId = null;
 var contactDeptPick = "";
 function telHref(phone) { return "tel:" + String(phone).replace(/[^+\d]/g, ""); }
 function smsHref(phone) { return "sms:" + String(phone).replace(/[^+\d]/g, ""); }
-function renderContacts() { renderDeptChips(); renderContactList(); renderDeptList(); }
+function renderContacts() { renderDeptChips(); renderContactList(); renderDeptList(); renderTemplates(); }
+
+/* ---------- message templates (v17) ---------- */
+function starterTemplates() {
+  if (curLang() === "es") return [
+    { id: uid("t"), name: "Habitaci\u00f3n lista", text: "Hola {nombre}, \u00bfla habitaci\u00f3n {habitaci\u00f3n} est\u00e1 lista?" },
+    { id: uid("t"), name: "Listo para recoger", text: "Hola {nombre}, tu {art\u00edculo} est\u00e1 listo en recepci\u00f3n." },
+    { id: uid("t"), name: "Recordatorio", text: "Hola {nombre}, te recuerdo: {nota}" }
+  ];
+  return [
+    { id: uid("t"), name: "Room ready", text: "Hi {name}, is room {room} ready?" },
+    { id: uid("t"), name: "Pickup ready", text: "Hi {name}, your {item} is ready at the front desk." },
+    { id: uid("t"), name: "Reminder", text: "Hi {name}, just a reminder: {note}" }
+  ];
+}
+function getTpl(id) {
+  var list = state.contacts.templates || [];
+  for (var i = 0; i < list.length; i++) if (list[i].id === id) return list[i];
+  return null;
+}
+function tplFields(text) {
+  var f = [], m, re = /\{([^}]+)\}/g;
+  while ((m = re.exec(text || ""))) { if (f.indexOf(m[1]) === -1) f.push(m[1]); }
+  return f;
+}
+function renderTemplates() {
+  var box = document.getElementById("templateList"); if (!box) return;
+  var list = state.contacts.templates || [];
+  if (!list.length) { box.innerHTML = '<div class="empty">' + t("tpl_no") + '</div>'; return; }
+  box.innerHTML = list.map(function(tp){
+    return '<div class="item"><div class="info"><div class="name">' + esc(tp.name || t("tpl_untitled")) + '</div>' +
+      '<div class="sub">' + esc(tp.text) + '</div></div>' +
+      '<button class="iconbtn" onclick="openTemplateUse(\'' + tp.id + '\')">' + t("tpl_use") + '</button>' +
+      '<button class="iconbtn" onclick="openTemplateEdit(\'' + tp.id + '\')">\u270E</button>' +
+      '<button class="iconbtn" onclick="askDelTemplate(\'' + tp.id + '\')">\u2715</button></div>';
+  }).join("");
+}
+var activeTplId = null;
+function openTemplateUse(id) {
+  var tp = getTpl(id); if (!tp) return;
+  activeTplId = id;
+  document.getElementById("tuTitle").textContent = tp.name || t("tpl_untitled");
+  var fields = tplFields(tp.text);
+  document.getElementById("tuFields").innerHTML =
+    (fields.length ? '<label>' + t("tpl_fill") + '</label>' +
+      fields.map(function(f){ return '<input type="text" data-tf="' + esc(f) + '" placeholder="' + esc(f) + '">'; }).join("") : "") +
+    '<div class="hint" style="margin:4px 0 8px">' + esc(tp.text) + '</div>';
+  document.getElementById("tuSearch").value = "";
+  renderTuContacts("");
+  document.getElementById("templateUseModal").classList.add("open");
+}
+function closeTemplateUse() { document.getElementById("templateUseModal").classList.remove("open"); activeTplId = null; }
+function renderTuContacts(q) {
+  q = (q || "").toLowerCase();
+  var list = state.contacts.people.filter(function(p){
+    return !q || p.name.toLowerCase().indexOf(q) !== -1 || (p.dept || "").toLowerCase().indexOf(q) !== -1;
+  });
+  var box = document.getElementById("tuContacts");
+  box.innerHTML = list.map(function(p){
+    return '<div class="item" onclick="sendTemplateSms(\'' + p.id + '\')"><div class="info"><div class="name">' + esc(p.name) + '</div>' +
+      '<div class="sub">' + esc(p.dept || "") + '</div></div><span class="badge">' + t("tpl_use") + '</span></div>';
+  }).join("") || '<div class="empty">' + t("con_no_contacts") + '</div>';
+}
+function sendTemplateSms(pid) {
+  var tp = getTpl(activeTplId); if (!tp) return;
+  var p = null;
+  state.contacts.people.forEach(function(x){ if (x.id === pid) p = x; });
+  if (!p) return;
+  var msg = tp.text;
+  var inputs = document.getElementById("tuFields").querySelectorAll("[data-tf]");
+  for (var i = 0; i < inputs.length; i++) {
+    msg = msg.split("{" + inputs[i].getAttribute("data-tf") + "}").join(inputs[i].value);
+  }
+  closeTemplateUse();
+  window.location.href = smsHref(p.phone) + "?body=" + encodeURIComponent(msg);
+}
+var editingTplId = null;
+function openTemplateEdit(id) {
+  editingTplId = id || null;
+  var tp = id ? getTpl(id) : null;
+  document.getElementById("teName").value = tp ? tp.name : "";
+  document.getElementById("teText").value = tp ? tp.text : "";
+  document.getElementById("teDelete").style.display = tp ? "" : "none";
+  document.getElementById("templateEditModal").classList.add("open");
+}
+function closeTemplateEdit() { document.getElementById("templateEditModal").classList.remove("open"); editingTplId = null; }
+function saveTemplate() {
+  var name = document.getElementById("teName").value.trim();
+  var text = document.getElementById("teText").value.trim();
+  if (!text) { toast(t("tpl_text_req")); return; }
+  if (!state.contacts.templates) state.contacts.templates = [];
+  if (editingTplId) {
+    var tp = getTpl(editingTplId);
+    if (tp) { tp.name = name; tp.text = text; }
+  } else {
+    state.contacts.templates.push({ id: uid("t"), name: name, text: text });
+  }
+  saveState(); closeTemplateEdit(); renderTemplates();
+  toast(t("con_saved"));
+}
+function askDelTemplate(id) {
+  var delId = (id === undefined) ? editingTplId : id;
+  if (!delId) return;
+  appConfirm(t("tpl_del")).then(function(ok){
+    if (!ok) return;
+    state.contacts.templates = (state.contacts.templates || []).filter(function(x){ return x.id !== delId; });
+    saveState(); closeTemplateEdit(); renderTemplates();
+  });
+}
+
 function setDeptFilter(i) { contactDeptFilter = i; renderContacts(); }
 function renderDeptChips() {
   var html = '<button class="pickchip' + (contactDeptFilter === -1 ? ' on' : '') + '" onclick="setDeptFilter(-1)">All</button>';
@@ -1617,7 +2283,7 @@ function renderContactList() {
     return true;
   });
   var box = document.getElementById("contactList");
-  if (!list.length) { box.innerHTML = '<div class="empty">No contacts yet. Tap + Add to add your team.</div>'; return; }
+  if (!list.length) { box.innerHTML = '<div class="empty">' + t("con_no_contacts") + '</div>'; return; }
   box.innerHTML = list.map(function(p){
     return '<div class="rec-card">' +
       '<div style="display:flex;justify-content:space-between;align-items:center">' +
@@ -1626,8 +2292,8 @@ function renderContactList() {
         '<button class="iconbtn" onclick="delContact(\'' + p.id + '\')">\u2715</button></span></div>' +
       '<div class="rmeta">' + esc(p.dept) + ' \u00B7 ' + esc(p.phone) + '</div>' +
       '<div class="btn-row" style="margin-top:8px">' +
-        '<a class="btn btn-dark" style="text-align:center;text-decoration:none" href="' + telHref(p.phone) + '">📞 Call</a>' +
-        '<a class="btn btn-ghost" style="text-align:center;text-decoration:none" href="' + smsHref(p.phone) + '">💬 Text</a>' +
+        '<a class="btn btn-dark" style="text-align:center;text-decoration:none" href="' + telHref(p.phone) + '">' + t("con_call") + '</a>' +
+        '<a class="btn btn-ghost" style="text-align:center;text-decoration:none" href="' + smsHref(p.phone) + '">' + t("con_text") + '</a>' +
       '</div></div>';
   }).join("");
 }
@@ -1642,10 +2308,10 @@ function renderDeptList() {
 function openContactModal(id) {
   editingContactId = id || null;
   var p = id ? state.contacts.people.filter(function(x){ return x.id === id; })[0] : null;
-  document.getElementById("contactModalTitle").textContent = p ? "Edit contact" : "Add contact";
+  document.getElementById("contactModalTitle").textContent = p ? t("con_edit_title") : t("con_add_title");
   document.getElementById("cName").value = p ? p.name : "";
   document.getElementById("cPhone").value = p ? p.phone : "";
-  contactDeptPick = p ? p.dept : (state.contacts.departments[0] || "");
+  contactDeptPick = p ? p.dept : (state.contacts.lastDept || state.contacts.departments[0] || "");
   document.getElementById("cDept").value = "";
   renderContactDeptChips();
   document.getElementById("contactModal").classList.add("open");
@@ -1665,9 +2331,9 @@ function saveContact() {
   var name = document.getElementById("cName").value.trim();
   var phone = document.getElementById("cPhone").value.trim();
   var customDept = document.getElementById("cDept").value.trim();
-  if (!name) { toast("Name is required."); return; }
-  if (!phone) { toast("Phone is required."); return; }
-  var dept = customDept || contactDeptPick || "Other";
+  if (!name) { toast(t("con_name_req")); return; }
+  if (!phone) { toast(t("con_phone_req")); return; }
+  var dept = customDept || contactDeptPick || t("con_other");
   if (customDept && state.contacts.departments.indexOf(customDept) === -1) state.contacts.departments.push(customDept);
   if (editingContactId) {
     var p = state.contacts.people.filter(function(x){ return x.id === editingContactId; })[0];
@@ -1675,18 +2341,19 @@ function saveContact() {
   } else {
     state.contacts.people.push({ id: uid("c"), name: name, phone: phone, dept: dept });
   }
+  state.contacts.lastDept = dept;
   saveState(); closeContactModal(); renderContacts();
-  toast("Saved.");
+  toast(t("con_saved"));
 }
 function delContact(id) {
-  appConfirm("Delete this contact?").then(function(ok){
+  appConfirm(t("con_del")).then(function(ok){
     if (!ok) return;
     state.contacts.people = state.contacts.people.filter(function(p){ return p.id !== id; });
     saveState(); renderContacts();
   });
 }
 function addDepartment() {
-  appPrompt("New department:", "").then(function(val){
+  appPrompt(t("con_new_dept"), "").then(function(val){
     if (val === null) return; val = val.trim(); if (!val) return;
     if (state.contacts.departments.indexOf(val) === -1) state.contacts.departments.push(val);
     saveState(); renderContacts();
@@ -1695,7 +2362,7 @@ function addDepartment() {
 function delDepartment(i) {
   var d = state.contacts.departments[i];
   var n = state.contacts.people.filter(function(p){ return p.dept === d; }).length;
-  appConfirm(n ? n + " contact(s) use this department. Delete it? (They keep the name.)" : "Delete this department?").then(function(ok){
+  appConfirm(n ? tf("con_del_dept_n", { n: n }) : t("con_del_dept")).then(function(ok){
     if (!ok) return;
     state.contacts.departments.splice(i, 1);
     if (contactDeptFilter === i) contactDeptFilter = -1; else if (contactDeptFilter > i) contactDeptFilter--;
@@ -1703,9 +2370,9 @@ function delDepartment(i) {
   });
 }
 function exportContacts() {
-  if (!state.contacts.people.length) { toast("No contacts — nothing to export."); return; }
+  if (!state.contacts.people.length) { toast(t("con_no_export")); return; }
   var payload = { app: "quickwork-contacts", version: 1, exportedAt: new Date().toISOString(), contacts: state.contacts };
-  shareOrDownload(new Blob([JSON.stringify(payload)], { type: "application/json" }), "quickwork-contacts-" + profileSlug() + ".json", "Team contacts");
+  shareOrDownload(new Blob([JSON.stringify(payload)], { type: "application/json" }), "quickwork-contacts-" + profileSlug() + ".json", t("con_share_title"));
 }
 function importContacts(input) {
   var f = input.files && input.files[0];
@@ -1716,17 +2383,17 @@ function importContacts(input) {
     try {
       var data = JSON.parse(r.result);
       var c = data.contacts || data;
-      if (!c || !Array.isArray(c.people) || !c.people.length) { toast("No valid contacts in that file."); return; }
+      if (!c || !Array.isArray(c.people) || !c.people.length) { toast(t("con_no_valid")); return; }
       pendingImport = { kind: "contacts", people: c.people, departments: c.departments || [] };
-      showImportTarget("contacts", true);
-    } catch (e) { toast("Could not read that file."); }
+      showImportTarget("label_contacts", true);
+    } catch (e) { toast(t("could_not_read")); }
   };
   r.readAsText(f);
 }
 function exportRecovery() {
-  if (!state.recovery.situations.length) { toast("Guide is empty — nothing to export."); return; }
+  if (!state.recovery.situations.length) { toast(t("rec_no_export")); return; }
   var payload = { app: "quickwork-recovery", version: 2, exportedAt: new Date().toISOString(), recovery: state.recovery };
-  shareOrDownload(new Blob([JSON.stringify(payload)], { type: "application/json" }), "quickwork-recovery-guide-" + profileSlug() + ".json", "Service recovery guide");
+  shareOrDownload(new Blob([JSON.stringify(payload)], { type: "application/json" }), "quickwork-recovery-guide-" + profileSlug() + ".json", t("rec_share_title"));
 }
 function importRecovery(input) {
   var f = input.files && input.files[0];
@@ -1737,10 +2404,10 @@ function importRecovery(input) {
     try {
       var data = JSON.parse(r.result);
       var rec = data.recovery || data;
-      if (!rec || !Array.isArray(rec.situations)) { toast("That file is not a recovery guide."); return; }
+      if (!rec || !Array.isArray(rec.situations)) { toast(t("rec_not_file")); return; }
       pendingImport = { kind: "recovery", situations: rec.situations, compTypes: Array.isArray(rec.compTypes) ? rec.compTypes : [] };
-      showImportTarget("recovery guide", false);
-    } catch (e) { toast("Could not read that file."); }
+      showImportTarget("label_guide", false);
+    } catch (e) { toast(t("could_not_read")); }
   };
   r.readAsText(f);
 }
@@ -1751,7 +2418,7 @@ function shareOrDownload(blob, fname, title) {
       var file = new File([blob], fname, { type: "application/json" });
       if (navigator.canShare({ files: [file] })) {
         navigator.share({ files: [file], title: title })
-          .then(function(){ toast("Shared ✓ — pick where to send it."); })
+          .then(function(){ toast(t("shared_pick")); })
           .catch(function(){ downloadExport(blob, fname); });
         return;
       }
@@ -1765,6 +2432,10 @@ renderOrder();
 renderShopName();
 loadShopSettingsUI();
 applyFontSize();
+applyTheme();
+renderThemeRow(); renderLangRow();
+applyI18n();
+document.getElementById("homeGearBtn").innerHTML = ICON_GEAR;
 renderHome();
 document.getElementById("moduleGrid").addEventListener("click", function(e){
   if (suppressTileClick) { e.stopPropagation(); e.preventDefault(); }
@@ -1775,7 +2446,7 @@ document.addEventListener("pointercancel", endTileDrag);
 document.getElementById("importTargetModal").addEventListener("click", function(e) {
   if (e.target === this) closeImportTarget();
 });
-if (Object.keys(DB.profiles).length > 1) showView("profiles");
+if (Object.keys(DB.profiles).length > 1 || !DB.profiles[DB.activeProfileId].name) showView("profiles");
 document.getElementById("modal").addEventListener("click", function(e) {
   if (e.target === this) closeModal();
 });
@@ -1798,44 +2469,71 @@ if ("serviceWorker" in navigator) {
 </script>
 <div id="contactModal">
   <div id="contactModalBox">
-    <h2 id="contactModalTitle">Add contact</h2>
-    <label for="cName">Name</label>
+    <h2 id="contactModalTitle" data-i18n="con_add_title">Add contact</h2>
+    <label for="cName" data-i18n="con_name">Name</label>
     <input type="text" id="cName" placeholder="e.g. Maria">
-    <label for="cPhone">Phone</label>
-    <input type="text" id="cPhone" inputmode="tel" placeholder="e.g. 555-123-4567">
-    <label>Department</label>
+    <label for="cPhone" data-i18n="con_phone">Phone</label>
+    <input type="text" id="cPhone" inputmode="tel" placeholder="e.g. 555-123-4567" data-i18n-ph="con_phone_ph">
+    <label data-i18n="con_dept">Department</label>
     <div id="cDeptChips" class="setrow"></div>
-    <input type="text" id="cDept" placeholder="Or type a new department">
+    <input type="text" id="cDept" placeholder="Or type a new department" data-i18n-ph="con_dept_ph">
     <div class="btn-row" style="margin-top:14px">
-      <button class="btn btn-ghost" onclick="closeContactModal()">Cancel</button>
-      <button class="btn" onclick="saveContact()">Save</button>
+      <button class="btn btn-ghost" onclick="closeContactModal()" data-i18n="cancel">Cancel</button>
+      <button class="btn" onclick="saveContact()" data-i18n="save">Save</button>
+    </div>
+  </div>
+</div>
+<div id="templateUseModal">
+  <div id="templateUseBox">
+    <h2 id="tuTitle"></h2>
+    <div id="tuFields"></div>
+    <label data-i18n="tpl_choose">Choose a contact</label>
+    <input type="search" id="tuSearch" data-i18n-ph="tpl_search_ph" placeholder="Search contacts…" oninput="renderTuContacts(this.value)">
+    <div id="tuContacts" style="max-height:240px;overflow-y:auto;margin-top:6px"></div>
+    <div class="btn-row" style="margin-top:14px">
+      <button class="btn btn-ghost" onclick="closeTemplateUse()" data-i18n="cancel">Cancel</button>
+    </div>
+  </div>
+</div>
+<div id="templateEditModal">
+  <div id="templateEditBox">
+    <h2 data-i18n="tpl_title">Message templates</h2>
+    <label data-i18n="tpl_name">Template name</label>
+    <input type="text" id="teName">
+    <label data-i18n="tpl_text">Message text</label>
+    <textarea id="teText" rows="3"></textarea>
+    <p class="hint" data-i18n="tpl_help">Use {curly braces} for fill-in blanks, e.g. {name}, {room}.</p>
+    <div class="btn-row" style="margin-top:14px">
+      <button class="btn btn-ghost" onclick="closeTemplateEdit()" data-i18n="cancel">Cancel</button>
+      <button class="btn btn-danger" id="teDelete" onclick="askDelTemplate()" data-i18n="delete_">Delete</button>
+      <button class="btn btn-primary" onclick="saveTemplate()" data-i18n="save">Save</button>
     </div>
   </div>
 </div>
 <div id="importTargetModal">
   <div id="importTargetBox">
-    <h2>Import into…</h2>
+    <h2 data-i18n="import_into">Import into…</h2>
     <p id="importTargetDesc" class="hint"></p>
-    <button class="btn btn-dark" id="importOptMerge" onclick="importChoice('merge')">Merge into current job</button>
-    <button class="btn btn-ghost" id="importOptReplace" onclick="importChoice('replace')">Replace current job's data</button>
-    <button class="btn btn-ghost" id="importOptNew" onclick="importChoice('new')">Create new job…</button>
-    <button class="btn btn-ghost" onclick="closeImportTarget()">Cancel</button>
+    <button class="btn btn-dark" id="importOptMerge" onclick="importChoice('merge')" data-i18n="import_merge">Merge into current job</button>
+    <button class="btn btn-ghost" id="importOptReplace" onclick="importChoice('replace')" data-i18n="import_replace">Replace current job's data</button>
+    <button class="btn btn-ghost" id="importOptNew" onclick="importChoice('new')" data-i18n="import_new">Create new job…</button>
+    <button class="btn btn-ghost" onclick="closeImportTarget()" data-i18n="cancel">Cancel</button>
   </div>
 </div>
 <div id="bulkBar">
-  <span id="bulkCount">0 selected</span>
-  <button class="bulkbtn" onclick="selectAll()">All</button>
-  <button class="bulkbtn" onclick="bulkSetPrice()">Set price</button>
-  <button class="bulkbtn danger" onclick="bulkDelete()">Delete</button>
+  <span id="bulkCount" data-i18n="shop_selected">0 selected</span>
+  <button class="bulkbtn" onclick="selectAll()" data-i18n="all">All</button>
+  <button class="bulkbtn" onclick="bulkSetPrice()" data-i18n="shop_set_price">Set price</button>
+  <button class="bulkbtn danger" onclick="bulkDelete()" data-i18n="delete_">Delete</button>
   <button class="bulkbtn" onclick="toggleSelectMode()">✕</button>
 </div>
 <div id="promptOverlay">
   <div id="promptBox">
     <p id="promptMsg"></p>
-    <input type="number" id="promptInput" inputmode="decimal" min="0" step="0.01" placeholder="0.00" onkeydown="if(event.key==='Enter')promptChoice(true)">
+    <input type="text" id="promptInput" placeholder="" onkeydown="if(event.key==='Enter')promptChoice(true)">
     <div class="btn-row">
-      <button class="btn secondary" onclick="promptChoice(false)">Cancel</button>
-      <button class="btn" onclick="promptChoice(true)">OK</button>
+      <button class="btn secondary" onclick="promptChoice(false)" data-i18n="cancel">Cancel</button>
+      <button class="btn" onclick="promptChoice(true)" data-i18n="ok">OK</button>
     </div>
   </div>
 </div>
@@ -1843,8 +2541,8 @@ if ("serviceWorker" in navigator) {
   <div id="confirmBox">
     <p id="confirmMsg"></p>
     <div class="btn-row">
-      <button class="btn secondary" onclick="confirmChoice(false)">Cancel</button>
-      <button class="btn" onclick="confirmChoice(true)">OK</button>
+      <button class="btn secondary" onclick="confirmChoice(false)" data-i18n="cancel">Cancel</button>
+      <button class="btn" onclick="confirmChoice(true)" data-i18n="ok">OK</button>
     </div>
   </div>
 </div>
