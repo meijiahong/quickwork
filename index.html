@@ -3,28 +3,28 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>Suite Shop</title>
+<title>QuickWork</title>
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="theme-color" content="#002E5A">
+<meta name="theme-color" content="#4F46E5">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <style>
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
   body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: #f2f4f8; color: #1c2333; }
-  header { background: #002E5A; color: #fff; padding: 14px 16px; position: sticky; top: 0; z-index: 10; }
+  header { background: #4F46E5; color: #fff; padding: 14px 16px; position: sticky; top: 0; z-index: 10; }
   header h1 { margin: 0; font-size: 20px; }
   header p { margin: 2px 0 0; font-size: 12px; opacity: .75; }
-  nav { display: flex; background: #002E5A; padding: 0 12px 12px; gap: 8px; position: sticky; top: 0; z-index: 10; }
-  nav button { flex: 1; padding: 12px; font-size: 16px; border: none; border-radius: 10px; background: #2e3c5c; color: #cfd8ea; font-weight: 600; }
-  nav button.active { background: #17479D; color: #fff; }
+  nav { display: flex; background: #4F46E5; padding: 0 12px 12px; gap: 8px; position: sticky; top: 0; z-index: 10; }
+  nav button { flex: 1; padding: 12px; font-size: 16px; border: none; border-radius: 10px; background: #4338CA; color: #cfd8ea; font-weight: 600; }
+  nav button.active { background: #4F46E5; color: #fff; }
   main { padding: 14px 14px 40px; max-width: 640px; margin: 0 auto; }
   .card { background: #fff; border-radius: 12px; padding: 14px; margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
   .btn { display: block; width: 100%; padding: 15px; font-size: 17px; font-weight: 700; border: none; border-radius: 12px; margin-bottom: 10px; cursor: pointer; }
-  .btn-primary { background: #17479D; color: #fff; }
-  .btn-dark { background: #002E5A; color: #fff; }
-  .btn-ghost { background: #e8ecf3; color: #002E5A; }
+  .btn-primary { background: #4F46E5; color: #fff; }
+  .btn-dark { background: #4F46E5; color: #fff; }
+  .btn-ghost { background: #e8ecf3; color: #4F46E5; }
   .btn-danger { background: #fde8e8; color: #b3261e; }
   .btn-row { display: flex; gap: 8px; }
   .btn-row .btn { margin-bottom: 0; }
@@ -41,12 +41,12 @@
   .line-total { font-weight: 700; min-width: 64px; text-align: right; }
   .totals { font-size: 16px; }
   .totals .row { display: flex; justify-content: space-between; padding: 5px 0; }
-  .totals .grand { font-size: 26px; font-weight: 800; border-top: 2px solid #002E5A; margin-top: 8px; padding-top: 10px; }
+  .totals .grand { font-size: 26px; font-weight: 800; border-top: 2px solid #4F46E5; margin-top: 8px; padding-top: 10px; }
   .empty { text-align: center; color: #7a8499; padding: 26px 10px; font-size: 15px; }
-  #toast { position: fixed; left: 50%; bottom: 26px; transform: translateX(-50%); background: #002E5A; color: #fff; padding: 12px 20px; border-radius: 24px; font-size: 14px; font-weight: 600; z-index: 100; display: none; box-shadow: 0 4px 14px rgba(0,0,0,.25); max-width: 90%; text-align: center; }
+  #toast { position: fixed; left: 50%; bottom: 26px; transform: translateX(-50%); background: #4F46E5; color: #fff; padding: 12px 20px; border-radius: 24px; font-size: 14px; font-weight: 600; z-index: 100; display: none; box-shadow: 0 4px 14px rgba(0,0,0,.25); max-width: 90%; text-align: center; }
   .results { margin: 0 0 10px; }
   .results .item { cursor: pointer; background: #f7f9fc; border-radius: 10px; padding: 10px; margin-bottom: 6px; border: 1px solid #e3e8f1; }
-  .iconbtn { border: none; background: #eef1f6; border-radius: 8px; padding: 8px 10px; font-size: 13px; font-weight: 600; color: #002E5A; }
+  .iconbtn { border: none; background: #eef1f6; border-radius: 8px; padding: 8px 10px; font-size: 13px; font-weight: 600; color: #4F46E5; }
   /* scanner overlay */
   #scanOverlay { display: none; position: fixed; inset: 0; background: rgba(10,14,25,.96); z-index: 50; flex-direction: column; padding: 16px; }
   #scanOverlay.open { display: flex; }
@@ -54,7 +54,7 @@
   #reader { width: 100%; max-width: 480px; margin: 0 auto; background: #000; border-radius: 12px; overflow: hidden; position: relative; }
   #scanFx { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; pointer-events: none; z-index: 5; }
   .scanframe { width: min(260px, 72%); aspect-ratio: 13/8; position: relative; }
-  .scanframe .corner { position: absolute; width: 26px; height: 26px; border: 4px solid #4da3ff; }
+  .scanframe .corner { position: absolute; width: 26px; height: 26px; border: 4px solid #818CF8; }
   .corner.tl { top: 0; left: 0; border-right: 0; border-bottom: 0; border-top-left-radius: 8px; }
   .corner.tr { top: 0; right: 0; border-left: 0; border-bottom: 0; border-top-right-radius: 8px; }
   .corner.bl { bottom: 0; left: 0; border-right: 0; border-top: 0; border-bottom-left-radius: 8px; }
@@ -79,16 +79,16 @@
   #promptBox { background: #fff; width: 100%; max-width: 380px; border-radius: 18px; padding: 22px 20px; text-align: center; }
   #promptBox p { margin: 0 0 14px; font-size: 16px; font-weight: 600; color: #1c2440; }
   #promptBox input { width: 100%; font-size: 22px; padding: 12px; border: 2px solid #dfe5ef; border-radius: 12px; margin: 0 0 16px; text-align: center; box-sizing: border-box; }
-  .selbox { width: 22px; height: 22px; flex: none; accent-color: #17479D; }
+  .selbox { width: 22px; height: 22px; flex: none; accent-color: #4F46E5; }
   .item.sel { cursor: pointer; }
-  #bulkBar { display: none; position: fixed; left: 0; right: 0; bottom: 0; background: #002E5A; color: #fff; z-index: 55; padding: 12px 14px; align-items: center; gap: 8px; box-shadow: 0 -2px 12px rgba(0,0,0,.2); }
+  #bulkBar { display: none; position: fixed; left: 0; right: 0; bottom: 0; background: #4F46E5; color: #fff; z-index: 55; padding: 12px 14px; align-items: center; gap: 8px; box-shadow: 0 -2px 12px rgba(0,0,0,.2); }
   #bulkBar.open { display: flex; }
   #bulkCount { font-weight: 700; font-size: 14px; margin-right: auto; white-space: nowrap; }
   .bulkbtn { background: rgba(255,255,255,.14); color: #fff; border: 0; border-radius: 10px; padding: 10px 12px; font-size: 14px; font-weight: 700; }
   .bulkbtn.danger { background: #c0392b; }
   body.selecting main { padding-bottom: 120px; }
   .check { display: flex; align-items: center; gap: 8px; margin: 8px 0; font-size: 15px; }
-  .check input { width: 20px; height: 20px; accent-color: #17479D; flex: none; }
+  .check input { width: 20px; height: 20px; accent-color: #4F46E5; flex: none; }
   .setrow { display: flex; align-items: center; gap: 10px; margin: 8px 0; font-size: 15px; flex-wrap: wrap; }
   .setrow input[type=number] { width: 90px; padding: 8px 10px; border: 2px solid #dfe5ef; border-radius: 10px; font-size: 15px; }
   .feerow { display: flex; gap: 6px; align-items: center; margin: 6px 0; }
@@ -96,27 +96,27 @@
   .feerow input[type=number] { width: 76px; padding: 8px 6px; border: 2px solid #dfe5ef; border-radius: 10px; font-size: 14px; }
   .feerow select { padding: 8px 6px; border: 2px solid #dfe5ef; border-radius: 10px; font-size: 14px; background: #fff; }
   .paybtn { flex: 1; padding: 12px; border: 2px solid #dfe5ef; background: #fff; border-radius: 12px; font-size: 16px; font-weight: 700; color: #1c2440; }
-  .paybtn.active { border-color: #17479D; background: #17479D; color: #fff; }
+  .paybtn.active { border-color: #4F46E5; background: #4F46E5; color: #fff; }
   .sumline2 { display: flex; justify-content: space-between; padding: 6px 4px; font-size: 15px; }
   .changerow { font-size: 18px; font-weight: 800; margin: 10px 0 4px; }
   .changerow.short { color: #c0392b; }
   #cashInput { width: 100%; font-size: 22px; padding: 12px; border: 2px solid #dfe5ef; border-radius: 12px; text-align: center; box-sizing: border-box; margin: 6px 0; }
   .pickchip { padding: 8px 14px; border: 2px solid #dfe5ef; background: #fff; border-radius: 20px; font-weight: 700; font-size: 14px; color: #1c2440; }
-  .pickchip.on { border-color: #17479D; background: #17479D; color: #fff; }
+  .pickchip.on { border-color: #4F46E5; background: #4F46E5; color: #fff; }
   .comprow { display: flex; gap: 6px; align-items: center; margin: 6px 0 6px 10px; }
   .comprow select { flex: 1.5; min-width: 0; padding: 8px 6px; border: 2px solid #dfe5ef; border-radius: 10px; font-size: 14px; background: #fff; }
   .comprow input { width: 62px; padding: 8px 6px; border: 2px solid #dfe5ef; border-radius: 10px; font-size: 14px; }
   .rec-card { border: 1px solid #e3e8f1; border-radius: 12px; padding: 12px; margin-bottom: 10px; background: #fbfcfe; }
   .rec-card .rtitle { font-weight: 800; font-size: 15px; }
   .rec-card .rmeta { font-size: 12px; color: #7a8499; margin: 2px 0 6px; }
-  .rec-card .rcomp { font-size: 14px; margin-top: 6px; font-weight: 700; color: #17479D; }
-  .badge { display: inline-block; background: #e8eefb; color: #17479D; border-radius: 20px; padding: 3px 10px; font-size: 12px; font-weight: 700; }
+  .rec-card .rcomp { font-size: 14px; margin-top: 6px; font-weight: 700; color: #4F46E5; }
+  .badge { display: inline-block; background: #EEF0FF; color: #4F46E5; border-radius: 20px; padding: 3px 10px; font-size: 12px; font-weight: 700; }
   .homehead { display: flex; align-items:center; justify-content: space-between; padding: 22px 18px 4px; max-width: 640px; margin: 0 auto; }
-  .homehead h1 { margin: 0; font-size: 28px; color: #002E5A; }
+  .homehead h1 { margin: 0; font-size: 28px; color: #4F46E5; }
   .homehead p { margin: 2px 0 0; color: #7a8499; font-size: 14px; }
   .iconbtn.big { font-size: 24px; padding: 10px 14px; border-radius: 12px; }
   .modgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 14px 18px; max-width: 640px; margin: 0 auto; }
-  .modtile { background: #fff; border: 1px solid #e3e8f1; border-radius: 16px; padding: 22px 12px; display: flex; flex-direction: column; align-items: center; gap: 6px; cursor: pointer; box-shadow: 0 2px 8px rgba(0,46,90,.06); font-family: inherit; }
+  .modtile { background: #fff; border: 1px solid #e3e8f1; border-radius: 16px; padding: 22px 12px; display: flex; flex-direction: column; align-items: center; gap: 6px; cursor: pointer; box-shadow: 0 2px 8px rgba(79,70,229,.08); font-family: inherit; }
   .modtile:active { transform: scale(.97); }
   .modicon { font-size: 42px; }
   .modicon svg { width: 46px; height: 46px; display: block; }
@@ -125,8 +125,8 @@
   .modname { font-weight: 800; font-size: 16px; color: #1c2440; }
   .moddesc { font-size: 12px; color: #7a8499; text-align: center; }
   .modhead { display: flex; align-items: center; gap: 10px; padding: 14px 14px 8px; max-width: 640px; margin: 0 auto; }
-  .modhead h1 { margin: 0; font-size: 22px; color: #002E5A; }
-  .backbtn { width: 42px; height: 42px; border-radius: 12px; border: 1px solid #e3e8f1; background: #fff; font-size: 24px; font-weight: 800; color: #002E5A; cursor: pointer; flex: none; line-height: 1; }
+  .modhead h1 { margin: 0; font-size: 22px; color: #4F46E5; }
+  .backbtn { width: 42px; height: 42px; border-radius: 12px; border: 1px solid #e3e8f1; background: #fff; font-size: 24px; font-weight: 800; color: #4F46E5; cursor: pointer; flex: none; line-height: 1; }
   .modhead-sp { width: 42px; flex: none; }
   #contactModal { display: none; position: fixed; inset: 0; background: rgba(10,14,25,.6); z-index: 60; align-items: flex-end; justify-content: center; }
   #contactModal.open { display: flex; }
@@ -135,8 +135,7 @@
   #reader video { touch-action: none; }
   .modsub { margin: 2px 0 0; font-size: 12px; color: #7a8499; }
   .modtile { touch-action: none; }
-  .modtile.dragging { opacity: .9; transform: scale(1.06); box-shadow: 0 10px 24px rgba(0,46,90,.25); z-index: 20; position: relative; pointer-events: none; }
-  .profilecard { display: flex; align-items: center; gap: 8px; background: #fff; border: 1px solid #e3e8f1; border-radius: 16px; padding: 8px 8px 8px 16px; margin-bottom: 10px; box-shadow: 0 2px 8px rgba(0,46,90,.06); }
+  .profilecard { display: flex; align-items: center; gap: 8px; background: #fff; border: 1px solid #e3e8f1; border-radius: 16px; padding: 8px 8px 8px 16px; margin-bottom: 10px; box-shadow: 0 2px 8px rgba(79,70,229,.08); }
   .profilemain { flex: 1; min-width: 0; background: none; border: none; text-align: left; cursor: pointer; font-family: inherit; padding: 8px 0; }
   .profilemain .modname { display: block; }
   .profilemain .moddesc { display: block; }
@@ -173,54 +172,88 @@
 #templateUseBox, #templateEditBox { background: #fff; width: 100%; max-width: 480px; border-radius: 18px 18px 0 0; padding: 20px 18px 28px; max-height: 92vh; overflow-y: auto; }
 #templateUseBox h2, #templateEditBox h2 { margin: 0 0 8px; font-size: 19px; }
 #templateEditBox textarea { width: 100%; padding: 13px; font-size: 16px; border: 1.5px solid #c9d2e3; border-radius: 10px; margin-bottom: 10px; font-family: inherit; }
+/* ---------- v18: indigo polish, modern buttons, smooth reorder ---------- */
+.btn { border-radius: 14px; transition: transform .12s ease, box-shadow .15s ease, background .15s ease; display: flex; align-items: center; justify-content: center; gap: 8px; }
+.btn:active { transform: scale(.98); }
+.btn-primary { background: #4F46E5; box-shadow: 0 4px 14px rgba(79,70,229,.35); }
+.btn-ghost { background: #EEF0FF; color: #4F46E5; }
+.btn-ic { display: inline-flex; flex: none; }
+.btn-ic svg { width: 22px; height: 22px; display: block; }
+.iconbtn { border-radius: 10px; transition: transform .12s ease, background .15s ease; }
+.iconbtn:active { transform: scale(.94); }
+.backbtn { border-radius: 14px; transition: transform .12s ease; }
+.backbtn:active { transform: scale(.94); }
+.qty button { border-radius: 12px; transition: transform .1s ease; }
+.qty button:active { transform: scale(.92); }
+.paybtn { border-radius: 14px; transition: border-color .15s ease, background .15s ease, transform .12s ease; }
+.paybtn:active { transform: scale(.97); }
+.pickchip { border-radius: 22px; transition: all .15s ease; }
+.pickchip:active { transform: scale(.96); }
+#moduleGrid, .modtile { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+.modtile { transition: box-shadow .18s ease; }
+.modtile.dragging { position: fixed; margin: 0; z-index: 60; pointer-events: none; transform: scale(.88); opacity: 1; box-shadow: 0 22px 44px rgba(79,70,229,.42); transition: transform .18s ease; }
+.tile-placeholder { background: rgba(79,70,229,.10); border: 2px dashed rgba(79,70,229,.45); border-radius: 16px; min-height: 118px; }
+body[data-theme="dark"] header, body[data-theme="dark"] nav { background: #000; }
+body[data-theme="dark"] nav button { background: #1C1C1E; color: #A1A1AA; }
+body[data-theme="dark"] header { border-bottom: 1px solid #1C1C1E; }
+body[data-theme="dark"] nav button.active { background: #4F46E5; color: #fff; }
+body[data-theme="dark"] .btn-ghost { background: #232329; color: #C7D2FE; }
+body[data-theme="dark"] .btn-primary { box-shadow: 0 4px 16px rgba(79,70,229,.45); }
+body[data-theme="dark"] .tile-placeholder { background: rgba(129,140,248,.10); border-color: rgba(129,140,248,.5); }
+@media (min-width: 900px) {
+  main, .homehead, .modhead { max-width: 780px; }
+  .modgrid { grid-template-columns: repeat(3, 1fr); max-width: 780px; }
+  #summaryBody { max-width: 780px; }
+  #modalBox, #contactModalBox, #importTargetBox, #sheetBox, #priceModalBox, #templateUseBox, #templateEditBox { max-width: 560px; }
+}
 /* ---------- dark theme (v17) ---------- */
-body[data-theme="dark"] { background: #0b1220; color: #e6ebf4; }
-body[data-theme="dark"] .card { background: #141d31; box-shadow: 0 1px 3px rgba(0,0,0,.4); }
+body[data-theme="dark"] { background: #000000; color: #F5F5F7; }
+body[data-theme="dark"] .card { background: #1C1C1E; box-shadow: 0 1px 3px rgba(0,0,0,.4); }
 body[data-theme="dark"] input[type=text], body[data-theme="dark"] input[type=number], body[data-theme="dark"] input[type=search],
-body[data-theme="dark"] select, body[data-theme="dark"] textarea { background: #0e1628; border-color: #2a3a5c; color: #e6ebf4; }
-body[data-theme="dark"] input::placeholder, body[data-theme="dark"] textarea::placeholder { color: #6b7690; }
-body[data-theme="dark"] label { color: #9aa6bc; }
-body[data-theme="dark"] .item { border-bottom-color: #1e2a44; }
+body[data-theme="dark"] select, body[data-theme="dark"] textarea { background: #101014; border-color: #333338; color: #F5F5F7; }
+body[data-theme="dark"] input::placeholder, body[data-theme="dark"] textarea::placeholder { color: #8E8E93; }
+body[data-theme="dark"] label { color: #A1A1AA; }
+body[data-theme="dark"] .item { border-bottom-color: #26262B; }
 body[data-theme="dark"] .item .sub, body[data-theme="dark"] .hint, body[data-theme="dark"] .moddesc,
 body[data-theme="dark"] .homehead p, body[data-theme="dark"] .modsub, body[data-theme="dark"] .rec-card .rmeta,
-body[data-theme="dark"] .sumline .sub, body[data-theme="dark"] .rmeta { color: #93a0b8; }
-body[data-theme="dark"] .btn-ghost { background: #1c2942; color: #cfe0ff; }
+body[data-theme="dark"] .sumline .sub, body[data-theme="dark"] .rmeta { color: #A1A1AA; }
+body[data-theme="dark"] .btn-ghost { background: #232329; color: #C7D2FE; }
 body[data-theme="dark"] .btn-danger { background: #3a1d1d; color: #ff9d94; }
-body[data-theme="dark"] .iconbtn { background: #1c2942; color: #cfe0ff; }
-body[data-theme="dark"] .qty button { background: #0e1628; border-color: #2a3a5c; color: #e6ebf4; }
-body[data-theme="dark"] .results .item { background: #141d31; border-color: #243354; }
-body[data-theme="dark"] .modtile { background: #141d31; border-color: #243354; }
-body[data-theme="dark"] .modname { color: #eef2fa; }
-body[data-theme="dark"] .homehead h1, body[data-theme="dark"] .modhead h1 { color: #9cc3ff; }
-body[data-theme="dark"] .backbtn { background: #141d31; border-color: #243354; color: #9cc3ff; }
+body[data-theme="dark"] .iconbtn { background: #232329; color: #C7D2FE; }
+body[data-theme="dark"] .qty button { background: #101014; border-color: #333338; color: #F5F5F7; }
+body[data-theme="dark"] .results .item { background: #1C1C1E; border-color: #2E2E33; }
+body[data-theme="dark"] .modtile { background: #1C1C1E; border-color: #2E2E33; }
+body[data-theme="dark"] .modname { color: #FFFFFF; }
+body[data-theme="dark"] .homehead h1, body[data-theme="dark"] .modhead h1 { color: #A5B4FC; }
+body[data-theme="dark"] .backbtn { background: #1C1C1E; border-color: #2E2E33; color: #A5B4FC; }
 body[data-theme="dark"] #modalBox, body[data-theme="dark"] #confirmBox, body[data-theme="dark"] #promptBox,
 body[data-theme="dark"] #contactModalBox, body[data-theme="dark"] #importTargetBox, body[data-theme="dark"] #sheetBox,
-body[data-theme="dark"] #priceModalBox, body[data-theme="dark"] #templateUseBox, body[data-theme="dark"] #templateEditBox { background: #141d31; }
+body[data-theme="dark"] #priceModalBox, body[data-theme="dark"] #templateUseBox, body[data-theme="dark"] #templateEditBox { background: #1C1C1E; }
 body[data-theme="dark"] #confirmBox p, body[data-theme="dark"] #promptBox p, body[data-theme="dark"] #modalBox h2,
 body[data-theme="dark"] #contactModalBox h2, body[data-theme="dark"] #importTargetBox h2, body[data-theme="dark"] #sheetBox .pname,
-body[data-theme="dark"] #templateUseBox h2, body[data-theme="dark"] #templateEditBox h2 { color: #eef2fa; }
-body[data-theme="dark"] #promptBox input, body[data-theme="dark"] #cashInput { background: #0e1628; border-color: #2a3a5c; color: #e6ebf4; }
-body[data-theme="dark"] .pickchip { background: #0e1628; border-color: #2a3a5c; color: #dbe4f3; }
-body[data-theme="dark"] .pickchip.on { background: #17479D; border-color: #17479D; color: #fff; }
-body[data-theme="dark"] .paybtn { background: #0e1628; border-color: #2a3a5c; color: #dbe4f3; }
-body[data-theme="dark"] .paybtn.active { background: #17479D; border-color: #17479D; color: #fff; }
-body[data-theme="dark"] .rec-card { background: #101a2e; border-color: #243354; }
-body[data-theme="dark"] .rec-card .rtitle { color: #eef2fa; }
-body[data-theme="dark"] .rec-card .rcomp { color: #8fb8ff; }
-body[data-theme="dark"] .badge { background: #1c2c4e; color: #9cc3ff; }
-body[data-theme="dark"] .profilecard { background: #141d31; border-color: #243354; }
-body[data-theme="dark"] .profilemain .modname { color: #eef2fa; }
-body[data-theme="dark"] .totals .grand { border-top-color: #2a3a5c; }
-body[data-theme="dark"] .sumline { border-bottom-color: #1e2a44; }
+body[data-theme="dark"] #templateUseBox h2, body[data-theme="dark"] #templateEditBox h2 { color: #FFFFFF; }
+body[data-theme="dark"] #promptBox input, body[data-theme="dark"] #cashInput { background: #101014; border-color: #333338; color: #F5F5F7; }
+body[data-theme="dark"] .pickchip { background: #101014; border-color: #333338; color: #E4E4EA; }
+body[data-theme="dark"] .pickchip.on { background: #4F46E5; border-color: #4F46E5; color: #fff; }
+body[data-theme="dark"] .paybtn { background: #101014; border-color: #333338; color: #E4E4EA; }
+body[data-theme="dark"] .paybtn.active { background: #4F46E5; border-color: #4F46E5; color: #fff; }
+body[data-theme="dark"] .rec-card { background: #1C1C1E; border-color: #2E2E33; }
+body[data-theme="dark"] .rec-card .rtitle { color: #FFFFFF; }
+body[data-theme="dark"] .rec-card .rcomp { color: #A5B4FC; }
+body[data-theme="dark"] .badge { background: #262640; color: #A5B4FC; }
+body[data-theme="dark"] .profilecard { background: #1C1C1E; border-color: #2E2E33; }
+body[data-theme="dark"] .profilemain .modname { color: #FFFFFF; }
+body[data-theme="dark"] .totals .grand { border-top-color: #333338; }
+body[data-theme="dark"] .sumline { border-bottom-color: #26262B; }
 body[data-theme="dark"] .changerow.short { color: #ff8a80; }
-body[data-theme="dark"] kbd.code { background: #1c2942; }
-body[data-theme="dark"] .thumb, body[data-theme="dark"] #imgPreview { background: #1c2942; }
-body[data-theme="dark"] #summaryOverlay { background: #0b1220; }
+body[data-theme="dark"] kbd.code { background: #232329; }
+body[data-theme="dark"] .thumb, body[data-theme="dark"] #imgPreview { background: #232329; }
+body[data-theme="dark"] #summaryOverlay { background: #000000; }
 body[data-theme="dark"] .feerow input[type=text], body[data-theme="dark"] .feerow input[type=number], body[data-theme="dark"] .feerow select,
 body[data-theme="dark"] .comprow select, body[data-theme="dark"] .comprow input, body[data-theme="dark"] .setrow input[type=number],
-body[data-theme="dark"] .setrow input[type=text] { background: #0e1628; border-color: #2a3a5c; color: #e6ebf4; }
-body[data-theme="dark"] select option { background: #141d31; }
-body[data-theme="dark"] .toast { background: #1c2942; }
+body[data-theme="dark"] .setrow input[type=text] { background: #101014; border-color: #333338; color: #F5F5F7; }
+body[data-theme="dark"] select option { background: #1C1C1E; }
+body[data-theme="dark"] .toast { background: #232329; }
 </style>
 </head>
 <body>
@@ -255,7 +288,7 @@ body[data-theme="dark"] .toast { background: #1c2942; }
   <!-- CHECKOUT -->
   <section id="tab-checkout">
     <div class="card">
-      <button class="btn btn-primary" onclick="startScan('checkout')" data-i18n="shop_scan_item">📷 Scan item</button>
+      <button class="btn btn-primary" onclick="startScan('checkout')"><span class="btn-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px;display:block"><rect x="3" y="7" width="18" height="13" rx="3"/><circle cx="12" cy="13.5" r="3.5"/><path d="M8.5 7l1.2-2.5h4.6L15.5 7"/></svg></span><span data-i18n="shop_scan_item">Scan item</span></button>
       <label for="search" data-i18n="shop_or_find">Or find by name / barcode</label>
       <input type="search" id="search" placeholder="Name or last digits of barcode…" data-i18n-ph="shop_search_ph2" autocomplete="off" oninput="renderSearch()">
       <div id="searchResults" class="results"></div>
@@ -275,7 +308,7 @@ body[data-theme="dark"] .toast { background: #1c2942; }
   <!-- PRODUCTS -->
   <section id="tab-products" style="display:none">
     <div class="card">
-      <button class="btn btn-dark" onclick="startScan('product')" data-i18n="prod_scan_addedit">📷 Scan to add / edit product</button>
+      <button class="btn btn-dark" onclick="startScan('product')"><span class="btn-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px;display:block"><rect x="3" y="7" width="18" height="13" rx="3"/><circle cx="12" cy="13.5" r="3.5"/><path d="M8.5 7l1.2-2.5h4.6L15.5 7"/></svg></span><span data-i18n="prod_scan_addedit">Scan to add / edit product</span></button>
       <div class="btn-row">
         <button class="btn btn-ghost" onclick="exportData()" data-i18n="prod_export">⬆ Export list</button>
         <button class="btn btn-ghost" onclick="document.getElementById('importFile').click()" data-i18n="prod_import">⬇ Import list</button>
@@ -452,7 +485,7 @@ body[data-theme="dark"] .toast { background: #1c2942; }
     <div class="photoBtnRow">
       <img id="imgPreview" alt="">
       <div style="flex:1">
-        <button class="btn btn-ghost" style="margin-bottom:8px" onclick="document.getElementById('fPhoto').click()" data-i18n="prod_take_photo">📷 Take / choose photo</button>
+        <button class="btn btn-ghost" style="margin-bottom:8px" onclick="document.getElementById('fPhoto').click()"><span class="btn-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px;display:block"><rect x="3" y="7" width="18" height="13" rx="3"/><circle cx="12" cy="13.5" r="3.5"/><path d="M8.5 7l1.2-2.5h4.6L15.5 7"/></svg></span><span data-i18n="prod_take_photo">Take / choose photo</span></button>
         <button class="btn btn-ghost" onclick="clearPhoto()" data-i18n="prod_remove_photo">Remove photo</button>
       </div>
     </div>
@@ -592,7 +625,7 @@ scan_nomatch: "No match.",
 scan_it: "Scan it",
 scan_to_add: "to add it.",
 // shop main
-shop_scan_item: "📷 Scan item",
+shop_scan_item: "Scan item",
 shop_or_find: "Or find by name / barcode",
 shop_search_ph: "Search products",
 shop_search_ph2: "Name or last digits of barcode\u2026",
@@ -607,7 +640,7 @@ shop_selected: "{n} selected",
 shop_select_first: "Select some products first.",
 shop_set_price: "Set price",
 shop_set_price_n: "Set price for {n} products:",
-shop_valid_price: "Enter a valid price.",
+shop_valid_price: "Enter a valid price.", no_price: "No price", need_price_first: "Enter a price for this sale first.",
 scan_focused: "Focused.",
 scan_reading: "Reading barcode from photo…",
 shop_no_products: "No products saved yet.",
@@ -618,10 +651,10 @@ shop_no_matches: "No matches.",
 shop_nothing_saved: "Nothing saved yet.<br>Tap “Scan to add / edit product” and scan each item once.",
 // product modal
 prod_add: "Add product", prod_edit: "Edit product",
-prod_barcode: "Barcode", prod_name: "Product name", prod_price: "Price ($)", prod_photo: "Product photo (optional)",
-prod_take_photo: "📷 Take / choose photo", prod_remove_photo: "Remove photo",
+prod_barcode: "Barcode", prod_name: "Product name", prod_price: "Price ($) (optional)", prod_photo: "Product photo (optional)",
+prod_take_photo: "Take / choose photo", prod_remove_photo: "Remove photo",
 prod_barcode_req: "Barcode is required.", prod_name_req: "Product name is required.",
-prod_scan_addedit: "📷 Scan to add / edit product",
+prod_scan_addedit: "Scan to add / edit product",
 prod_export: "⬆ Export list", prod_import: "⬇ Import list",
 prod_shop_name: "Shop name", prod_shop_name_ph: "My Shop",
 prod_share_hint: "Each phone keeps its own list. When prices change, one person taps Export list, sends the file in the group chat, and everyone else taps Import list.",
@@ -786,7 +819,7 @@ scan_nomatch: "Sin coincidencia.",
 scan_it: "Escanéalo",
 scan_to_add: "para agregarlo.",
 // shop main
-shop_scan_item: "📷 Escanear",
+shop_scan_item: "Escanear",
 shop_or_find: "O busca por nombre / código",
 shop_search_ph: "Buscar productos",
 shop_search_ph2: "Nombre o \u00faltimos d\u00edgitos del c\u00f3digo\u2026",
@@ -801,7 +834,7 @@ shop_selected: "{n} seleccionados",
 shop_select_first: "Selecciona algunos productos primero.",
 shop_set_price: "Poner precio",
 shop_set_price_n: "Pon precio a {n} productos:",
-shop_valid_price: "Escribe un precio válido.",
+shop_valid_price: "Escribe un precio válido.", no_price: "Sin precio", need_price_first: "Ingresa un precio para esta venta primero.",
 scan_focused: "Enfocado.",
 scan_reading: "Leyendo el código de la foto…",
 shop_no_products: "Aún no hay productos.",
@@ -812,10 +845,10 @@ shop_no_matches: "Sin coincidencias.",
 shop_nothing_saved: "Nada guardado aún.<br>Toca «Escanear para agregar / editar» y escanea cada artículo una vez.",
 // product modal
 prod_add: "Agregar producto", prod_edit: "Editar producto",
-prod_barcode: "Código", prod_name: "Nombre del producto", prod_price: "Precio ($)", prod_photo: "Foto del producto (opcional)",
-prod_take_photo: "📷 Tomar / elegir foto", prod_remove_photo: "Quitar foto",
+prod_barcode: "Código", prod_name: "Nombre del producto", prod_price: "Precio ($) (opcional)", prod_photo: "Foto del producto (opcional)",
+prod_take_photo: "Tomar / elegir foto", prod_remove_photo: "Quitar foto",
 prod_barcode_req: "El código es obligatorio.", prod_name_req: "El nombre es obligatorio.",
-prod_scan_addedit: "📷 Escanear para agregar / editar",
+prod_scan_addedit: "Escanear para agregar / editar",
 prod_export: "⬆ Exportar lista", prod_import: "⬇ Importar lista",
 prod_shop_name: "Nombre de la tienda", prod_shop_name_ph: "Mi tienda",
 prod_share_hint: "Cada teléfono guarda su propia lista. Cuando cambien los precios, una persona toca Exportar lista, envía el archivo al chat del grupo y los demás tocan Importar lista.",
@@ -1038,6 +1071,7 @@ function saveState() {
   try { localStorage.setItem(LS_KEY, JSON.stringify(DB)); } catch (e) {}
 }
 function fmt(n) { return "$" + Number(n || 0).toFixed(2); }
+function fmtP(v) { return (v == null || isNaN(v)) ? t("no_price") : fmt(v); }
 function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];}); }
 var toastTimer = null;
 function toast(msg) {
@@ -1145,31 +1179,31 @@ function showTab(which) {
 }
 /* ---------- views & home ---------- */
 
-/* ---------- custom module icons (v17, matches Swoosh Q logo) ---------- */
-var SVG_BG = '<rect x="4" y="4" width="40" height="40" rx="11" fill="#002E5A"/>';
+/* ---------- custom module icons (v18, indigo, modern line style) ---------- */
+var SVG_BG = '<rect x="4" y="4" width="40" height="40" rx="12" fill="#4F46E5"/>';
 var ICON_SHOP = '<svg viewBox="0 0 48 48">' + SVG_BG +
-  '<path d="M13 14h5l3 13h12l3-8H19" stroke="#fff" stroke-width="3.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>' +
-  '<circle cx="22" cy="34" r="2.6" fill="#FFD65A"/><circle cx="31" cy="34" r="2.6" fill="#FFD65A"/></svg>';
+  '<rect x="14" y="18" width="20" height="16" rx="4.5" stroke="#fff" stroke-width="3.2" fill="none"/>' +
+  '<path d="M19 18v-2.5a5 5 0 0 1 10 0V18" stroke="#fff" stroke-width="3.2" fill="none" stroke-linecap="round"/></svg>';
 var ICON_CONTACTS = '<svg viewBox="0 0 48 48">' + SVG_BG +
-  '<circle cx="19" cy="18" r="5.5" fill="#fff"/>' +
-  '<path d="M10 34c0-5.5 4-9 9-9s9 3.5 9 9" stroke="#fff" stroke-width="3.2" fill="none" stroke-linecap="round"/>' +
-  '<circle cx="32" cy="19" r="4" fill="#FFD65A"/>' +
-  '<path d="M29 34c.8-4 3.5-6.5 7-6.5" stroke="#FFD65A" stroke-width="3" fill="none" stroke-linecap="round"/></svg>';
+  '<circle cx="19" cy="18" r="5" stroke="#fff" stroke-width="3.2" fill="none"/>' +
+  '<path d="M10 33c0-5 4-8.5 9-8.5s9 3.5 9 8.5" stroke="#fff" stroke-width="3.2" fill="none" stroke-linecap="round"/>' +
+  '<circle cx="32.5" cy="19" r="3.6" stroke="#fff" stroke-width="2.8" fill="none"/>' +
+  '<path d="M30.5 33c.7-3.4 3-5.6 6.5-5.6" stroke="#fff" stroke-width="2.8" fill="none" stroke-linecap="round"/></svg>';
 var ICON_RECOVERY = '<svg viewBox="0 0 48 48">' + SVG_BG +
-  '<path d="M24 11c-5.5 0-9 4-9 10v6l-3 5h24l-3-5v-6c0-6-3.5-10-9-10z" fill="#fff"/>' +
-  '<circle cx="24" cy="36" r="3" fill="#FFD65A"/>' +
-  '<rect x="22.6" y="7" width="2.8" height="5" rx="1.4" fill="#fff"/></svg>';
+  '<path d="M24 9l9 3.5V20c0 6.5-4 11-9 13-5-2-9-6.5-9-13v-7.5z" stroke="#fff" stroke-width="3.2" fill="none" stroke-linejoin="round"/>' +
+  '<path d="M19.5 22.5l3.5 3.5 6-7" stroke="#fff" stroke-width="3.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 var ICON_GEAR = '<svg viewBox="0 0 48 48">' + SVG_BG +
-  '<g fill="#fff"><circle cx="24" cy="24" r="8"/>' +
-  '<rect x="21.5" y="11" width="5" height="7" rx="1.5"/>' +
-  '<rect x="21.5" y="30" width="5" height="7" rx="1.5"/>' +
-  '<rect x="11" y="21.5" width="7" height="5" rx="1.5"/>' +
-  '<rect x="30" y="21.5" width="7" height="5" rx="1.5"/>' +
-  '<rect x="21.5" y="11" width="5" height="7" rx="1.5" transform="rotate(45 24 24)"/>' +
-  '<rect x="21.5" y="11" width="5" height="7" rx="1.5" transform="rotate(135 24 24)"/>' +
-  '<rect x="21.5" y="11" width="5" height="7" rx="1.5" transform="rotate(225 24 24)"/>' +
-  '<rect x="21.5" y="11" width="5" height="7" rx="1.5" transform="rotate(315 24 24)"/></g>' +
-  '<circle cx="24" cy="24" r="3.2" fill="#002E5A"/></svg>';
+  '<g stroke="#fff" stroke-width="3.6" stroke-linecap="round">' +
+  '<line x1="24" y1="11.5" x2="24" y2="16.5"/>' +
+  '<line x1="24" y1="31.5" x2="24" y2="36.5"/>' +
+  '<line x1="11.5" y1="24" x2="16.5" y2="24"/>' +
+  '<line x1="31.5" y1="24" x2="36.5" y2="24"/>' +
+  '<line x1="15.2" y1="15.2" x2="18.7" y2="18.7"/>' +
+  '<line x1="29.3" y1="29.3" x2="32.8" y2="32.8"/>' +
+  '<line x1="32.8" y1="15.2" x2="29.3" y2="18.7"/>' +
+  '<line x1="18.7" y1="29.3" x2="15.2" y2="32.8"/></g>' +
+  '<circle cx="24" cy="24" r="6" stroke="#fff" stroke-width="3.6" fill="none"/></svg>';
+var ICON_CAMERA = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="3"/><circle cx="12" cy="13.5" r="3.5"/><path d="M8.5 7l1.2-2.5h4.6L15.5 7"/></svg>';
 
 var MODULES = [
   { id: "shop", name: "Quick Shop", icon: ICON_SHOP, descKey: "tile_shop_d" },
@@ -1215,19 +1249,32 @@ function saveModuleOrder() {
   state.moduleOrder = ids;
   saveState();
 }
-/* tile drag-reorder (hold & drag) */
+/* tile drag-reorder (v18: hold, pick up, smooth push-aside) */
 var tdrag = null, suppressTileClick = false;
 function onTileDown(e, tile) {
   if (e.button !== undefined && e.button > 0) return;
   if (tdrag) return;
-  tdrag = { el: tile, sx: e.clientX, sy: e.clientY, pid: e.pointerId, active: false, timer: setTimeout(startTileDrag, 400) };
+  tdrag = { el: tile, sx: e.clientX, sy: e.clientY, pid: e.pointerId, active: false, timer: setTimeout(startTileDrag, 350) };
 }
 function startTileDrag() {
   if (!tdrag) return;
+  var tile = tdrag.el, grid = document.getElementById("moduleGrid");
+  var r = tile.getBoundingClientRect();
+  var ph = document.createElement("div");
+  ph.className = "modtile tile-placeholder";
+  ph.setAttribute("aria-hidden", "true");
+  grid.insertBefore(ph, tile);
+  tdrag.ph = ph;
+  tdrag.ox = tdrag.sx - r.left;
+  tdrag.oy = tdrag.sy - r.top;
+  tile.classList.add("dragging");
+  tile.style.width = r.width + "px";
+  tile.style.height = r.height + "px";
+  tile.style.left = r.left + "px";
+  tile.style.top = r.top + "px";
   tdrag.active = true;
-  tdrag.el.classList.add("dragging");
-  try { tdrag.el.setPointerCapture(tdrag.pid); } catch (e) {}
-  try { if (navigator.vibrate) navigator.vibrate(25); } catch (e2) {}
+  try { tile.setPointerCapture(tdrag.pid); } catch (e) {}
+  try { if (navigator.vibrate) navigator.vibrate(20); } catch (e2) {}
 }
 function tilePointerMove(e) {
   if (!tdrag) return;
@@ -1235,26 +1282,55 @@ function tilePointerMove(e) {
     if (Math.hypot(e.clientX - tdrag.sx, e.clientY - tdrag.sy) > 12) { clearTimeout(tdrag.timer); tdrag = null; }
     return;
   }
+  var tile = tdrag.el, grid = document.getElementById("moduleGrid"), ph = tdrag.ph;
+  tile.style.left = (e.clientX - tdrag.ox) + "px";
+  tile.style.top = (e.clientY - tdrag.oy) + "px";
   var el = document.elementFromPoint(e.clientX, e.clientY);
-  var over = el && el.closest ? el.closest(".modtile") : null;
-  if (over && over !== tdrag.el) {
-    var grid = document.getElementById("moduleGrid");
-    var tiles = Array.prototype.slice.call(grid.querySelectorAll(".modtile"));
-    var from = tiles.indexOf(tdrag.el), to = tiles.indexOf(over);
-    if (from !== -1 && to !== -1 && from !== to) {
-      if (from < to) grid.insertBefore(tdrag.el, over.nextSibling);
-      else grid.insertBefore(tdrag.el, over);
-      saveModuleOrder();
+  var over = el && el.closest ? el.closest("#moduleGrid .modtile") : null;
+  if (!over || over === tile || over.classList.contains("tile-placeholder")) return;
+  var orect = over.getBoundingClientRect();
+  var ocx = orect.left + orect.width / 2, ocy = orect.top + orect.height / 2;
+  var after;
+  if (Math.abs(e.clientY - ocy) > orect.height * 0.22) after = e.clientY > ocy;
+  else after = e.clientX > ocx;
+  var ref = after ? over.nextSibling : over;
+  if (ref === ph) return;
+  if (!after && ph.nextSibling === over) return;
+  var settled = Array.prototype.filter.call(grid.querySelectorAll(".modtile"), function(t){ return t !== tile; });
+  var first = settled.map(function(t){ return [t, t.getBoundingClientRect()]; });
+  grid.insertBefore(ph, ref);
+  first.forEach(function(pair){
+    var t = pair[0], f = pair[1], l = t.getBoundingClientRect();
+    var dx = f.left - l.left, dy = f.top - l.top;
+    if (dx || dy) {
+      t.style.transition = "none";
+      t.style.transform = "translate(" + dx + "px," + dy + "px)";
+      void t.offsetWidth;
+      t.style.transition = "transform .3s cubic-bezier(.25,.8,.3,1)";
+      t.style.transform = "";
+      setTimeout((function(tt){ return function(){ tt.style.transition = ""; }; })(t), 340);
     }
-  }
+  });
 }
 function endTileDrag() {
   if (!tdrag) return;
   clearTimeout(tdrag.timer);
   if (tdrag.active) {
-    tdrag.el.classList.remove("dragging");
+    (function(tile, ph){
+      var pr = ph.getBoundingClientRect();
+      tile.style.transition = "left .22s ease, top .22s ease, transform .22s ease";
+      tile.style.transform = "scale(1)";
+      tile.style.left = pr.left + "px";
+      tile.style.top = pr.top + "px";
+      setTimeout(function(){
+        tile.classList.remove("dragging");
+        tile.removeAttribute("style");
+        if (ph.parentNode) ph.parentNode.replaceChild(tile, ph);
+        saveModuleOrder();
+      }, 240);
+    })(tdrag.el, tdrag.ph);
     suppressTileClick = true;
-    setTimeout(function(){ suppressTileClick = false; }, 100);
+    setTimeout(function(){ suppressTileClick = false; }, 400);
   }
   tdrag = null;
 }
@@ -1558,7 +1634,7 @@ function renderSearch() {
     return '<div class="item" onclick="showSheet(\'' + esc(h.code).replace(/'/g, "\\'") + '\')">' +
       '<div class="info"><div class="name">' + esc(h.p.name) + '</div>' +
       '<div class="sub"><kbd class="code">' + esc(h.code) + '</kbd></div></div>' +
-      '<div class="line-total">' + fmt(h.p.price) + '</div></div>';
+      '<div class="line-total">' + fmtP(h.p.price) + '</div></div>';
   }).join("");
 }
 function renderOrder() {
@@ -1605,7 +1681,7 @@ function renderProducts() {
       (p.img ? '<img class="thumb" src="' + p.img + '" alt="">' : '<div class="thumb"></div>') +
       '<div class="info"><div class="name">' + esc(p.name) + '</div>' +
       '<div class="sub"><kbd class="code">' + esc(c) + '</kbd></div></div>' +
-      '<div class="line-total">' + fmt(p.price) + '</div>' +
+      '<div class="line-total">' + fmtP(p.price) + '</div>' +
       (selectMode ? '' : '<button class="iconbtn" onclick="openModal(' + js + ',false,null)">Edit</button>' +
       '<button class="iconbtn" onclick="deleteProduct(' + js + ')">✕</button>') + '</div>';
   }).join("");
@@ -1627,7 +1703,7 @@ function openModal(code, isNew, afterSave) {
   codeInput.readOnly = !isNew;
   var p = code && state.products[code];
   document.getElementById("fName").value = p ? p.name : "";
-  document.getElementById("fPrice").value = p ? p.price : "";
+  document.getElementById("fPrice").value = (p && p.price != null) ? p.price : "";
   modalImg = (p && p.img) ? p.img : null;
   var prev = document.getElementById("imgPreview");
   if (modalImg) prev.src = modalImg; else prev.removeAttribute("src");
@@ -1638,11 +1714,12 @@ function closeModal() { document.getElementById("modal").classList.remove("open"
 function saveModal() {
   var code = document.getElementById("fCode").value.trim();
   var name = document.getElementById("fName").value.trim();
-  var price = parseFloat(document.getElementById("fPrice").value);
+  var priceRaw = document.getElementById("fPrice").value.trim();
+  var price = priceRaw === "" ? null : parseFloat(priceRaw);
   if (!code) { toast(t("prod_barcode_req")); return; }
   if (!name) { toast(t("prod_name_req")); return; }
-  if (isNaN(price) || price < 0) { toast(t("shop_valid_price")); return; }
-  state.products[code] = { name: name, price: Math.round(price * 100) / 100, updatedAt: Date.now(), img: modalImg || null };
+  if (price !== null && (isNaN(price) || price < 0)) { toast(t("shop_valid_price")); return; }
+  state.products[code] = { name: name, price: price === null ? null : Math.round(price * 100) / 100, updatedAt: Date.now(), img: modalImg || null };
   saveState(); closeModal(); renderProducts();
   if (modalAfterSave) { var f = modalAfterSave; modalAfterSave = null; f(); }
 }
@@ -1683,7 +1760,7 @@ function importData(input) {
       var valid = 0;
       for (var code in incoming) {
         var p = incoming[code];
-        if (p && typeof p.name === "string" && !isNaN(parseFloat(p.price))) valid++;
+        if (p && typeof p.name === "string") valid++;
       }
       if (!valid) { toast(t("prod_no_valid")); return; }
       pendingImport = { kind: "products", data: incoming,
@@ -1728,7 +1805,8 @@ function doImport(pi, mode) {
     for (var code in pi.data) {
       var p = pi.data[code];
       if (p && typeof p.name === "string" && !isNaN(parseFloat(p.price))) {
-        state.products[code] = { name: p.name, price: Math.round(parseFloat(p.price) * 100) / 100, updatedAt: p.updatedAt || Date.now(), img: p.img || null };
+        var ip = (p.price === null || p.price === undefined || p.price === "") ? null : parseFloat(p.price);
+        state.products[code] = { name: p.name, price: (ip === null || isNaN(ip)) ? null : Math.round(ip * 100) / 100, updatedAt: p.updatedAt || Date.now(), img: p.img || null };
       }
     }
     if (mode === "replace" && pi.shopSettings) {
@@ -1768,9 +1846,13 @@ function showSheet(code) {
 function updateSheetPrice() {
   var p = state.products[sheetCode];
   if (!p) return;
-  document.getElementById("sheetPrice").textContent = fmt(sheetOverride != null ? sheetOverride : p.price);
+  document.getElementById("sheetPrice").textContent = fmtP(sheetOverride != null ? sheetOverride : p.price);
 }
-function sheetAdd() { addToOrder(sheetCode, sheetOverride); closeSheet(); }
+function sheetAdd() {
+  var p = state.products[sheetCode];
+  if ((!p || p.price == null) && sheetOverride == null) { toast(t("need_price_first")); sheetAdjust(); return; }
+  addToOrder(sheetCode, sheetOverride); closeSheet();
+}
 function closeSheet() { document.getElementById("sheet").classList.remove("open"); sheetCode = null; sheetOverride = null; }
 function sheetAdjust() { openPriceModal({ kind: "sheet", code: sheetCode }); }
 function lineAdjust(i) { openPriceModal({ kind: "line", code: order[i].code, lineIdx: i }); }
