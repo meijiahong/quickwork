@@ -13,7 +13,8 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <style>
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-  body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: #f2f4f8; color: #1c2333; }
+  body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: #f2f4f8; color: #1c2333; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+  input, textarea, [contenteditable="true"] { -webkit-user-select: text; user-select: text; -webkit-touch-callout: default; }
   header { background: #4F46E5; color: #fff; padding: 14px 16px; position: sticky; top: 0; z-index: 10; }
   header h1 { margin: 0; font-size: 20px; }
   header p { margin: 2px 0 0; font-size: 12px; opacity: .75; }
@@ -115,6 +116,10 @@
   #cashInput { width: 100%; font-size: 22px; padding: 12px; border: 2px solid #dfe5ef; border-radius: 12px; text-align: center; box-sizing: border-box; margin: 6px 0; }
   .pickchip { padding: 8px 14px; border: 2px solid #dfe5ef; background: #fff; border-radius: 20px; font-weight: 700; font-size: 14px; color: #1c2440; }
   .pickchip.on { border-color: #4F46E5; background: #4F46E5; color: #fff; }
+  .catchips { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 4px; }
+  .catchip { padding: 8px 16px; border: 1.5px solid #E2E4EE; background: #EEF0FF; border-radius: 999px; font-weight: 700; font-size: 14px; color: #4F46E5; cursor: pointer; transition: all .15s ease; }
+  .catchip:active { transform: scale(.96); }
+  .catchip.on { border-color: #4F46E5; background: #4F46E5; color: #fff; box-shadow: 0 3px 10px rgba(79,70,229,.3); }
   .comprow { display: flex; gap: 6px; align-items: center; margin: 6px 0 6px 10px; }
   .comprow select { flex: 1.5; min-width: 0; padding: 8px 6px; border: 2px solid #dfe5ef; border-radius: 10px; font-size: 14px; background: #fff; }
   .comprow input { width: 62px; padding: 8px 6px; border: 2px solid #dfe5ef; border-radius: 10px; font-size: 14px; }
@@ -144,7 +149,7 @@
   body[data-theme="dark"] #homeGearBtn { background: transparent; color: #818CF8; }
   .modname { font-weight: 800; font-size: 16px; color: #1c2440; }
   .moddesc { font-size: 12px; color: #7a8499; text-align: center; }
-  .modhead { display: flex; align-items: center; gap: 10px; padding: 14px 14px 8px; max-width: 640px; margin: 0 auto; }
+  .modhead { display: flex; align-items: center; gap: 10px; padding: 14px 14px 8px; max-width: 640px; margin: 0 auto; user-select: none; -webkit-user-select: none; }
   .modhead h1 { margin: 0; font-size: 22px; color: #4F46E5; }
   .backbtn { width: 42px; height: 42px; border-radius: 12px; border: 1px solid #e3e8f1; background: #fff; font-size: 24px; font-weight: 800; color: #4F46E5; cursor: pointer; flex: none; line-height: 1; }
   .modhead-sp { width: 42px; flex: none; }
@@ -265,6 +270,8 @@ body[data-theme="dark"] #templateUseBox h2, body[data-theme="dark"] #templateEdi
 body[data-theme="dark"] #promptBox input, body[data-theme="dark"] #cashInput { background: #101014; border-color: #333338; color: #F5F5F7; }
 body[data-theme="dark"] .pickchip { background: #101014; border-color: #333338; color: #E4E4EA; }
 body[data-theme="dark"] .pickchip.on { background: #4F46E5; border-color: #4F46E5; color: #fff; }
+body[data-theme="dark"] .catchip { background: #1C1C1E; border-color: #2E2E35; color: #A5B4FC; }
+body[data-theme="dark"] .catchip.on { background: #4F46E5; border-color: #4F46E5; color: #fff; }
 body[data-theme="dark"] .paybtn { background: #101014; border-color: #333338; color: #E4E4EA; }
 body[data-theme="dark"] .paybtn.active { background: #4F46E5; border-color: #4F46E5; color: #fff; }
 body[data-theme="dark"] .rec-card { background: #1C1C1E; border-color: #2E2E33; }
@@ -1095,6 +1102,11 @@ function blankProfile(name) {
 }
 function migrateProfile(p) {
   if (!p.shopName || p.shopName === "Suite Shop") p.shopName = "My Shop";
+  if (!p.shopSettings) p.shopSettings = defaultShopSettings();
+  else {
+    if (!Array.isArray(p.shopSettings.fees)) p.shopSettings.fees = [];
+    if (!Array.isArray(p.shopSettings.cashPicks)) p.shopSettings.cashPicks = [1, 5, 10, 20, 50, 100];
+  }
   if (p.recovery.footerNote === undefined) p.recovery.footerNote = "Anything beyond these limits: check with the AGM.";
   if (!p.contacts) p.contacts = defaultContacts();
   if (!Array.isArray(p.contacts.templates)) p.contacts.templates = [];
@@ -2192,8 +2204,8 @@ function calcTotals() {
   var sub = 0, count = 0;
   order.forEach(function(l){ sub += l.price * l.qty; count += l.qty; });
   sub = Math.round(sub * 100) / 100;
-  var s = state.shopSettings, feeTotal = 0, feeLines = [];
-  s.fees.forEach(function(f){
+  var s = state.shopSettings || {}, feeTotal = 0, feeLines = [];
+  (Array.isArray(s.fees) ? s.fees : []).forEach(function(f){
     var amt = f.type === "pct" ? sub * (parseFloat(f.amount) || 0) / 100 : (parseFloat(f.amount) || 0);
     amt = Math.round(amt * 100) / 100;
     if (amt > 0) { feeTotal += amt; feeLines.push({ name: f.name || "Fee", amt: amt }); }
@@ -2205,9 +2217,9 @@ function calcTotals() {
   return { sub: sub, count: count, feeLines: feeLines, tax: tax, taxApplies: taxApplies, total: total };
 }
 function renderSummary() {
-  var t = calcTotals();
+  var tot = calcTotals();
   document.getElementById("summaryMeta").textContent =
-    new Date().toLocaleString() + " · " + t.count + " item" + (t.count === 1 ? "" : "s");
+    new Date().toLocaleString() + " · " + tot.count + " item" + (tot.count === 1 ? "" : "s");
   var html = order.map(function(l) {
     return '<div class="sumline">' +
       (l.img ? '<img class="thumb" src="' + l.img + '" alt="">' : '<div class="thumb"></div>') +
@@ -2216,22 +2228,22 @@ function renderSummary() {
       '<div class="line-total">' + fmt(l.price * l.qty) + '</div></div>';
   }).join("");
   html += '<div class="card totals" style="margin-top:12px">' +
-    '<div class="sumline2"><span>' + t("sum_subtotal") + '</span><span>' + fmt(t.sub) + '</span></div>';
-  t.feeLines.forEach(function(f){
+    '<div class="sumline2"><span>' + t("sum_subtotal") + '</span><span>' + fmt(tot.sub) + '</span></div>';
+  tot.feeLines.forEach(function(f){
     html += '<div class="sumline2"><span>' + esc(f.name) + '</span><span>' + fmt(f.amt) + '</span></div>';
   });
-  if (t.taxApplies) {
-    html += '<div class="sumline2"><span>' + tf("sum_tax", { r: (parseFloat(state.shopSettings.taxRate) || 0) }) + '</span><span>' + fmt(t.tax) + '</span></div>';
+  if (tot.taxApplies) {
+    html += '<div class="sumline2"><span>' + tf("sum_tax", { r: (parseFloat((state.shopSettings || {}).taxRate) || 0) }) + '</span><span>' + fmt(tot.tax) + '</span></div>';
   }
-  html += '<div class="row grand"><span>' + t("sum_total") + '</span><span>' + fmt(t.total) + '</span></div></div>';
+  html += '<div class="row grand"><span>' + t("sum_total") + '</span><span>' + fmt(tot.total) + '</span></div></div>';
   html += '<div class="btn-row" style="margin-top:12px">' +
-    '<button class="paybtn' + (payMethod === "cash" ? " active" : "") + '" onclick="setPayMethod(\'cash\')">" + t("sum_cash") + "</button>' +
-    '<button class="paybtn' + (payMethod === "card" ? " active" : "") + '" onclick="setPayMethod(\'card\')">" + t("sum_card") + "</button></div>';
+    '<button class="paybtn' + (payMethod === "cash" ? " active" : "") + '" onclick="setPayMethod(\'cash\')">' + t("sum_cash") + '</button>' +
+    '<button class="paybtn' + (payMethod === "card" ? " active" : "") + '" onclick="setPayMethod(\'card\')">' + t("sum_card") + '</button></div>';
   html += '<div id="cashSection">' + (payMethod === "cash" ? cashSectionHTML() : "") + '</div>';
   document.getElementById("summaryBody").innerHTML = html;
 }
 function cashSectionHTML() {
-  var picks = state.shopSettings.cashPicks || [];
+  var picks = (state.shopSettings || {}).cashPicks || [];
   var btns = picks.map(function(a){
     return '<button class="pickchip" onclick="setCashGiven(' + a + ')">$' + a + '</button>';
   }).join("");
@@ -2261,7 +2273,7 @@ function updateChange(val) {
     box.innerHTML = '<div class="changerow short">' + tf("sum_owed", { v: fmt(-diff) }) + '</div>';
   } else {
     var html = '<div class="changerow">' + tf("sum_change", { v: fmt(diff) }) + '</div>';
-    if (state.shopSettings.changeDenoms !== false && diff > 0) {
+    if ((state.shopSettings || {}).changeDenoms !== false && diff > 0) {
       html += '<div class="hint">' + tf("sum_give", { v: changeBreakdown(Math.round(diff * 100)) }) + '</div>';
     }
     box.innerHTML = html;
