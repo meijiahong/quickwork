@@ -122,8 +122,14 @@
   .rec-card .rmeta { font-size: 12px; color: #7a8499; margin: 2px 0 6px; }
   .rec-card .rcomp { font-size: 14px; margin-top: 6px; font-weight: 700; color: #4F46E5; }
   .badge { display: inline-block; background: #EEF0FF; color: #4F46E5; border-radius: 20px; padding: 3px 10px; font-size: 12px; font-weight: 700; }
-  .homehead { display: flex; align-items:center; justify-content: space-between; padding: 22px 18px 4px; max-width: 640px; margin: 0 auto; }
+  .homehead { display: flex; align-items:center; justify-content: space-between; padding: 22px 18px 4px; max-width: 640px; margin: 0 auto; user-select: none; -webkit-user-select: none; }
   .homehead h1 { margin: 0; font-size: 28px; color: #4F46E5; }
+  .brandrow { display: flex; align-items: center; gap: 12px; }
+  .brandlogo { width: 54px; height: 54px; border-radius: 15px; flex: none; box-shadow: 0 3px 10px rgba(79,70,229,.3); -webkit-user-drag: none; }
+  .jobpill { display: flex; align-items: center; justify-content: center; gap: 8px; margin: 12px auto 0; padding: 9px 18px; border-radius: 999px; border: 1.5px solid #E2E4EE; background: #fff; font-size: 14px; font-weight: 700; color: #4F46E5; cursor: pointer; max-width: calc(100% - 36px); transition: transform .12s ease; user-select: none; -webkit-user-select: none; }
+  .jobpill:active { transform: scale(.97); }
+  .jobpill span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  body[data-theme="dark"] .jobpill { background: #1C1C1E; border-color: #2E2E35; color: #818CF8; }
   .homehead p { margin: 2px 0 0; color: #7a8499; font-size: 14px; }
   .iconbtn.big { font-size: 24px; padding: 10px 14px; border-radius: 12px; }
   .modgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 14px 18px; max-width: 640px; margin: 0 auto; }
@@ -290,9 +296,10 @@ body[data-theme="dark"] .toast { background: #232329; }
 
 <div id="view-home">
   <div class="homehead">
-    <div><h1>QuickWork</h1><p data-i18n="tagline">Everything for the shift, in one place.</p></div>
+    <div class="brandrow"><img src="icon-192.png" alt="QuickWork logo" class="brandlogo" draggable="false"><div><h1>QuickWork</h1><p data-i18n="tagline">Everything for the shift, in one place.</p></div></div>
     <button class="iconbtn big" onclick="showView('settings')" aria-label="Settings" id="homeGearBtn"></button>
   </div>
+  <button class="jobpill" onclick="showView('profiles')" aria-label="Switch job"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;flex:none"><path d="M17 3l4 4-4 4"/><path d="M21 7H8"/><path d="M7 21l-4-4 4-4"/><path d="M3 17h13"/></svg><span id="jobPillName"></span></button>
   <div id="moduleGrid" class="modgrid"></div>
   <p class="hint hint-gear-row" style="text-align:center;padding:0 20px"><span data-i18n="tap_gear_a">Tap</span> <span class="hint-gear"><svg viewBox="0 0 48 48" style="width:18px;height:18px;display:block"><g stroke="#4F46E5" stroke-width="4.4" stroke-linecap="round"><line x1="24" y1="10" x2="24" y2="16"/><line x1="24" y1="32" x2="24" y2="38"/><line x1="10" y1="24" x2="16" y2="24"/><line x1="32" y1="24" x2="38" y2="24"/><line x1="14.1" y1="14.1" x2="18.4" y2="18.4"/><line x1="29.6" y1="29.6" x2="33.9" y2="33.9"/><line x1="33.9" y1="14.1" x2="29.6" y2="18.4"/><line x1="18.4" y1="29.6" x2="14.1" y2="33.9"/></g><circle cx="24" cy="24" r="6.5" stroke="#4F46E5" stroke-width="4.4" fill="none"/></svg></span> <span data-i18n="tap_gear_b">to choose which apps appear here.</span></p>
 </div>
@@ -329,6 +336,7 @@ body[data-theme="dark"] .toast { background: #232329; }
   <section id="tab-products" style="display:none">
     <div class="card">
       <button class="btn btn-dark" onclick="startScan('product')"><span class="btn-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px;display:block"><rect x="3" y="7" width="18" height="13" rx="3"/><circle cx="12" cy="13.5" r="3.5"/><path d="M8.5 7l1.2-2.5h4.6L15.5 7"/></svg></span><span data-i18n="prod_scan_addedit">Scan to add / edit product</span></button>
+      <button class="btn btn-ghost" style="margin-top:8px" onclick="openModal('',true,null)"><span data-i18n="prod_add_manual">+ Add product manually</span></button>
       <div class="btn-row">
         <button class="btn btn-ghost" onclick="exportData()" data-i18n="prod_export">⬆ Export list</button>
         <button class="btn btn-ghost" onclick="document.getElementById('importFile').click()" data-i18n="prod_import">⬇ Import list</button>
@@ -659,7 +667,7 @@ scan_manual: "Type barcode manually",
 scan_photo: "🖼 Scan from a photo instead",
 scan_hint2: "Camera not starting? Snap the barcode with your camera app, then use “Scan from a photo”.",
 prompt_barcode: "Enter barcode (full number or just the last few digits):",
-scan_nomatch_digits: "No product matches those digits.",
+scan_nomatch_digits: "No product matches those digits.", scan_add_new: "No product matches \"{v}\". Add it as a new product?", prod_add_manual: "+ Add product manually",
 scan_matches: "{n} matches — tap the right one.",
 scan_nomatch: "No match.",
 scan_it: "Scan it",
@@ -691,7 +699,7 @@ shop_no_matches: "No matches.",
 shop_nothing_saved: "Nothing saved yet.<br>Tap “Scan to add / edit product” and scan each item once.",
 // product modal
 prod_add: "Add product", prod_edit: "Edit product",
-prod_barcode: "Barcode", prod_name: "Product name", prod_price: "Price ($) (optional)", prod_photo: "Product photo (optional)",
+prod_barcode: "Barcode (optional)", prod_name: "Product name", prod_price: "Price ($) (optional)", prod_photo: "Product photo (optional)",
 prod_take_photo: "Take / choose photo", prod_remove_photo: "Remove photo",
 prod_barcode_req: "Barcode is required.", prod_name_req: "Product name is required.",
 prod_scan_addedit: "Scan to add / edit product",
@@ -853,7 +861,7 @@ scan_manual: "Escribir código manualmente",
 scan_photo: "🖼 Escanear desde una foto",
 scan_hint2: "¿La cámara no inicia? Toma una foto del código con tu app de cámara y usa «Escanear desde una foto».",
 prompt_barcode: "Escribe el código (completo o solo los últimos dígitos):",
-scan_nomatch_digits: "Ningún producto coincide con esos dígitos.",
+scan_nomatch_digits: "Ningún producto coincide con esos dígitos.", scan_add_new: "Ningún producto coincide con \"{v}\". ¿Añadirlo como producto nuevo?", prod_add_manual: "+ Añadir producto manualmente",
 scan_matches: "{n} coincidencias — toca la correcta.",
 scan_nomatch: "Sin coincidencia.",
 scan_it: "Escanéalo",
@@ -1237,8 +1245,8 @@ var ICON_CONTACTS = '<svg viewBox="0 0 48 48">' + SVG_BG +
   '<circle cx="32.5" cy="19" r="3.6" stroke="#fff" stroke-width="2.8" fill="none"/>' +
   '<path d="M30.5 33c.7-3.4 3-5.6 6.5-5.6" stroke="#fff" stroke-width="2.8" fill="none" stroke-linecap="round"/></svg>';
 var ICON_RECOVERY = '<svg viewBox="0 0 48 48">' + SVG_BG +
-  '<path d="M24 9l9 3.5V20c0 6.5-4 11-9 13-5-2-9-6.5-9-13v-7.5z" stroke="#fff" stroke-width="3.2" fill="none" stroke-linejoin="round"/>' +
-  '<path d="M19.5 22.5l3.5 3.5 6-7" stroke="#fff" stroke-width="3.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  '<path d="M24 8l10 3.8V20c0 6.8-4.2 11.6-10 14-5.8-2.4-10-7.2-10-14v-8.2z" stroke="#fff" stroke-width="3.2" fill="none" stroke-linejoin="round"/>' +
+  '<path d="M19 21l3.5 3.5L29 17" stroke="#fff" stroke-width="3.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 var ICON_GEAR = '<svg viewBox="0 0 48 48">' + SVG_BG +
   '<g stroke="#fff" stroke-width="3.6" stroke-linecap="round">' +
   '<line x1="24" y1="11.5" x2="24" y2="16.5"/>' +
@@ -1350,7 +1358,12 @@ function showView(v) {
   if (v === "profiles") renderProfiles();
 }
 function goHome() { showView("home"); }
+function renderJobPill() {
+  var el = document.getElementById("jobPillName");
+  if (el) el.textContent = state.name || t("job_word");
+}
 function renderHome() {
+  renderJobPill();
   var vis = state.modules || {};
   var order = state.moduleOrder || [];
   var ids = order.filter(function(id){ return MODULES.some(function(m){ return m.id === id; }); });
@@ -1705,7 +1718,13 @@ function manualCode() {
     var q = code.toLowerCase(), hits = [];
     for (var c in state.products) { if (c.toLowerCase().indexOf(q) !== -1) hits.push(c); }
     if (hits.length === 1) { stopScan(); handleCode(hits[0]); return; }
-    if (!hits.length) { toast(t("scan_nomatch_digits")); return; }
+    if (!hits.length) {
+      appConfirm(tf("scan_add_new", { v: code })).then(function(ok){
+        if (!ok) return;
+        stopScan(); handleCode(code);
+      });
+      return;
+    }
     stopScan();
     if (mode === "product") {
       showTab("products");
@@ -1766,7 +1785,7 @@ function renderSearch() {
   box.innerHTML = hits.map(function(h) {
     return '<div class="item" onclick="showSheet(\'' + esc(h.code).replace(/'/g, "\\'") + '\')">' +
       '<div class="info"><div class="name">' + esc(h.p.name) + '</div>' +
-      '<div class="sub"><kbd class="code">' + esc(h.code) + '</kbd></div></div>' +
+      '<div class="sub">' + (h.p.manual ? '' : '<kbd class="code">' + esc(h.code) + '</kbd>') + '</div></div>' +
       '<div class="line-total">' + fmtP(h.p.price) + '</div></div>';
   }).join("");
 }
@@ -1869,7 +1888,7 @@ function renderProducts() {
       (selectMode ? '<input type="checkbox" class="selbox"' + (selected[c] ? ' checked' : '') + ' onclick="event.stopPropagation();toggleSelect(' + js + ')">' : '') +
       (p.img ? '<img class="thumb" src="' + p.img + '" alt="">' : '<div class="thumb"></div>') +
       '<div class="info"><div class="name">' + esc(p.name) + '</div>' +
-      '<div class="sub"><kbd class="code">' + esc(c) + '</kbd>' + (p.category ? '<span class="catbadge">' + esc(p.category) + '</span>' : '') + '</div></div>' +
+      '<div class="sub">' + (p.manual ? '' : '<kbd class="code">' + esc(c) + '</kbd>') + (p.category ? '<span class="catbadge">' + esc(p.category) + '</span>' : '') + '</div></div>' +
       '<div class="line-total">' + fmtP(p.price) + '</div>' +
       (selectMode ? '' : '<button class="iconbtn" onclick="openModal(' + js + ',false,null)">Edit</button>' +
       '<button class="iconbtn" onclick="deleteProduct(' + js + ')">✕</button>') + '</div>';
@@ -1907,11 +1926,12 @@ function saveModal() {
   var name = document.getElementById("fName").value.trim();
   var priceRaw = document.getElementById("fPrice").value.trim();
   var price = priceRaw === "" ? null : parseFloat(priceRaw);
-  if (!code) { toast(t("prod_barcode_req")); return; }
   if (!name) { toast(t("prod_name_req")); return; }
   if (price !== null && (isNaN(price) || price < 0)) { toast(t("shop_valid_price")); return; }
+  var manual = !code;
+  if (manual) code = uid("m");
   var cat = document.getElementById("fCategory").value.trim();
-  state.products[code] = { name: name, price: price === null ? null : Math.round(price * 100) / 100, category: cat || "", updatedAt: Date.now(), img: modalImg || null };
+  state.products[code] = { name: name, price: price === null ? null : Math.round(price * 100) / 100, category: cat || "", manual: manual || undefined, updatedAt: Date.now(), img: modalImg || null };
   saveState(); closeModal(); renderProducts();
   if (modalAfterSave) { var f = modalAfterSave; modalAfterSave = null; f(); }
 }
@@ -1998,7 +2018,7 @@ function doImport(pi, mode) {
       var p = pi.data[code];
       if (p && typeof p.name === "string" && !isNaN(parseFloat(p.price))) {
         var ip = (p.price === null || p.price === undefined || p.price === "") ? null : parseFloat(p.price);
-        state.products[code] = { name: p.name, price: (ip === null || isNaN(ip)) ? null : Math.round(ip * 100) / 100, category: (typeof p.category === "string" ? p.category.trim() : "") || "", updatedAt: p.updatedAt || Date.now(), img: p.img || null };
+        state.products[code] = { name: p.name, price: (ip === null || isNaN(ip)) ? null : Math.round(ip * 100) / 100, category: (typeof p.category === "string" ? p.category.trim() : "") || "", manual: p.manual || undefined, updatedAt: p.updatedAt || Date.now(), img: p.img || null };
       }
     }
     if (mode === "replace" && pi.shopSettings) {
@@ -2031,7 +2051,7 @@ function showSheet(code) {
   var img = document.getElementById("sheetImg");
   if (p.img) img.src = p.img; else img.removeAttribute("src");
   document.getElementById("sheetName").textContent = p.name;
-  document.getElementById("sheetCode").innerHTML = '<kbd class="code">' + esc(code) + '</kbd>';
+  document.getElementById("sheetCode").innerHTML = p.manual ? '' : '<kbd class="code">' + esc(code) + '</kbd>';
   updateSheetPrice();
   document.getElementById("sheet").classList.add("open");
 }
@@ -2209,26 +2229,33 @@ function renderShopName() {
   var inp = document.getElementById("shopName");
   if (inp && document.activeElement !== inp) inp.value = (state.shopName === "Suite Shop") ? "" : state.shopName;
 }
-var shopNameTimer = null;
+var shopNameSaveT = null, shopNameSavePending = false;
 function shopNameInput() {
-  if (shopNameTimer) clearTimeout(shopNameTimer);
-  shopNameTimer = setTimeout(function(){
-    var inp = document.getElementById("shopName");
-    var v = inp.value.trim();
-    if ((state.shopName || "") !== v) {
-      state.shopName = v || "Suite Shop";
-      saveState();
-      document.getElementById("appTitle").textContent = state.shopName;
-      document.title = state.shopName;
-    }
-  }, 700);
-}
-function shopNameChanged() {
-  if (shopNameTimer) { clearTimeout(shopNameTimer); shopNameTimer = null; }
   var v = document.getElementById("shopName").value.trim();
   state.shopName = v || "Suite Shop";
-  saveState(); renderShopName();
+  document.getElementById("appTitle").textContent = state.shopName;
+  document.title = state.shopName;
+  shopNameSavePending = true;
+  if (shopNameSaveT) return;
+  shopNameSaveT = setTimeout(function(){ shopNameSaveT = null; flushShopNameSave(); }, 400);
 }
+function flushShopNameSave() {
+  if (shopNameSaveT) { clearTimeout(shopNameSaveT); shopNameSaveT = null; }
+  if (!shopNameSavePending) return;
+  shopNameSavePending = false;
+  saveState();
+}
+function shopNameChanged() {
+  var v = document.getElementById("shopName").value.trim();
+  state.shopName = v || "Suite Shop";
+  document.getElementById("appTitle").textContent = state.shopName;
+  document.title = state.shopName;
+  shopNameSavePending = true;
+  flushShopNameSave();
+  renderShopName();
+}
+document.addEventListener("visibilitychange", function(){ if (document.hidden) flushShopNameSave(); });
+window.addEventListener("pagehide", flushShopNameSave);
 /* ---------- shop settings ---------- */
 function saveShopSettings() {
   var s = state.shopSettings;
