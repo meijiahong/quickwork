@@ -16,9 +16,9 @@
   header { background: #4F46E5; color: #fff; padding: 14px 16px; position: sticky; top: 0; z-index: 10; }
   header h1 { margin: 0; font-size: 20px; }
   header p { margin: 2px 0 0; font-size: 12px; opacity: .75; }
-  nav { display: flex; background: #4F46E5; padding: 0 12px 12px; gap: 8px; position: sticky; top: 0; z-index: 10; }
-  nav button { flex: 1; padding: 12px; font-size: 16px; border: none; border-radius: 10px; background: #4338CA; color: #cfd8ea; font-weight: 600; }
-  nav button.active { background: #4F46E5; color: #fff; }
+  nav { display: flex; background: #E8E9F3; margin: 12px 14px 0; padding: 4px; gap: 4px; border-radius: 16px; position: sticky; top: 8px; z-index: 10; }
+  nav button { flex: 1; padding: 10px 12px; font-size: 15px; border: none; border-radius: 12px; background: transparent; color: #6B7280; font-weight: 700; cursor: pointer; transition: background .18s ease, color .18s ease, box-shadow .18s ease; }
+  nav button.active { background: #fff; color: #4F46E5; box-shadow: 0 2px 8px rgba(20,20,40,.14); }
   main { padding: 14px 14px 40px; max-width: 640px; margin: 0 auto; }
   .card { background: #fff; border-radius: 12px; padding: 14px; margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
   .btn { display: block; width: 100%; padding: 15px; font-size: 17px; font-weight: 700; border: none; border-radius: 12px; margin-bottom: 10px; cursor: pointer; }
@@ -87,8 +87,19 @@
   .bulkbtn { background: rgba(255,255,255,.14); color: #fff; border: 0; border-radius: 10px; padding: 10px 12px; font-size: 14px; font-weight: 700; }
   .bulkbtn.danger { background: #c0392b; }
   body.selecting main { padding-bottom: 120px; }
-  .check { display: flex; align-items: center; gap: 8px; margin: 8px 0; font-size: 15px; }
-  .check input { width: 20px; height: 20px; accent-color: #4F46E5; flex: none; }
+  .switch-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 11px 4px; border-bottom: 1px solid #edf0f5; cursor: pointer; font-size: 15px; font-weight: 600; color: #1c2333; }
+  .switch-row:last-child { border-bottom: none; }
+  .switch-label { display: flex; align-items: center; gap: 10px; min-width: 0; }
+  .switch-label svg { width: 24px; height: 24px; flex: none; }
+  .switch { position: relative; width: 52px; height: 32px; flex: none; display: block; }
+  .switch input { position: absolute; inset: 0; opacity: 0; margin: 0; cursor: pointer; z-index: 2; }
+  .switch .track { position: absolute; inset: 0; background: #D9D9E0; border-radius: 16px; transition: background .2s ease; }
+  .switch .knob { position: absolute; top: 3px; left: 3px; width: 26px; height: 26px; background: #fff; border-radius: 50%; box-shadow: 0 2px 6px rgba(0,0,0,.25); transition: transform .22s cubic-bezier(.3,1.3,.5,1); }
+  .switch input:checked ~ .track { background: #4F46E5; }
+  .switch input:checked ~ .knob { transform: translateX(20px); }
+  body[data-theme="dark"] .switch-row { border-bottom-color: #26262B; color: #F5F5F7; }
+  body[data-theme="dark"] .switch .track { background: #3A3A40; }
+  body[data-theme="dark"] .switch input:checked ~ .track { background: #4F46E5; }
   .setrow { display: flex; align-items: center; gap: 10px; margin: 8px 0; font-size: 15px; flex-wrap: wrap; }
   .setrow input[type=number] { width: 90px; padding: 8px 10px; border: 2px solid #dfe5ef; border-radius: 10px; font-size: 15px; }
   .feerow { display: flex; gap: 6px; align-items: center; margin: 6px 0; }
@@ -144,6 +155,15 @@
   #importTargetBox { background: #fff; width: 100%; max-width: 480px; border-radius: 18px 18px 0 0; padding: 20px 18px 28px; max-height: 92vh; overflow-y: auto; }
   #importTargetBox h2 { margin: 0 0 8px; font-size: 19px; }
   .hint { font-size: 13px; color: #7a8499; line-height: 1.5; }
+  .hint-gear-row { display: flex; align-items: center; justify-content: center; gap: 6px; }
+  .hint-gear { display: inline-flex; background: #EEF0FF; border-radius: 8px; padding: 4px; }
+  .infocard { background: #fff; border-radius: 16px; padding: 14px 16px; margin-bottom: 10px; box-shadow: 0 1px 4px rgba(20,24,50,.07); }
+  .infocard h4 { margin: 0 0 6px; font-size: 16px; }
+  .infocard .infobody { white-space: pre-wrap; font-size: 14px; color: #3c4457; line-height: 1.55; word-break: break-word; }
+  .infocard .inforow { display: flex; justify-content: flex-end; gap: 6px; margin-top: 8px; }
+  body[data-theme="dark"] .infocard { background: #1C1C1E; }
+  body[data-theme="dark"] .infocard .infobody { color: #C9C9D2; }
+  body[data-theme="dark"] .hint-gear { background: #232329; }
   kbd.code { font-family: monospace; background: #eef1f6; padding: 1px 6px; border-radius: 6px; font-size: 12px; }
   .thumb { width: 52px; height: 52px; border-radius: 10px; object-fit: cover; background: #eef1f6; flex: none; }
   .thumb.lg { width: 110px; height: 110px; border-radius: 16px; }
@@ -167,11 +187,11 @@
   .sumline .name { font-weight: 600; font-size: 15px; }
   .sumline .sub { font-size: 12px; color: #7a8499; }
 
-#templateUseModal, #templateEditModal { display: none; position: fixed; inset: 0; background: rgba(10,14,25,.6); z-index: 60; align-items: flex-end; justify-content: center; }
-#templateUseModal.open, #templateEditModal.open { display: flex; }
-#templateUseBox, #templateEditBox { background: #fff; width: 100%; max-width: 480px; border-radius: 18px 18px 0 0; padding: 20px 18px 28px; max-height: 92vh; overflow-y: auto; }
-#templateUseBox h2, #templateEditBox h2 { margin: 0 0 8px; font-size: 19px; }
-#templateEditBox textarea { width: 100%; padding: 13px; font-size: 16px; border: 1.5px solid #c9d2e3; border-radius: 10px; margin-bottom: 10px; font-family: inherit; }
+#templateUseModal, #templateEditModal, #infoModal { display: none; position: fixed; inset: 0; background: rgba(10,14,25,.6); z-index: 60; align-items: flex-end; justify-content: center; }
+#templateUseModal.open, #templateEditModal.open, #infoModal.open { display: flex; }
+#templateUseBox, #templateEditBox, #infoModalBox { background: #fff; width: 100%; max-width: 480px; border-radius: 18px 18px 0 0; padding: 20px 18px 28px; max-height: 92vh; overflow-y: auto; }
+#templateUseBox h2, #templateEditBox h2, #infoModalBox h2 { margin: 0 0 8px; font-size: 19px; }
+#templateEditBox textarea, #infoModalBox textarea { width: 100%; padding: 13px; font-size: 16px; border: 1.5px solid #c9d2e3; border-radius: 10px; margin-bottom: 10px; font-family: inherit; }
 /* ---------- v18: indigo polish, modern buttons, smooth reorder ---------- */
 .btn { border-radius: 14px; transition: transform .12s ease, box-shadow .15s ease, background .15s ease; display: flex; align-items: center; justify-content: center; gap: 8px; }
 .btn:active { transform: scale(.98); }
@@ -193,10 +213,10 @@
 .modtile { transition: box-shadow .18s ease; }
 .modtile.dragging { position: fixed; margin: 0; z-index: 60; pointer-events: none; transform: scale(.88); opacity: 1; box-shadow: 0 22px 44px rgba(79,70,229,.42); transition: transform .18s ease; }
 .tile-placeholder { background: rgba(79,70,229,.10); border: 2px dashed rgba(79,70,229,.45); border-radius: 16px; min-height: 118px; }
-body[data-theme="dark"] header, body[data-theme="dark"] nav { background: #000; }
-body[data-theme="dark"] nav button { background: #1C1C1E; color: #A1A1AA; }
-body[data-theme="dark"] header { border-bottom: 1px solid #1C1C1E; }
-body[data-theme="dark"] nav button.active { background: #4F46E5; color: #fff; }
+body[data-theme="dark"] header { background: #000; border-bottom: 1px solid #1C1C1E; }
+body[data-theme="dark"] nav { background: #1C1C1E; }
+body[data-theme="dark"] nav button { background: transparent; color: #A1A1AA; }
+body[data-theme="dark"] nav button.active { background: #4F46E5; color: #fff; box-shadow: 0 2px 10px rgba(79,70,229,.45); }
 body[data-theme="dark"] .btn-ghost { background: #232329; color: #C7D2FE; }
 body[data-theme="dark"] .btn-primary { box-shadow: 0 4px 16px rgba(79,70,229,.45); }
 body[data-theme="dark"] .tile-placeholder { background: rgba(129,140,248,.10); border-color: rgba(129,140,248,.5); }
@@ -274,7 +294,7 @@ body[data-theme="dark"] .toast { background: #232329; }
     <button class="iconbtn big" onclick="showView('settings')" aria-label="Settings" id="homeGearBtn"></button>
   </div>
   <div id="moduleGrid" class="modgrid"></div>
-  <p class="hint" style="text-align:center;padding:0 20px" data-i18n="tap_gear">Tap ⚙️ to choose which apps appear here.</p>
+  <p class="hint hint-gear-row" style="text-align:center;padding:0 20px"><span data-i18n="tap_gear_a">Tap</span> <span class="hint-gear"><svg viewBox="0 0 48 48" style="width:18px;height:18px;display:block"><g stroke="#4F46E5" stroke-width="4.4" stroke-linecap="round"><line x1="24" y1="10" x2="24" y2="16"/><line x1="24" y1="32" x2="24" y2="38"/><line x1="10" y1="24" x2="16" y2="24"/><line x1="32" y1="24" x2="38" y2="24"/><line x1="14.1" y1="14.1" x2="18.4" y2="18.4"/><line x1="29.6" y1="29.6" x2="33.9" y2="33.9"/><line x1="33.9" y1="14.1" x2="29.6" y2="18.4"/><line x1="18.4" y1="29.6" x2="14.1" y2="33.9"/></g><circle cx="24" cy="24" r="6.5" stroke="#4F46E5" stroke-width="4.4" fill="none"/></svg></span> <span data-i18n="tap_gear_b">to choose which apps appear here.</span></p>
 </div>
 
 <div id="view-shop" style="display:none">
@@ -315,12 +335,12 @@ body[data-theme="dark"] .toast { background: #232329; }
       </div>
       <input type="file" id="importFile" accept=".json,application/json" style="display:none" onchange="importData(this)">
       <label for="shopName" data-i18n="prod_shop_name">Shop name</label>
-      <input type="text" id="shopName" placeholder="My Shop" data-i18n-ph="prod_shop_name_ph" onchange="shopNameChanged()">
+      <input type="text" id="shopName" placeholder="My Shop" data-i18n-ph="prod_shop_name_ph" oninput="shopNameInput()" onchange="shopNameChanged()">
       <p class="hint" style="margin:10px 0 0" data-i18n="prod_share_hint">Each phone keeps its own list. When prices change, one person taps Export list, sends the file in the group chat, and everyone else taps Import list.</p>
     </div>
     <div class="card">
       <h3 style="margin:0 0 6px;font-size:16px" data-i18n="sset_title">⚙️ Shop settings</h3>
-      <label class="check"><input type="checkbox" id="setTaxOn" onchange="saveShopSettings()"> <span data-i18n="sset_tax">Enable tax</span></label>
+      <label class="switch-row"><span><span data-i18n="sset_tax">Enable tax</span></span><span class="switch"><input type="checkbox" id="setTaxOn" onchange="saveShopSettings()"><span class="track"></span><span class="knob"></span></span></label>
       <div class="setrow">
         <label for="setTaxRate" data-i18n="sset_rate">Tax rate</label>
         <input type="number" id="setTaxRate" inputmode="decimal" min="0" step="0.01" onchange="saveShopSettings()">
@@ -328,10 +348,10 @@ body[data-theme="dark"] .toast { background: #232329; }
       </div>
       <div class="setrow">
         <span data-i18n="sset_apply">Apply tax to:</span>
-        <label class="check"><input type="checkbox" id="setTaxCash" onchange="saveShopSettings()"> <span data-i18n="sset_cash">Cash</span></label>
-        <label class="check"><input type="checkbox" id="setTaxCard" onchange="saveShopSettings()"> <span data-i18n="sset_card">Card</span></label>
+        <label class="switch-row"><span><span data-i18n="sset_cash">Cash</span></span><span class="switch"><input type="checkbox" id="setTaxCash" onchange="saveShopSettings()"><span class="track"></span><span class="knob"></span></span></label>
+        <label class="switch-row"><span><span data-i18n="sset_card">Card</span></span><span class="switch"><input type="checkbox" id="setTaxCard" onchange="saveShopSettings()"><span class="track"></span><span class="knob"></span></span></label>
       </div>
-      <label class="check"><input type="checkbox" id="setDenoms" onchange="saveShopSettings()"> <span data-i18n="sset_breakdown">Cash: recommend bills &amp; coins for change</span></label>
+      <label class="switch-row"><span><span data-i18n="sset_breakdown">Cash: recommend bills &amp; coins for change</span></span><span class="switch"><input type="checkbox" id="setDenoms" onchange="saveShopSettings()"><span class="track"></span><span class="knob"></span></span></label>
       <div style="margin:12px 0 4px;font-weight:700" data-i18n="sset_picks">Cash quick amounts</div>
       <div id="cashPickSettings" class="setrow"></div>
       <div style="margin:12px 0 4px;font-weight:700" data-i18n="sset_fees">Other fees</div>
@@ -344,6 +364,8 @@ body[data-theme="dark"] .toast { background: #232329; }
     <div class="card">
       <label for="prodFilter">Search products</label>
       <input type="search" id="prodFilter" placeholder="Type to filter…" autocomplete="off" oninput="renderProducts()">
+      <div id="catChips" class="catchips" style="display:none"></div>
+      <div id="catBulkBar" style="display:none;margin:0 0 8px"></div>
       <div style="display:flex;align-items:center;justify-content:space-between;margin:6px 0 2px">
         <div id="productCount" class="hint"></div>
         <button class="iconbtn" id="selectToggleBtn" onclick="toggleSelectMode()">Select</button>
@@ -419,6 +441,24 @@ body[data-theme="dark"] .toast { background: #232329; }
       <input type="file" id="importRecoveryFile" accept=".json,application/json" style="display:none" onchange="importRecovery(this)">
       <p class="hint" style="margin:10px 0 0" data-i18n="rec_share_hint2">The AGM fills in the limits and exports the guide — the team imports it and always knows what they can offer.</p>
     </div>
+  </main>
+</div>
+
+<div id="view-info" style="display:none">
+  <div class="modhead"><button class="backbtn" onclick="goHome()">‹</button><h1>Quick Info</h1><span class="modhead-sp"></span></div>
+  <main>
+    <div class="card">
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="openInfoModal(null)"><span data-i18n="info_add">+ Add info</span></button>
+      </div>
+      <div class="btn-row" style="margin-top:8px">
+        <button class="btn btn-ghost" onclick="exportInfo()" data-i18n="info_export">⬆ Export info</button>
+        <button class="btn btn-ghost" onclick="document.getElementById('importInfoFile').click()" data-i18n="info_import">⬇ Import info</button>
+      </div>
+      <input type="file" id="importInfoFile" accept=".json,application/json" style="display:none" onchange="importInfo(this)">
+      <p class="hint" style="margin:10px 0 0" data-i18n="info_hint">Save anything the team should know about this job — notes, codes, procedures. It stays on this phone until you export it.</p>
+    </div>
+    <div id="infoList"></div>
   </main>
 </div>
 
@@ -558,10 +598,10 @@ export_failed: "Export failed on this browser — try Chrome.",
 saved_dl: "Saved to Downloads as {f}",
 // home
 tagline: "Everything for the shift, in one place.",
-tap_gear: "Tap ⚙️ to choose which apps appear here.",
+tap_gear_a: "Tap", tap_gear_b: "to choose which apps appear here.",
 tile_shop_d: "Scan barcodes, price & checkout",
 tile_contacts_d: "Call or text the team",
-tile_recovery_d: "What you can offer",
+tile_recovery_d: "What you can offer", tile_info_d: "Job notes & info", info_add: "+ Add info", info_empty: "No info yet. Tap + Add info to save notes about this job.", info_new: "New info", info_edit: "Edit info", info_title_lb: "Title", info_body_lb: "Details", info_title_ph: "e.g. WiFi password", info_body_ph: "Write the details here\u2026", info_untitled: "Untitled", info_need_something: "Add a title or some details first.", info_del: "Delete this info?", info_export: "\u2b06 Export info", info_import: "\u2b07 Import info", info_no_export: "Nothing to export yet.", info_hint: "Save anything the team should know about this job \u2014 notes, codes, procedures. It stays on this phone until you export it.", info_imported_1: "1 info item imported.", info_imported_n: "{n} info items imported.",
 hold_reorder: "Hold a tile to rearrange",
 all_hidden: "All apps are hidden — tap ⚙️ to turn them back on.",
 // profiles
@@ -590,7 +630,7 @@ set_apps_hint: "Hide the apps you don't use. Turn them back on anytime.",
 font_small: "Small", font_medium: "Normal", font_large: "Large", font_xl: "Extra large",
 // import target
 import_into: "Import into…",
-import_desc: 'Import this {label} (current job: "{job}")…',
+import_desc: 'Import this {label} (current job: "{job}")…', import_failed: "Couldn't read that file.",
 import_merge: "Merge into current job",
 import_replace: "Replace current job's data",
 import_new: "Create new job…",
@@ -656,7 +696,7 @@ prod_take_photo: "Take / choose photo", prod_remove_photo: "Remove photo",
 prod_barcode_req: "Barcode is required.", prod_name_req: "Product name is required.",
 prod_scan_addedit: "Scan to add / edit product",
 prod_export: "⬆ Export list", prod_import: "⬇ Import list",
-prod_shop_name: "Shop name", prod_shop_name_ph: "My Shop",
+prod_shop_name: "Shop name", prod_category: "Category", prod_category_ph: "e.g. Chips, Drinks", prod_all: "All", cat_no_cat: "No category", cat_set_price: "Set price for all in {v}", cat_price_prompt: "New price for {n} items in \"{v}\":", cat_price_done: "Updated {n} items in \"{v}\"", prod_shop_name_ph: "My Shop",
 prod_share_hint: "Each phone keeps its own list. When prices change, one person taps Export list, sends the file in the group chat, and everyone else taps Import list.",
 prod_no_export: "No products saved yet — scan some items first.",
 prod_share_title: "Product list",
@@ -689,7 +729,7 @@ con_share_hint: "Share your team list — one person exports, everyone else impo
 con_export: "⬆ Export", con_import: "⬇ Import",
 con_add_title: "Add contact", con_edit_title: "Edit contact",
 con_name: "Name", con_phone: "Phone", con_phone_ph: "e.g. 555-123-4567", con_dept: "Department",
-con_dept_ph: "Or type a new department",
+con_dept_ph: "e.g. Kitchen, Warehouse \u2014 or type a new one",
 con_name_req: "Name is required.", con_phone_req: "Phone is required.",
 con_saved: "Saved.",
 con_other: "Other",
@@ -714,7 +754,7 @@ tpl_fill: "Fill in the blanks",
 tpl_choose: "Choose a contact",
 tpl_search_ph: "Search contacts…",
 tpl_del: "Delete this template?",
-tpl_no: "No templates yet. Tap + New template.",
+tpl_no: "No templates yet. Tap + New template.", tpl_examples: "Examples \u2014 tap Add to use one:", tpl_add: "Add",
 tpl_untitled: "Untitled",
 tpl_text_req: "Message text is required.",
 // recovery
@@ -752,10 +792,10 @@ export_failed: "La exportación falló en este navegador — prueba Chrome.",
 saved_dl: "Guardado en Descargas como {f}",
 // home
 tagline: "Todo para tu turno, en un solo lugar.",
-tap_gear: "Toca ⚙️ para elegir qué apps aparecen aquí.",
+tap_gear_a: "Toca", tap_gear_b: "para elegir qué apps aparecen aquí.",
 tile_shop_d: "Escanea códigos, precios y cobros",
 tile_contacts_d: "Llama o envía mensajes al equipo",
-tile_recovery_d: "Lo que puedes ofrecer",
+tile_recovery_d: "Lo que puedes ofrecer", tile_info_d: "Notas e info del trabajo", info_add: "+ A\u00f1adir info", info_empty: "Sin info a\u00fan. Toca + A\u00f1adir info para guardar notas de este trabajo.", info_new: "Nueva info", info_edit: "Editar info", info_title_lb: "T\u00edtulo", info_body_lb: "Detalles", info_title_ph: "p. ej. Contrase\u00f1a del WiFi", info_body_ph: "Escribe los detalles aqu\u00ed\u2026", info_untitled: "Sin t\u00edtulo", info_need_something: "A\u00f1ade un t\u00edtulo o algunos detalles primero.", info_del: "\u00bfEliminar esta info?", info_export: "\u2b06 Exportar info", info_import: "\u2b07 Importar info", info_no_export: "Nada que exportar a\u00fan.", info_hint: "Guarda lo que el equipo deba saber de este trabajo \u2014 notas, c\u00f3digos, procedimientos. Queda en este tel\u00e9fono hasta que lo exportes.", info_imported_1: "1 elemento importado.", info_imported_n: "{n} elementos importados.",
 hold_reorder: "Mantén presionado para reordenar",
 all_hidden: "Todas las apps están ocultas — toca ⚙️ para reactivarlas.",
 // profiles
@@ -784,7 +824,7 @@ set_apps_hint: "Oculta las apps que no uses. Reactívalas cuando quieras.",
 font_small: "Pequeño", font_medium: "Normal", font_large: "Grande", font_xl: "Extra grande",
 // import target
 import_into: "Importar en…",
-import_desc: 'Importar {label} (trabajo actual: "{job}")…',
+import_desc: 'Importar {label} (trabajo actual: "{job}")…', import_failed: "No se pudo leer ese archivo.",
 import_merge: "Combinar con el trabajo actual",
 import_replace: "Reemplazar los datos del trabajo actual",
 import_new: "Crear nuevo trabajo…",
@@ -850,7 +890,7 @@ prod_take_photo: "Tomar / elegir foto", prod_remove_photo: "Quitar foto",
 prod_barcode_req: "El código es obligatorio.", prod_name_req: "El nombre es obligatorio.",
 prod_scan_addedit: "Escanear para agregar / editar",
 prod_export: "⬆ Exportar lista", prod_import: "⬇ Importar lista",
-prod_shop_name: "Nombre de la tienda", prod_shop_name_ph: "Mi tienda",
+prod_shop_name: "Nombre de la tienda", prod_category: "Categor\u00eda", prod_category_ph: "p. ej. Papas, Bebidas", prod_all: "Todos", cat_no_cat: "Sin categor\u00eda", cat_set_price: "Poner precio a todos en {v}", cat_price_prompt: "Nuevo precio para {n} art\u00edculos en \"{v}\":", cat_price_done: "{n} art\u00edculos actualizados en \"{v}\"", prod_shop_name_ph: "Mi tienda",
 prod_share_hint: "Cada teléfono guarda su propia lista. Cuando cambien los precios, una persona toca Exportar lista, envía el archivo al chat del grupo y los demás tocan Importar lista.",
 prod_no_export: "Aún no hay productos — escanea algunos primero.",
 prod_share_title: "Lista de productos",
@@ -883,7 +923,7 @@ con_share_hint: "Comparte tu lista — una persona exporta y los demás importan
 con_export: "⬆ Exportar", con_import: "⬇ Importar",
 con_add_title: "Agregar contacto", con_edit_title: "Editar contacto",
 con_name: "Nombre", con_phone: "Teléfono", con_phone_ph: "ej. 555-123-4567", con_dept: "Departamento",
-con_dept_ph: "O escribe un departamento nuevo",
+con_dept_ph: "p. ej. Cocina, Almacén \u2014 o escribe uno nuevo",
 con_name_req: "El nombre es obligatorio.", con_phone_req: "El teléfono es obligatorio.",
 con_saved: "Guardado.",
 con_other: "Otro",
@@ -908,7 +948,7 @@ tpl_fill: "Completa los espacios",
 tpl_choose: "Elige un contacto",
 tpl_search_ph: "Buscar contactos…",
 tpl_del: "¿Eliminar esta plantilla?",
-tpl_no: "Sin plantillas aún. Toca + Nueva plantilla.",
+tpl_no: "Sin plantillas aún. Toca + Nueva plantilla.", tpl_examples: "Ejemplos \u2014 toca Añadir para usar uno:", tpl_add: "Añadir",
 tpl_untitled: "Sin título",
 tpl_text_req: "El texto es obligatorio.",
 // recovery
@@ -999,7 +1039,7 @@ function defaultShopSettings() {
   return { taxEnabled: false, taxRate: 6, taxCash: true, taxCard: false, changeDenoms: true, fees: [], cashPicks: [1, 5, 10, 20, 50, 100] };
 }
 function defaultContacts() {
-  return { departments: ["Front Desk", "Housekeeping", "Maintenance", "Management"], people: [] };
+  return { departments: [], people: [] };
 }
 function defaultRecovery() {
   var names = ["Room not ready", "Noise complaint", "Maintenance issue", "Cleanliness issue", "Wrong room type", "Missing amenity", "Billing issue", "Service delay", "Other"];
@@ -1034,15 +1074,17 @@ function loadLegacyState() {
 function blankProfile(name) {
   return { name: name, products: {}, shopName: "", shopSettings: defaultShopSettings(),
     recovery: { compTypes: [], situations: [], footerNote: t("default_footer") },
-    contacts: { departments: [], people: [], templates: starterTemplates(), lastDept: "" },
-    modules: { shop: true, contacts: true, recovery: true }, moduleOrder: ["shop", "contacts", "recovery"] };
+    contacts: { departments: [], people: [], templates: [], lastDept: "" },
+    info: { items: [] },
+    modules: { shop: true, contacts: true, recovery: true, info: true }, moduleOrder: ["shop", "contacts", "recovery", "info"] };
 }
 function migrateProfile(p) {
   if (!p.recovery) p.recovery = defaultRecovery();
   if (p.recovery.footerNote === undefined) p.recovery.footerNote = "Anything beyond these limits: check with the AGM.";
   if (!p.contacts) p.contacts = defaultContacts();
-  if (!Array.isArray(p.contacts.templates)) p.contacts.templates = starterTemplates();
-  if (p.contacts.lastDept === undefined) p.contacts.lastDept = "";
+  if (!Array.isArray(p.contacts.templates)) p.contacts.templates = [];
+  stripHotelPresets(p);
+  if (!p.info || !Array.isArray(p.info.items)) p.info = { items: [] };
   return p;
 }
 function loadDB() {
@@ -1184,6 +1226,11 @@ var SVG_BG = '<rect x="4" y="4" width="40" height="40" rx="12" fill="#4F46E5"/>'
 var ICON_SHOP = '<svg viewBox="0 0 48 48">' + SVG_BG +
   '<rect x="14" y="18" width="20" height="16" rx="4.5" stroke="#fff" stroke-width="3.2" fill="none"/>' +
   '<path d="M19 18v-2.5a5 5 0 0 1 10 0V18" stroke="#fff" stroke-width="3.2" fill="none" stroke-linecap="round"/></svg>';
+var ICON_INFO = '<svg viewBox="0 0 48 48">' + SVG_BG +
+  '<rect x="13" y="9" width="22" height="30" rx="5" stroke="#fff" stroke-width="3.2" fill="none"/>' +
+  '<line x1="18" y1="18" x2="30" y2="18" stroke="#fff" stroke-width="3.2" stroke-linecap="round"/>' +
+  '<line x1="18" y1="24" x2="30" y2="24" stroke="#fff" stroke-width="3.2" stroke-linecap="round"/>' +
+  '<line x1="18" y1="30" x2="25" y2="30" stroke="#fff" stroke-width="3.2" stroke-linecap="round"/></svg>';
 var ICON_CONTACTS = '<svg viewBox="0 0 48 48">' + SVG_BG +
   '<circle cx="19" cy="18" r="5" stroke="#fff" stroke-width="3.2" fill="none"/>' +
   '<path d="M10 33c0-5 4-8.5 9-8.5s9 3.5 9 8.5" stroke="#fff" stroke-width="3.2" fill="none" stroke-linecap="round"/>' +
@@ -1208,10 +1255,89 @@ var ICON_CAMERA = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" st
 var MODULES = [
   { id: "shop", name: "Quick Shop", icon: ICON_SHOP, descKey: "tile_shop_d" },
   { id: "contacts", name: "Quick Contacts", icon: ICON_CONTACTS, descKey: "tile_contacts_d" },
-  { id: "recovery", name: "Quick Recovery", icon: ICON_RECOVERY, descKey: "tile_recovery_d" }
+  { id: "recovery", name: "Quick Recovery", icon: ICON_RECOVERY, descKey: "tile_recovery_d" },
+  { id: "info", name: "Quick Info", icon: ICON_INFO, descKey: "tile_info_d" }
 ];
+/* ---------- Quick Info ---------- */
+var editingInfoId = null;
+function renderInfo() {
+  var box = document.getElementById("infoList"); if (!box) return;
+  var list = (state.info && state.info.items) || [];
+  if (!list.length) { box.innerHTML = '<div class="card"><div class="empty">' + t("info_empty") + '</div></div>'; return; }
+  box.innerHTML = list.map(function(it){
+    var js = "'" + it.id.replace(/'/g, "\\'") + "'";
+    return '<div class="infocard"><h4>' + esc(it.title || t("info_untitled")) + '</h4>' +
+      (it.body ? '<div class="infobody">' + esc(it.body) + '</div>' : '') +
+      '<div class="inforow"><button class="iconbtn" onclick="openInfoModal(' + js + ')">\u270E</button>' +
+      '<button class="iconbtn" onclick="askDelInfo(' + js + ')">\u2715</button></div></div>';
+  }).join("");
+}
+function openInfoModal(id) {
+  editingInfoId = id || null;
+  var it = null;
+  ((state.info && state.info.items) || []).forEach(function(x){ if (x.id === editingInfoId) it = x; });
+  document.getElementById("infoModalTitle").textContent = it ? t("info_edit") : t("info_new");
+  document.getElementById("infoTitle").value = it ? (it.title || "") : "";
+  document.getElementById("infoBody").value = it ? (it.body || "") : "";
+  document.getElementById("infoDeleteBtn").style.display = it ? "" : "none";
+  document.getElementById("infoModal").classList.add("open");
+  setTimeout(function(){ document.getElementById("infoTitle").focus(); }, 300);
+}
+function closeInfoModal() { document.getElementById("infoModal").classList.remove("open"); editingInfoId = null; }
+function saveInfo() {
+  var title = document.getElementById("infoTitle").value.trim();
+  var body = document.getElementById("infoBody").value.trim();
+  if (!title && !body) { toast(t("info_need_something")); return; }
+  if (!state.info) state.info = { items: [] };
+  if (editingInfoId) {
+    state.info.items.forEach(function(x){ if (x.id === editingInfoId) { x.title = title; x.body = body; } });
+  } else {
+    state.info.items.push({ id: uid("i"), title: title, body: body });
+  }
+  saveState(); closeInfoModal(); renderInfo();
+}
+function askDelInfo(id) {
+  var delId = id || editingInfoId;
+  appConfirm(t("info_del")).then(function(ok){
+    if (!ok) return;
+    state.info.items = state.info.items.filter(function(x){ return x.id !== delId; });
+    saveState(); closeInfoModal(); renderInfo();
+  });
+}
+function exportInfo() {
+  var items = (state.info && state.info.items) || [];
+  if (!items.length) { toast(t("info_no_export")); return; }
+  var payload = { app: "quickwork-info", version: 1, exportedAt: new Date().toISOString(), items: items };
+  shareOrDownload(new Blob([JSON.stringify(payload)], { type: "application/json" }), "quickwork-info-" + profileSlug() + ".json", t("info_export"));
+}
+function importInfo(input) {
+  var f = input.files && input.files[0]; input.value = "";
+  if (!f) return;
+  var r = new FileReader();
+  r.onload = function(){
+    try {
+      var data = JSON.parse(r.result);
+      var items = data.items || data;
+      if (!Array.isArray(items)) throw 0;
+      if (!state.info) state.info = { items: [] };
+      var ids = {}; state.info.items.forEach(function(x){ ids[x.id] = 1; });
+      var added = 0;
+      items.forEach(function(x){
+        if (x && (x.title || x.body)) {
+          var nid = (x.id && !ids[x.id]) ? x.id : uid("i");
+          ids[nid] = 1;
+          state.info.items.push({ id: nid, title: String(x.title || ""), body: String(x.body || "") });
+          added++;
+        }
+      });
+      saveState(); renderInfo();
+      toast(added === 1 ? t("info_imported_1") : tf("info_imported_n", { n: added }));
+    } catch (e) { toast(t("import_failed")); }
+  };
+  r.readAsText(f);
+}
 function showView(v) {
-  ["home", "shop", "contacts", "recovery", "settings", "profiles"].forEach(function(x){
+  ["home", "shop", "contacts", "recovery", "info", "settings", "profiles"].forEach(function(x){
     var el = document.getElementById("view-" + x);
     if (el) el.style.display = x === v ? "" : "none";
   });
@@ -1219,6 +1345,7 @@ function showView(v) {
   if (v === "home") renderHome();
   if (v === "contacts") renderContacts();
   if (v === "recovery") renderRecovery();
+  if (v === "info") renderInfo();
   if (v === "settings") { renderModuleToggles(); renderSettingsProfile(); renderFontSizeRow(); renderThemeRow(); renderLangRow(); }
   if (v === "profiles") renderProfiles();
 }
@@ -1235,7 +1362,7 @@ function renderHome() {
     return '<button class="modtile" data-mod="' + m.id + '" onclick="showView(\'' + m.id + '\')">' +
       '<span class="modicon">' + m.icon + '</span>' +
       '<span class="modname">' + m.name + '</span>' +
-      '<span class="moddesc">' + m.desc + '</span></button>';
+      '<span class="moddesc">' + t(m.descKey) + '</span></button>';
   }).join("");
   if (!list.length) html = '<p class="hint" style="grid-column:1/-1;text-align:center">All apps are hidden — tap \u2699\uFE0F to turn them back on.</p>';
   var grid = document.getElementById("moduleGrid");
@@ -1254,7 +1381,9 @@ var tdrag = null, suppressTileClick = false;
 function onTileDown(e, tile) {
   if (e.button !== undefined && e.button > 0) return;
   if (tdrag) return;
-  tdrag = { el: tile, sx: e.clientX, sy: e.clientY, pid: e.pointerId, active: false, timer: setTimeout(startTileDrag, 350) };
+  var isMouse = e.pointerType === "mouse";
+  tdrag = { el: tile, sx: e.clientX, sy: e.clientY, pid: e.pointerId, active: false, mouse: isMouse,
+    timer: isMouse ? null : setTimeout(startTileDrag, 350) };
 }
 function startTileDrag() {
   if (!tdrag) return;
@@ -1279,7 +1408,9 @@ function startTileDrag() {
 function tilePointerMove(e) {
   if (!tdrag) return;
   if (!tdrag.active) {
-    if (Math.hypot(e.clientX - tdrag.sx, e.clientY - tdrag.sy) > 12) { clearTimeout(tdrag.timer); tdrag = null; }
+    var moved = Math.hypot(e.clientX - tdrag.sx, e.clientY - tdrag.sy);
+    if (tdrag.mouse) { if (moved > 8) startTileDrag(); return; }
+    if (moved > 12) { clearTimeout(tdrag.timer); tdrag = null; }
     return;
   }
   var tile = tdrag.el, grid = document.getElementById("moduleGrid"), ph = tdrag.ph;
@@ -1337,7 +1468,9 @@ function endTileDrag() {
 function renderModuleToggles() {
   document.getElementById("moduleToggles").innerHTML = MODULES.map(function(m){
     var on = (state.modules || {})[m.id] !== false;
-    return '<label class="check"><input type="checkbox"' + (on ? " checked" : "") + ' onchange="toggleModule(\'' + m.id + '\',this.checked)"> ' + m.icon + ' ' + m.name + '</label>';
+    return '<label class="switch-row"><span class="switch-label">' + m.icon + '<span>' + m.name + '</span></span>' +
+      '<span class="switch"><input type="checkbox"' + (on ? " checked" : "") + ' onchange="toggleModule(\'' + m.id + '\',this.checked)">' +
+      '<span class="track"></span><span class="knob"></span></span></label>';
   }).join("");
 }
 function toggleModule(id, on) {
@@ -1658,14 +1791,70 @@ function renderOrder() {
 }
 
 /* ---------- products ---------- */
+var prodCatFilter = "";
+function catKey(c) { return (c || "").trim().toLowerCase(); }
+function allCategories() {
+  var seen = {}, out = [];
+  Object.keys(state.products).forEach(function(c){
+    var cat = (state.products[c].category || "").trim();
+    var key = catKey(cat);
+    if (cat && !seen[key]) { seen[key] = 1; out.push(cat); }
+  });
+  return out.sort(function(a, b){ return a.localeCompare(b); });
+}
+function renderCatChips() {
+  var cats = allCategories();
+  var box = document.getElementById("catChips");
+  if (!box) return;
+  if (prodCatFilter && prodCatFilter !== "__none" && !cats.some(function(c){ return catKey(c) === catKey(prodCatFilter); })) prodCatFilter = "";
+  var uncat = Object.keys(state.products).some(function(c){ return !(state.products[c].category || "").trim(); });
+  if (!cats.length && !uncat) { box.style.display = "none"; }
+  else {
+    box.style.display = "";
+    var html = '<button class="catchip' + (prodCatFilter === "" ? " on" : "") + '" onclick="setCatFilter(\'\')">' + t("prod_all") + '</button>';
+    html += cats.map(function(c){
+      return '<button class="catchip' + (prodCatFilter === c ? " on" : "") + '" onclick="setCatFilter(this)" data-cat="' + esc(c) + '">' + esc(c) + '</button>';
+    }).join("");
+    if (uncat) html += '<button class="catchip' + (prodCatFilter === "__none" ? " on" : "") + '" onclick="setCatFilter(\'__none\')">' + t("cat_no_cat") + '</button>';
+    box.innerHTML = html;
+  }
+  var bar = document.getElementById("catBulkBar");
+  if (bar) {
+    if (prodCatFilter && prodCatFilter !== "__none") {
+      bar.style.display = "";
+      bar.innerHTML = '<button class="btn btn-ghost" onclick="askCategoryPrice()">' + tf("cat_set_price", { v: prodCatFilter }) + '</button>';
+    } else { bar.style.display = "none"; bar.innerHTML = ""; }
+  }
+}
+function setCatFilter(v) {
+  if (typeof v !== "string") v = v.getAttribute("data-cat") || "";
+  prodCatFilter = v;
+  renderCatChips(); renderProducts();
+}
+function askCategoryPrice() {
+  var cat = prodCatFilter;
+  var codes = Object.keys(state.products).filter(function(c){ return catKey(state.products[c].category) === catKey(cat); });
+  if (!codes.length) return;
+  appPrompt(tf("cat_price_prompt", { n: codes.length, v: cat }), "").then(function(val){
+    if (val === null) return;
+    val = String(val).trim();
+    if (val === "" || isNaN(parseFloat(val)) || parseFloat(val) < 0) { toast(t("shop_valid_price")); return; }
+    var price = Math.round(parseFloat(val) * 100) / 100;
+    codes.forEach(function(c){ state.products[c].price = price; state.products[c].updatedAt = Date.now(); });
+    saveState(); renderProducts();
+    toast(tf("cat_price_done", { n: codes.length, v: cat }));
+  });
+}
 function renderProducts() {
+  renderCatChips();
   var q = (document.getElementById("prodFilter").value || "").trim().toLowerCase();
   var codes = Object.keys(state.products).sort(function(a, b) {
     return state.products[a].name.localeCompare(state.products[b].name);
   });
   var shown = codes.filter(function(c) {
     var p = state.products[c];
-    return !q || p.name.toLowerCase().indexOf(q) !== -1 || c.toLowerCase().indexOf(q) !== -1;
+    var catOk = !prodCatFilter || (prodCatFilter === "__none" ? !catKey(p.category) : catKey(p.category) === catKey(prodCatFilter));
+    return catOk && (!q || p.name.toLowerCase().indexOf(q) !== -1 || c.toLowerCase().indexOf(q) !== -1);
   });
   document.getElementById("productCount").textContent = codes.length + " product" + (codes.length === 1 ? "" : "s") + " saved on this phone";
   var list = document.getElementById("productList");
@@ -1680,7 +1869,7 @@ function renderProducts() {
       (selectMode ? '<input type="checkbox" class="selbox"' + (selected[c] ? ' checked' : '') + ' onclick="event.stopPropagation();toggleSelect(' + js + ')">' : '') +
       (p.img ? '<img class="thumb" src="' + p.img + '" alt="">' : '<div class="thumb"></div>') +
       '<div class="info"><div class="name">' + esc(p.name) + '</div>' +
-      '<div class="sub"><kbd class="code">' + esc(c) + '</kbd></div></div>' +
+      '<div class="sub"><kbd class="code">' + esc(c) + '</kbd>' + (p.category ? '<span class="catbadge">' + esc(p.category) + '</span>' : '') + '</div></div>' +
       '<div class="line-total">' + fmtP(p.price) + '</div>' +
       (selectMode ? '' : '<button class="iconbtn" onclick="openModal(' + js + ',false,null)">Edit</button>' +
       '<button class="iconbtn" onclick="deleteProduct(' + js + ')">✕</button>') + '</div>';
@@ -1704,6 +1893,8 @@ function openModal(code, isNew, afterSave) {
   var p = code && state.products[code];
   document.getElementById("fName").value = p ? p.name : "";
   document.getElementById("fPrice").value = (p && p.price != null) ? p.price : "";
+  document.getElementById("fCategory").value = (p && p.category) ? p.category : "";
+  document.getElementById("catList").innerHTML = allCategories().map(function(c){ return '<option value="' + esc(c) + '">'; }).join("");
   modalImg = (p && p.img) ? p.img : null;
   var prev = document.getElementById("imgPreview");
   if (modalImg) prev.src = modalImg; else prev.removeAttribute("src");
@@ -1719,7 +1910,8 @@ function saveModal() {
   if (!code) { toast(t("prod_barcode_req")); return; }
   if (!name) { toast(t("prod_name_req")); return; }
   if (price !== null && (isNaN(price) || price < 0)) { toast(t("shop_valid_price")); return; }
-  state.products[code] = { name: name, price: price === null ? null : Math.round(price * 100) / 100, updatedAt: Date.now(), img: modalImg || null };
+  var cat = document.getElementById("fCategory").value.trim();
+  state.products[code] = { name: name, price: price === null ? null : Math.round(price * 100) / 100, category: cat || "", updatedAt: Date.now(), img: modalImg || null };
   saveState(); closeModal(); renderProducts();
   if (modalAfterSave) { var f = modalAfterSave; modalAfterSave = null; f(); }
 }
@@ -1806,7 +1998,7 @@ function doImport(pi, mode) {
       var p = pi.data[code];
       if (p && typeof p.name === "string" && !isNaN(parseFloat(p.price))) {
         var ip = (p.price === null || p.price === undefined || p.price === "") ? null : parseFloat(p.price);
-        state.products[code] = { name: p.name, price: (ip === null || isNaN(ip)) ? null : Math.round(ip * 100) / 100, updatedAt: p.updatedAt || Date.now(), img: p.img || null };
+        state.products[code] = { name: p.name, price: (ip === null || isNaN(ip)) ? null : Math.round(ip * 100) / 100, category: (typeof p.category === "string" ? p.category.trim() : "") || "", updatedAt: p.updatedAt || Date.now(), img: p.img || null };
       }
     }
     if (mode === "replace" && pi.shopSettings) {
@@ -2017,7 +2209,22 @@ function renderShopName() {
   var inp = document.getElementById("shopName");
   if (inp && document.activeElement !== inp) inp.value = (state.shopName === "Suite Shop") ? "" : state.shopName;
 }
+var shopNameTimer = null;
+function shopNameInput() {
+  if (shopNameTimer) clearTimeout(shopNameTimer);
+  shopNameTimer = setTimeout(function(){
+    var inp = document.getElementById("shopName");
+    var v = inp.value.trim();
+    if ((state.shopName || "") !== v) {
+      state.shopName = v || "Suite Shop";
+      saveState();
+      document.getElementById("appTitle").textContent = state.shopName;
+      document.title = state.shopName;
+    }
+  }, 700);
+}
 function shopNameChanged() {
+  if (shopNameTimer) { clearTimeout(shopNameTimer); shopNameTimer = null; }
   var v = document.getElementById("shopName").value.trim();
   state.shopName = v || "Suite Shop";
   saveState(); renderShopName();
@@ -2231,7 +2438,7 @@ function resetCompType(si, ci) {
 }
 /* ---------- team contacts ---------- */
 function defaultContacts() {
-  return { departments: ["Front Desk", "Housekeeping", "Maintenance", "Management"], people: [] };
+  return { departments: [], people: [] };
 }
 var contactDeptFilter = -1;
 var editingContactId = null;
@@ -2241,17 +2448,30 @@ function smsHref(phone) { return "sms:" + String(phone).replace(/[^+\d]/g, ""); 
 function renderContacts() { renderDeptChips(); renderContactList(); renderDeptList(); renderTemplates(); }
 
 /* ---------- message templates (v17) ---------- */
-function starterTemplates() {
+function exampleTemplates() {
   if (curLang() === "es") return [
-    { id: uid("t"), name: "Habitaci\u00f3n lista", text: "Hola {nombre}, \u00bfla habitaci\u00f3n {habitaci\u00f3n} est\u00e1 lista?" },
-    { id: uid("t"), name: "Listo para recoger", text: "Hola {nombre}, tu {art\u00edculo} est\u00e1 listo en recepci\u00f3n." },
-    { id: uid("t"), name: "Recordatorio", text: "Hola {nombre}, te recuerdo: {nota}" }
+    { name: "Recordatorio de turno", text: "Hola {nombre}, recordatorio: tu turno empieza a las {hora}." },
+    { name: "Voy tarde", text: "Hola {nombre}, voy unos {minutos} tarde." },
+    { name: "Tarea lista", text: "Hola {nombre}, {tarea} ya est\u00e1 lista." }
   ];
   return [
-    { id: uid("t"), name: "Room ready", text: "Hi {name}, is room {room} ready?" },
-    { id: uid("t"), name: "Pickup ready", text: "Hi {name}, your {item} is ready at the front desk." },
-    { id: uid("t"), name: "Reminder", text: "Hi {name}, just a reminder: {note}" }
+    { name: "Shift reminder", text: "Hi {name}, reminder: your shift starts at {time}." },
+    { name: "Running late", text: "Hi {name}, I\u0027m running about {minutes} late." },
+    { name: "Task done", text: "Hi {name}, {task} is done." }
   ];
+}
+/* one-time cleanup: remove hotel preset departments/templates/situations that were never customized */
+function stripHotelPresets(p) {
+  try {
+    var hotelTpl = ["Room ready", "Pickup ready", "Reminder", "Habitaci\u00f3n lista", "Listo para recoger", "Recordatorio"];
+    if (Array.isArray(p.contacts.templates))
+      p.contacts.templates = p.contacts.templates.filter(function(tp){ return hotelTpl.indexOf(tp.name) === -1; });
+    var hotelDepts = ["Front Desk", "Housekeeping", "Maintenance", "Management"];
+    var usedDepts = {};
+    (p.contacts.people || []).forEach(function(person){ if (person.dept) usedDepts[person.dept] = 1; });
+    if (Array.isArray(p.contacts.departments))
+      p.contacts.departments = p.contacts.departments.filter(function(d){ return hotelDepts.indexOf(d) === -1 || usedDepts[d]; });
+  } catch (e) {}
 }
 function getTpl(id) {
   var list = state.contacts.templates || [];
@@ -2266,14 +2486,36 @@ function tplFields(text) {
 function renderTemplates() {
   var box = document.getElementById("templateList"); if (!box) return;
   var list = state.contacts.templates || [];
-  if (!list.length) { box.innerHTML = '<div class="empty">' + t("tpl_no") + '</div>'; return; }
-  box.innerHTML = list.map(function(tp){
+  var html = "";
+  if (!list.length) html += '<div class="empty">' + t("tpl_no") + '</div>';
+  else html += list.map(function(tp){
     return '<div class="item"><div class="info"><div class="name">' + esc(tp.name || t("tpl_untitled")) + '</div>' +
       '<div class="sub">' + esc(tp.text) + '</div></div>' +
       '<button class="iconbtn" onclick="openTemplateUse(\'' + tp.id + '\')">' + t("tpl_use") + '</button>' +
       '<button class="iconbtn" onclick="openTemplateEdit(\'' + tp.id + '\')">\u270E</button>' +
       '<button class="iconbtn" onclick="askDelTemplate(\'' + tp.id + '\')">\u2715</button></div>';
   }).join("");
+  var ex = exampleTemplates().filter(function(e){
+    return !list.some(function(tp){ return tp.name === e.name; });
+  });
+  if (ex.length) {
+    html += '<div class="hint" style="margin:12px 0 6px;font-weight:700">' + t("tpl_examples") + '</div>';
+    html += ex.map(function(e){
+      return '<div class="item"><div class="info"><div class="name">' + esc(e.name) + '</div>' +
+        '<div class="sub">' + esc(e.text) + '</div></div>' +
+        '<button class="iconbtn" onclick="addExampleTemplate(this)" data-exname="' + esc(e.name) + '">' + t("tpl_add") + '</button></div>';
+    }).join("");
+  }
+  box.innerHTML = html;
+}
+function addExampleTemplate(btn) {
+  var name = btn.getAttribute("data-exname"); if (!name) return;
+  var found = null;
+  exampleTemplates().forEach(function(e){ if (e.name === name) found = e; });
+  if (!found) return;
+  state.contacts.templates = state.contacts.templates || [];
+  state.contacts.templates.push({ id: uid("t"), name: found.name, text: found.text });
+  saveState(); renderTemplates();
 }
 var activeTplId = null;
 function openTemplateUse(id) {
@@ -2625,6 +2867,20 @@ if ("serviceWorker" in navigator) {
     <div class="btn-row">
       <button class="btn secondary" onclick="confirmChoice(false)" data-i18n="cancel">Cancel</button>
       <button class="btn" onclick="confirmChoice(true)" data-i18n="ok">OK</button>
+    </div>
+  </div>
+</div>
+<div id="infoModal">
+  <div id="infoModalBox">
+    <h2 id="infoModalTitle" data-i18n="info_new">New info</h2>
+    <label data-i18n="info_title_lb">Title</label>
+    <input type="text" id="infoTitle" data-i18n-ph="info_title_ph" placeholder="e.g. WiFi password">
+    <label data-i18n="info_body_lb">Details</label>
+    <textarea id="infoBody" rows="5" data-i18n-ph="info_body_ph" placeholder="Write the details here\u2026"></textarea>
+    <div class="btn-row" style="margin-top:14px">
+      <button class="btn btn-ghost" onclick="closeInfoModal()" data-i18n="cancel">Cancel</button>
+      <button class="btn btn-danger" id="infoDeleteBtn" onclick="askDelInfo()" data-i18n="delete_">Delete</button>
+      <button class="btn btn-primary" onclick="saveInfo()" data-i18n="save">Save</button>
     </div>
   </div>
 </div>
