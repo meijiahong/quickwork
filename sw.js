@@ -1,6 +1,6 @@
-/* Suite Shop Scanner service worker: caches the app shell so it installs
+/* QuickWork service worker: caches the app shell so it installs
    as a PWA and keeps working offline after the first load. */
-var CACHE = "suite-shop-v26";
+var CACHE = "suite-shop-v34";
 var ASSETS = [
   "./",
   "./index.html",
@@ -8,6 +8,7 @@ var ASSETS = [
   "./icon-192.png",
   "./icon-512.png",
   "./logo-transparent.png",
+  "./favicon.png",
   "https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.8/html5-qrcode.min.js"
 ];
 

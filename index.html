@@ -9,7 +9,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#4F46E5">
 <link rel="manifest" href="manifest.json">
-<link rel="icon" type="image/png" href="logo-transparent.png">
+<link rel="icon" type="image/png" href="favicon.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <style>
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -179,7 +179,7 @@
   #sheetImg:not([src]) { display: none; }
   .photoBtnRow { display: flex; gap: 10px; align-items: center; margin-bottom: 10px; }
   #imgPreview { width: 84px; height: 84px; border-radius: 12px; object-fit: cover; background: #eef1f6; flex: none; }
-  #imgPreview:not([src]) { visibility: hidden; }
+  #imgPreview:not([src]) { display: none; }
   #sheet { display: none; position: fixed; inset: 0; background: rgba(10,14,25,.6); z-index: 60; align-items: flex-end; justify-content: center; }
   #sheet.open { display: flex; }
   #sheetBox { background: #fff; width: 100%; max-width: 480px; border-radius: 18px 18px 0 0; padding: 22px 18px 30px; text-align: center; }
@@ -309,7 +309,7 @@ body[data-theme="dark"] .toast { background: #232329; }
 </div>
 
 <div id="view-shop" style="display:none">
-  <div class="modhead"><button class="backbtn" onclick="goHome()">‹</button><div style="flex:1;min-width:0"><h1>Quick Shop</h1><p id="appTitle" class="modsub">Suite Shop</p></div><span class="modhead-sp"></span></div>
+  <div class="modhead"><button class="backbtn" onclick="goHome()">‹</button><div style="flex:1;min-width:0"><h1>Quick Shop</h1><p id="appTitle" class="modsub">My Shop</p></div><span class="modhead-sp"></span></div>
 <nav>
   <button id="tabBtnCheckout" class="active" onclick="showTab('checkout')" data-i18n="nav_checkout">Checkout</button>
   <button id="tabBtnProducts" onclick="showTab('products')" data-i18n="nav_products">Products</button>
@@ -321,7 +321,7 @@ body[data-theme="dark"] .toast { background: #232329; }
     <div class="card">
       <button class="btn btn-primary" onclick="startScan('checkout')"><span class="btn-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px;display:block"><rect x="3" y="7" width="18" height="13" rx="3"/><circle cx="12" cy="13.5" r="3.5"/><path d="M8.5 7l1.2-2.5h4.6L15.5 7"/></svg></span><span data-i18n="shop_scan_item">Scan item</span></button>
       <label for="search" data-i18n="shop_or_find">Or find by name / barcode</label>
-      <input type="search" id="search" placeholder="Name or last digits of barcode…" data-i18n-ph="shop_search_ph2" autocomplete="off" oninput="renderSearch()">
+      <input type="search" id="search" placeholder="Name, barcode, or category…" data-i18n-ph="shop_search_ph2" autocomplete="off" oninput="renderSearch()">
       <div id="searchResults" class="results"></div>
     </div>
     <div class="card">
@@ -536,7 +536,7 @@ body[data-theme="dark"] .toast { background: #232329; }
     <label for="fCategory" data-i18n="prod_category">Category</label>
     <input type="text" id="fCategory" list="catList" data-i18n-ph="prod_category_ph" placeholder="e.g. Chips, Drinks">
     <datalist id="catList"></datalist>
-    <label data-i18n="prod_photo">Product photo (optional)</label>
+    <label data-i18n="prod_photo">Product photo</label>
     <div class="photoBtnRow">
       <img id="imgPreview" alt="">
       <div style="flex:1">
@@ -683,7 +683,7 @@ scan_to_add: "to add it.",
 shop_scan_item: "Scan item",
 shop_or_find: "Or find by name / barcode",
 shop_search_ph: "Search products",
-shop_search_ph2: "Name or last digits of barcode\u2026",
+shop_search_ph2: "Name, barcode, or category…",
 shop_no_items: "No items yet.",
 shop_scan_search: "Scan or search to add items.",
 shop_total: "Total",
@@ -706,9 +706,9 @@ shop_no_matches: "No matches.",
 shop_nothing_saved: "Nothing saved yet.<br>Tap “Scan to add / edit product” and scan each item once.",
 // product modal
 prod_add: "Add product", prod_edit: "Edit product",
-prod_barcode: "Barcode (optional)", prod_name: "Product name", prod_price: "Price ($) (optional)", prod_photo: "Product photo (optional)",
+prod_barcode: "Barcode", prod_name: "Product name", prod_price: "Price ($)", prod_photo: "Product photo",
 prod_take_photo: "Take / choose photo", prod_remove_photo: "Remove photo",
-prod_barcode_req: "Barcode is required.", prod_name_req: "Product name is required.",
+prod_barcode_req: "Barcode is required.", prod_name_req: "Product name is required.", prod_need_one: "Add a barcode, a name, or a category.",
 prod_scan_addedit: "Scan to add / edit product",
 prod_export: "⬆ Export list", prod_import: "⬇ Import list",
 prod_shop_name: "Shop name", prod_category: "Category", prod_category_ph: "e.g. Chips, Drinks", prod_all: "All", cat_no_cat: "No category", cat_set_price: "Set price for all in {v}", cat_price_prompt: "New price for {n} items in \"{v}\":", cat_price_done: "Updated {n} items in \"{v}\"", prod_shop_name_ph: "My Shop",
@@ -877,7 +877,7 @@ scan_to_add: "para agregarlo.",
 shop_scan_item: "Escanear",
 shop_or_find: "O busca por nombre / código",
 shop_search_ph: "Buscar productos",
-shop_search_ph2: "Nombre o \u00faltimos d\u00edgitos del c\u00f3digo\u2026",
+shop_search_ph2: "Nombre, código o categoría…",
 shop_no_items: "Sin artículos aún.",
 shop_scan_search: "Escanea o busca para agregar artículos.",
 shop_total: "Total",
@@ -900,9 +900,9 @@ shop_no_matches: "Sin coincidencias.",
 shop_nothing_saved: "Nada guardado aún.<br>Toca «Escanear para agregar / editar» y escanea cada artículo una vez.",
 // product modal
 prod_add: "Agregar producto", prod_edit: "Editar producto",
-prod_barcode: "Código", prod_name: "Nombre del producto", prod_price: "Precio ($) (opcional)", prod_photo: "Foto del producto (opcional)",
+prod_barcode: "Código", prod_name: "Nombre del producto", prod_price: "Precio ($)", prod_photo: "Foto del producto",
 prod_take_photo: "Tomar / elegir foto", prod_remove_photo: "Quitar foto",
-prod_barcode_req: "El código es obligatorio.", prod_name_req: "El nombre es obligatorio.",
+prod_barcode_req: "El código es obligatorio.", prod_name_req: "El nombre es obligatorio.", prod_need_one: "Agrega un código, un nombre o una categoría.",
 prod_scan_addedit: "Escanear para agregar / editar",
 prod_export: "⬆ Exportar lista", prod_import: "⬇ Importar lista",
 prod_shop_name: "Nombre de la tienda", prod_category: "Categor\u00eda", prod_category_ph: "p. ej. Papas, Bebidas", prod_all: "Todos", cat_no_cat: "Sin categor\u00eda", cat_set_price: "Poner precio a todos en {v}", cat_price_prompt: "Nuevo precio para {n} art\u00edculos en \"{v}\":", cat_price_done: "{n} art\u00edculos actualizados en \"{v}\"", prod_shop_name_ph: "Mi tienda",
@@ -1069,7 +1069,7 @@ function loadLegacyState() {
   try {
     var s = JSON.parse(localStorage.getItem(LS_KEY) || "null");
     if (s && s.products) {
-      if (!s.shopName) s.shopName = "Suite Shop";
+      if (!s.shopName) s.shopName = "My Shop";
       if (!s.shopSettings) s.shopSettings = defaultShopSettings();
       if (!s.shopSettings.cashPicks) s.shopSettings.cashPicks = [1, 5, 10, 20, 50, 100];
       if (!s.recovery) s.recovery = defaultRecovery();
@@ -1094,7 +1094,7 @@ function blankProfile(name) {
     modules: { shop: true, contacts: true, recovery: true, info: true }, moduleOrder: ["shop", "contacts", "recovery", "info"] };
 }
 function migrateProfile(p) {
-  if (!p.recovery) p.recovery = defaultRecovery();
+  if (!p.shopName || p.shopName === "Suite Shop") p.shopName = "My Shop";
   if (p.recovery.footerNote === undefined) p.recovery.footerNote = "Anything beyond these limits: check with the AGM.";
   if (!p.contacts) p.contacts = defaultContacts();
   if (!Array.isArray(p.contacts.templates)) p.contacts.templates = [];
@@ -1857,14 +1857,14 @@ function renderSearch() {
   var hits = [];
   for (var code in state.products) {
     var p = state.products[code];
-    if (p.name.toLowerCase().indexOf(q) !== -1 || code.toLowerCase().indexOf(q) !== -1) hits.push({ code: code, p: p });
+    if (p.name.toLowerCase().indexOf(q) !== -1 || code.toLowerCase().indexOf(q) !== -1 || (p.category || "").toLowerCase().indexOf(q) !== -1) hits.push({ code: code, p: p });
     if (hits.length >= 8) break;
   }
   if (!hits.length) { box.innerHTML = '<div class="empty">No match. <a href="#" onclick="startScan(\'checkout\');return false;">Scan it</a> to add it.</div>'; return; }
   box.innerHTML = hits.map(function(h) {
     return '<div class="item" onclick="showSheet(\'' + esc(h.code).replace(/'/g, "\\'") + '\')">' +
       '<div class="info"><div class="name">' + esc(h.p.name) + '</div>' +
-      '<div class="sub">' + (h.p.manual ? '' : '<kbd class="code">' + esc(h.code) + '</kbd>') + '</div></div>' +
+      '<div class="sub">' + (h.p.manual ? '' : '<kbd class="code">' + esc(h.code) + '</kbd>') + (h.p.category ? '<span class="catbadge">' + esc(h.p.category) + '</span>' : '') + '</div></div>' +
       '<div class="line-total">' + fmtP(h.p.price) + '</div></div>';
   }).join("");
 }
@@ -2005,11 +2005,12 @@ function saveModal() {
   var name = document.getElementById("fName").value.trim();
   var priceRaw = document.getElementById("fPrice").value.trim();
   var price = priceRaw === "" ? null : parseFloat(priceRaw);
-  if (!name) { toast(t("prod_name_req")); return; }
+  var cat = document.getElementById("fCategory").value.trim();
+  if (!code && !name && !cat) { toast(t("prod_need_one")); return; }
   if (price !== null && (isNaN(price) || price < 0)) { toast(t("shop_valid_price")); return; }
+  if (!name) name = code || cat;
   var manual = !code;
   if (manual) code = uid("m");
-  var cat = document.getElementById("fCategory").value.trim();
   state.products[code] = { name: name, price: price === null ? null : Math.round(price * 100) / 100, category: cat || "", manual: manual || undefined, updatedAt: Date.now(), img: modalImg || null };
   saveState(); closeModal(); renderProducts();
   if (modalAfterSave) { var f = modalAfterSave; modalAfterSave = null; f(); }
@@ -2305,12 +2306,12 @@ function renderShopName() {
   var n = state.shopName || t("my_shop");
   document.getElementById("appTitle").textContent = n;
   var inp = document.getElementById("shopName");
-  if (inp && document.activeElement !== inp) inp.value = (state.shopName === "Suite Shop") ? "" : state.shopName;
+  if (inp && document.activeElement !== inp) inp.value = (state.shopName === "My Shop") ? "" : state.shopName;
 }
 var shopNameSaveT = null, shopNameSavePending = false;
 function shopNameInput() {
   var v = document.getElementById("shopName").value.trim();
-  state.shopName = v || "Suite Shop";
+  state.shopName = v || "My Shop";
   document.getElementById("appTitle").textContent = state.shopName;
   shopNameSavePending = true;
   if (shopNameSaveT) return;
@@ -2324,7 +2325,7 @@ function flushShopNameSave() {
 }
 function shopNameChanged() {
   var v = document.getElementById("shopName").value.trim();
-  state.shopName = v || "Suite Shop";
+  state.shopName = v || "My Shop";
   document.getElementById("appTitle").textContent = state.shopName;
   shopNameSavePending = true;
   flushShopNameSave();
