@@ -125,7 +125,7 @@
   .homehead { display: flex; align-items:center; justify-content: space-between; padding: 22px 18px 4px; max-width: 640px; margin: 0 auto; user-select: none; -webkit-user-select: none; }
   .homehead h1 { margin: 0; font-size: 28px; color: #4F46E5; }
   .brandrow { display: flex; align-items: center; gap: 12px; }
-  .brandlogo { width: 54px; height: 54px; border-radius: 15px; flex: none; box-shadow: 0 3px 10px rgba(79,70,229,.3); -webkit-user-drag: none; }
+  .brandlogo { width: 54px; height: 54px; border-radius: 15px; flex: none; background: #fff; box-shadow: 0 3px 10px rgba(79,70,229,.3); -webkit-user-drag: none; }
   .jobpill { display: flex; align-items: center; justify-content: center; gap: 8px; margin: 12px auto 0; padding: 9px 18px; border-radius: 999px; border: 1.5px solid #E2E4EE; background: #fff; font-size: 14px; font-weight: 700; color: #4F46E5; cursor: pointer; max-width: calc(100% - 36px); transition: transform .12s ease; user-select: none; -webkit-user-select: none; }
   .jobpill:active { transform: scale(.97); }
   .jobpill span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -139,6 +139,8 @@
   .modicon svg { width: 46px; height: 46px; display: block; }
   .check svg { width: 22px; height: 22px; vertical-align: -5px; }
   #homeGearBtn svg { width: 26px; height: 26px; vertical-align: -4px; display: block; }
+  #homeGearBtn { background: transparent; color: #4F46E5; padding: 8px; }
+  body[data-theme="dark"] #homeGearBtn { background: transparent; color: #818CF8; }
   .modname { font-weight: 800; font-size: 16px; color: #1c2440; }
   .moddesc { font-size: 12px; color: #7a8499; text-align: center; }
   .modhead { display: flex; align-items: center; gap: 10px; padding: 14px 14px 8px; max-width: 640px; margin: 0 auto; }
@@ -220,6 +222,7 @@
 .modtile.dragging { position: fixed; margin: 0; z-index: 60; pointer-events: none; transform: scale(.88); opacity: 1; box-shadow: 0 22px 44px rgba(79,70,229,.42); transition: transform .18s ease; }
 .tile-placeholder { background: rgba(79,70,229,.10); border: 2px dashed rgba(79,70,229,.45); border-radius: 16px; min-height: 118px; }
 body[data-theme="dark"] header { background: #000; border-bottom: 1px solid #1C1C1E; }
+body[data-theme="dark"] .brandlogo { background: #000; }
 body[data-theme="dark"] nav { background: #1C1C1E; }
 body[data-theme="dark"] nav button { background: transparent; color: #A1A1AA; }
 body[data-theme="dark"] nav button.active { background: #4F46E5; color: #fff; box-shadow: 0 2px 10px rgba(79,70,229,.45); }
@@ -296,7 +299,7 @@ body[data-theme="dark"] .toast { background: #232329; }
 
 <div id="view-home">
   <div class="homehead">
-    <div class="brandrow"><img src="icon-192.png" alt="QuickWork logo" class="brandlogo" draggable="false"><div><h1>QuickWork</h1><p data-i18n="tagline">Everything for the shift, in one place.</p></div></div>
+    <div class="brandrow"><img src="logo-transparent.png" alt="QuickWork logo" class="brandlogo" draggable="false"><div><h1>QuickWork</h1></div></div>
     <button class="iconbtn big" onclick="showView('settings')" aria-label="Settings" id="homeGearBtn"></button>
   </div>
   <button class="jobpill" onclick="showView('profiles')" aria-label="Switch job"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;flex:none"><path d="M17 3l4 4-4 4"/><path d="M21 7H8"/><path d="M7 21l-4-4 4-4"/><path d="M3 17h13"/></svg><span id="jobPillName"></span></button>
@@ -529,6 +532,9 @@ body[data-theme="dark"] .toast { background: #232329; }
     <input type="text" id="fName" placeholder="e.g. Coca-Cola 20oz">
     <label for="fPrice" data-i18n="prod_price">Price ($)</label>
     <input type="number" id="fPrice" inputmode="decimal" step="0.01" min="0" placeholder="0.00">
+    <label for="fCategory" data-i18n="prod_category">Category</label>
+    <input type="text" id="fCategory" list="catList" data-i18n-ph="prod_category_ph" placeholder="e.g. Chips, Drinks">
+    <datalist id="catList"></datalist>
     <label data-i18n="prod_photo">Product photo (optional)</label>
     <div class="photoBtnRow">
       <img id="imgPreview" alt="">
@@ -1260,6 +1266,17 @@ var ICON_GEAR = '<svg viewBox="0 0 48 48">' + SVG_BG +
   '<line x1="32.8" y1="15.2" x2="29.3" y2="18.7"/>' +
   '<line x1="18.7" y1="29.3" x2="15.2" y2="32.8"/></g>' +
   '<circle cx="24" cy="24" r="6" stroke="#fff" stroke-width="3.6" fill="none"/></svg>';
+var ICON_GEAR_BARE = '<svg viewBox="0 0 48 48">' +
+  '<g stroke="currentColor" stroke-width="4.4" stroke-linecap="round">' +
+  '<line x1="24" y1="10" x2="24" y2="16"/>' +
+  '<line x1="24" y1="32" x2="24" y2="38"/>' +
+  '<line x1="10" y1="24" x2="16" y2="24"/>' +
+  '<line x1="32" y1="24" x2="38" y2="24"/>' +
+  '<line x1="14.1" y1="14.1" x2="18.4" y2="18.4"/>' +
+  '<line x1="29.6" y1="29.6" x2="33.9" y2="33.9"/>' +
+  '<line x1="33.9" y1="14.1" x2="29.6" y2="18.4"/>' +
+  '<line x1="18.4" y1="29.6" x2="14.1" y2="33.9"/></g>' +
+  '<circle cx="24" cy="24" r="6.5" stroke="currentColor" stroke-width="4.4" fill="none"/></svg>';
 var ICON_CAMERA = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="3"/><circle cx="12" cy="13.5" r="3.5"/><path d="M8.5 7l1.2-2.5h4.6L15.5 7"/></svg>';
 
 var MODULES = [
@@ -1346,12 +1363,17 @@ function importInfo(input) {
   };
   r.readAsText(f);
 }
-function showView(v) {
+/* ---------- Android back button / in-app history ---------- */
+var qwCurView = "home";
+var qwHistPushed = false;   /* a view entry sits above the base home entry */
+var qwSuppressPop = false;  /* true when we drive history ourselves (UI go-home) */
+function qwRenderView(v) {
   ["home", "shop", "contacts", "recovery", "info", "settings", "profiles"].forEach(function(x){
     var el = document.getElementById("view-" + x);
     if (el) el.style.display = x === v ? "" : "none";
   });
   try { window.scrollTo(0, 0); } catch (e) {}
+  qwCurView = v;
   if (v === "home") renderHome();
   if (v === "contacts") renderContacts();
   if (v === "recovery") renderRecovery();
@@ -1359,6 +1381,58 @@ function showView(v) {
   if (v === "settings") { renderModuleToggles(); renderSettingsProfile(); renderFontSizeRow(); renderThemeRow(); renderLangRow(); }
   if (v === "profiles") renderProfiles();
 }
+function showView(v) {
+  if (v === qwCurView) { qwRenderView(v); return; }
+  if (v === "home") {
+    /* UI asked to go home: pop the pushed view entry so Back stays consistent */
+    if (qwHistPushed) {
+      qwHistPushed = false; qwSuppressPop = true;
+      try { history.back(); } catch (e) {}
+      setTimeout(function(){ qwSuppressPop = false; }, 500);
+    }
+    qwRenderView("home");
+    return;
+  }
+  qwRenderView(v);
+  qwHistPushed = true;
+  try { history.pushState({ qw: v }, ""); } catch (e) {}
+}
+function qwIsOpen(id) { var el = document.getElementById(id); return !!(el && el.classList.contains("open")); }
+function qwCloseTopOverlay() {
+  /* topmost-first: dialogs over content overlays; back closes one layer */
+  if (qwIsOpen("promptOverlay")) { promptChoice(false); return true; }
+  if (qwIsOpen("confirmOverlay")) { confirmChoice(false); return true; }
+  if (qwIsOpen("priceModal")) { closePriceModal(); return true; }
+  if (qwIsOpen("templateEditModal")) { closeTemplateEdit(); return true; }
+  if (qwIsOpen("templateUseModal")) { closeTemplateUse(); return true; }
+  if (qwIsOpen("contactModal")) { closeContactModal(); return true; }
+  if (qwIsOpen("infoModal")) { closeInfoModal(); return true; }
+  if (qwIsOpen("sheet")) { closeSheet(); return true; }
+  if (qwIsOpen("modal")) { closeModal(); return true; }
+  if (qwIsOpen("scanOverlay")) { stopScan(); return true; }
+  if (qwIsOpen("importTargetModal")) { closeImportTarget(); return true; }
+  if (qwIsOpen("summaryOverlay")) { closeSummary(); return true; }
+  return false;
+}
+window.addEventListener("popstate", function(e) {
+  if (qwSuppressPop) { qwSuppressPop = false; return; }
+  var st = e.state && e.state.qw;
+  if (st && st !== "home" && ["shop", "contacts", "recovery", "info", "settings", "profiles"].indexOf(st) !== -1) {
+    /* forward (or back) to a view entry */
+    qwHistPushed = true;
+    qwRenderView(st);
+    return;
+  }
+  if (qwCloseTopOverlay()) {
+    /* back press consumed by closing an overlay: restore the view entry */
+    if (qwCurView !== "home") { qwHistPushed = true; try { history.pushState({ qw: qwCurView }, ""); } catch (e) {} }
+    return;
+  }
+  /* back from a view -> home; back from home exits the app (default) */
+  qwHistPushed = false;
+  qwRenderView("home");
+});
+try { history.replaceState({ qw: "home" }, ""); } catch (e) {}
 function goHome() { showView("home"); }
 function renderJobPill() {
   var el = document.getElementById("jobPillName");
@@ -1707,8 +1781,9 @@ function scanFromFile(input) {
 function onScan(code) {
   code = String(code).trim();
   if (!code) return;
+  var mode = scanMode;
   stopScan();
-  handleCode(code);
+  handleCode(code, mode);
 }
 function manualCode() {
   appPrompt(t("prompt_barcode"), "").then(function(val){
@@ -1716,14 +1791,14 @@ function manualCode() {
     var code = val.trim();
     if (!code) return;
     var mode = scanMode;
-    if (state.products[code]) { stopScan(); handleCode(code); return; }
+    if (state.products[code]) { stopScan(); handleCode(code, mode); return; }
     var q = code.toLowerCase(), hits = [];
     for (var c in state.products) { if (c.toLowerCase().indexOf(q) !== -1) hits.push(c); }
-    if (hits.length === 1) { stopScan(); handleCode(hits[0]); return; }
+    if (hits.length === 1) { stopScan(); handleCode(hits[0], mode); return; }
     if (!hits.length) {
       appConfirm(tf("scan_add_new", { v: code })).then(function(ok){
         if (!ok) return;
-        stopScan(); handleCode(code);
+        stopScan(); handleCode(code, mode);
       });
       return;
     }
@@ -1740,9 +1815,10 @@ function manualCode() {
     toast(tf("scan_matches", { n: hits.length }));
   });
 }
-function handleCode(code) {
+function handleCode(code, mode) {
   var p = state.products[code];
-  if (scanMode === "checkout" || !scanMode) {
+  var m = (mode !== undefined) ? mode : scanMode;
+  if (m === "checkout" || !m) {
     if (p) { showSheet(code); }
     else { openModal(code, true, function(){ showSheet(code); }); }
   } else {
@@ -2788,7 +2864,7 @@ applyFontSize();
 applyTheme();
 renderThemeRow(); renderLangRow();
 applyI18n();
-document.getElementById("homeGearBtn").innerHTML = ICON_GEAR;
+document.getElementById("homeGearBtn").innerHTML = ICON_GEAR_BARE;
 renderHome();
 document.getElementById("moduleGrid").addEventListener("click", function(e){
   if (suppressTileClick) { e.stopPropagation(); e.preventDefault(); }

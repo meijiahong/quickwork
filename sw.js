@@ -1,12 +1,13 @@
 /* Suite Shop Scanner service worker: caches the app shell so it installs
    as a PWA and keeps working offline after the first load. */
-var CACHE = "suite-shop-v23";
+var CACHE = "suite-shop-v25";
 var ASSETS = [
   "./",
   "./index.html",
   "./manifest.json",
   "./icon-192.png",
   "./icon-512.png",
+  "./logo-transparent.png",
   "https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.8/html5-qrcode.min.js"
 ];
 
