@@ -30,9 +30,33 @@
   .btn-danger { background: #fde8e8; color: #b3261e; }
   .btn-row { display: flex; gap: 8px; }
   .btn-row .btn { margin-bottom: 0; }
-  input[type=text], input[type=number], input[type=search] { width: 100%; padding: 13px; font-size: 16px; border: 1.5px solid #c9d2e3; border-radius: 10px; margin-bottom: 10px; }
+  input[type=text], input[type=number], input[type=search], input[type=time] { width: 100%; padding: 13px; font-size: 16px; border: 1.5px solid #c9d2e3; border-radius: 10px; margin-bottom: 10px; }
+  input[type=time] { font-family: inherit; }
   input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
   input[type=number] { -moz-appearance: textfield; appearance: textfield; }
+  /* v60: cohesive controls for the new apps */
+  textarea { width: 100%; padding: 13px; font-size: 16px; border: 1.5px solid #c9d2e3; border-radius: 10px; margin-bottom: 10px; font-family: inherit; resize: vertical; }
+  .field-lg { min-height: 140px; }
+  input[type=time] { color-scheme: light; }
+  input[type=time]::-webkit-calendar-picker-indicator { opacity: .55; cursor: pointer; }
+  .app-check { -webkit-appearance: none; appearance: none; width: 24px; height: 24px; flex: none; margin: 0; border: 2px solid #c9d2e3; border-radius: 7px; background: #fff; cursor: pointer; }
+  .app-check:checked { background-color: #4F46E5; border-color: #4F46E5; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6L9 17l-5-5'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: center; background-size: 14px; }
+  /* v64: inline deduction editor (moves to sit directly under the tapped chip/row) */
+  #dedEditor { margin-top: 10px; background: #f7f9fc; border: 1px solid #e3e8f1; border-radius: 10px; padding: 12px; flex-basis: 100%; width: 100%; }
+  body[data-theme="dark"] #dedEditor { background: #26262b; border-color: #333338; }
+  /* v61: custom date picker (shared by Tasks + Hours) */
+  #datePickerOverlay { display: none; position: fixed; inset: 0; background: rgba(10,14,25,.45); z-index: 60; align-items: center; justify-content: center; padding: 16px; }
+  #datePickerOverlay.open { display: flex; }
+  #datePickerBox { background: #fff; border-radius: 12px; padding: 14px; width: 100%; max-width: 340px; box-shadow: 0 8px 28px rgba(0,0,0,.25); }
+  .dp-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+  .dp-head span { font-weight: 700; font-size: 16px; }
+  .dp-head .iconbtn { margin: 0; width: 38px; padding: 8px 0; font-size: 18px; }
+  .dp-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; text-align: center; }
+  .dp-wd { font-size: 12px; font-weight: 700; color: #7a8499; padding: 6px 0; }
+  .dp-day { border: none; background: transparent; padding: 9px 0; border-radius: 8px; font-size: 15px; cursor: pointer; color: inherit; font-family: inherit; }
+  .dp-day.dim { color: #b6bfcf; }
+  .dp-day.today { outline: 1.5px solid #4F46E5; }
+  .dp-day.sel { background: #4F46E5; color: #fff; font-weight: 700; }
   label { font-size: 13px; font-weight: 600; color: #5a6577; display: block; margin: 8px 0 4px; }
   .item { display: flex; align-items: center; gap: 10px; padding: 11px 4px; border-bottom: 1px solid #edf0f5; }
   .item:last-child { border-bottom: none; }
@@ -235,6 +259,16 @@
 #templateUseBox, #templateEditBox, #templateLibBox, #infoModalBox, #historyBox { background: #fff; width: 100%; max-width: 480px; border-radius: 18px 18px 0 0; padding: 20px 18px 28px; max-height: 92vh; overflow-y: auto; }
 #templateUseBox h2, #templateEditBox h2, #templateLibBox h2, #infoModalBox h2, #historyBox h2 { margin: 0 0 8px; font-size: 19px; }
 #templateEditBox textarea, #infoModalBox textarea { width: 100%; padding: 13px; font-size: 16px; border: 1.5px solid #c9d2e3; border-radius: 10px; margin-bottom: 10px; font-family: inherit; }
+/* ---------- v60: new apps ---------- */
+.task-done .name { text-decoration: line-through; opacity: .55; }
+.item.stock-low { background: #FFF1F0; border-color: #F5C6C2; }
+.item.stock-low .name { color: #b3261e; }
+.handoff-resolved { opacity: .55; }
+.handoff-resolved .name { text-decoration: line-through; }
+.pay-big { font-size: 22px; font-weight: 800; color: #4F46E5; }
+body[data-theme="dark"] .item.stock-low { background: #3a1d1d; border-color: #5a2a2a; }
+body[data-theme="dark"] .item.stock-low .name { color: #ff9d94; }
+body[data-theme="dark"] .pay-big { color: #A5B4FC; }
 /* ---------- v18: indigo polish, modern buttons, smooth reorder ---------- */
 .btn { border-radius: 14px; transition: transform .12s ease, box-shadow .15s ease, background .15s ease; display: flex; align-items: center; justify-content: center; gap: 8px; }
 .btn:active { transform: scale(.98); }
@@ -276,9 +310,16 @@ body[data-theme="dark"] .tile-placeholder { background: rgba(129,140,248,.10); b
 /* ---------- dark theme (v17) ---------- */
 body[data-theme="dark"] { background: #000000; color: #F5F5F7; }
 body[data-theme="dark"] .card { background: #1C1C1E; box-shadow: 0 1px 3px rgba(0,0,0,.4); }
-body[data-theme="dark"] input[type=text], body[data-theme="dark"] input[type=number], body[data-theme="dark"] input[type=search],
+body[data-theme="dark"] input[type=text], body[data-theme="dark"] input[type=number], body[data-theme="dark"] input[type=search], body[data-theme="dark"] input[type=time],
 body[data-theme="dark"] select, body[data-theme="dark"] textarea { background: #101014; border-color: #333338; color: #F5F5F7; }
 body[data-theme="dark"] input::placeholder, body[data-theme="dark"] textarea::placeholder { color: #8E8E93; }
+  body[data-theme="dark"] input[type=time] { color-scheme: dark; }
+  body[data-theme="dark"] .app-check { background: #101014; border-color: #55555c; }
+  body[data-theme="dark"] .app-check:checked { background-color: #818CF8; border-color: #818CF8; }
+  body[data-theme="dark"] #datePickerBox { background: #1C1C1E; }
+  body[data-theme="dark"] .dp-day.dim { color: #55555c; }
+  body[data-theme="dark"] .dp-day.today { outline-color: #818CF8; }
+  body[data-theme="dark"] .dp-day.sel { background: #818CF8; color: #000; }
 body[data-theme="dark"] label { color: #A1A1AA; }
 body[data-theme="dark"] .tpl-lib-row { border-bottom-color: #26262B; }
 body[data-theme="dark"] .tpl-lib-row .name { color: #E4E4EA; }
@@ -428,6 +469,12 @@ body[data-theme="dark"] .toast { background: #232329; }
       <div class="btn-row" style="margin-top:8px">
         <button class="btn btn-ghost" onclick="openHistory()" data-i18n="prod_view_history">View purchase history</button>
       </div>
+      <label class="switch-row"><span><span data-i18n="sset_discount">Employee discount</span></span><span class="switch"><input type="checkbox" id="setDiscountOn" onchange="saveShopSettings()"><span class="track"></span><span class="knob"></span></span></label>
+      <div class="setrow">
+        <label for="setDiscountPct" data-i18n="sset_discount_pct">Discount %</label>
+        <input type="number" id="setDiscountPct" inputmode="decimal" min="0" max="100" step="0.01" onchange="saveShopSettings()">
+        <span>%</span>
+      </div>
       <p class="hint" style="margin:10px 0 0">Tax applies to subtotal + fees. When "Apply tax to Card" is off, card totals stay pre-tax.</p>
     </div>
     <div class="card">
@@ -535,6 +582,228 @@ body[data-theme="dark"] .toast { background: #232329; }
   </main>
 </div>
 
+<div id="view-tasks" style="display:none">
+  <div class="modhead"><button class="backbtn" onclick="goHome()">‹</button><h1>Quick Tasks</h1><span class="modhead-sp"></span></div>
+  <main>
+    <div class="card">
+      <button class="btn btn-primary" id="taskAddBtn" onclick="toggleTaskForm()" data-i18n="task_add">+ Add task</button>
+      <div id="taskForm" style="display:none">
+        <label for="taskTitle" data-i18n="task_title_lb">Task</label>
+        <input type="text" id="taskTitle" data-i18n-ph="task_title_ph" placeholder="e.g. Restock cups">
+        <label for="taskNote" data-i18n="task_note_lb">Note</label>
+        <input type="text" id="taskNote" data-i18n-ph="task_note_ph" placeholder="Add a note…">
+        <label for="taskDue" data-i18n="task_due_lb">Due date</label>
+        <input type="text" id="taskDue" readonly onclick="openDatePicker('taskDue')" data-i18n-ph="date_ph" placeholder="Select date" style="cursor:pointer">
+        <div class="btn-row">
+          <button class="btn btn-primary" onclick="addTask()" data-i18n="task_save">Save task</button>
+          <button class="btn btn-ghost" onclick="cancelTaskForm()" data-i18n="cancel">Cancel</button>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="btn-row">
+        <button class="btn btn-ghost" onclick="exportTasks()" data-i18n="task_export">⬆ Export tasks</button>
+        <button class="btn btn-ghost" onclick="document.getElementById('importTasksFile').click()" data-i18n="task_import">⬇ Import tasks</button>
+      </div>
+      <input type="file" id="importTasksFile" accept=".json,application/json" style="display:none" onchange="importTasks(this)">
+    </div>
+    <div class="card">
+      <nav style="margin:0 0 10px;position:static">
+        <button id="taskTabAll" class="active" onclick="setTaskFilter('all')" data-i18n="task_all">All</button>
+        <button id="taskTabOpen" onclick="setTaskFilter('open')" data-i18n="task_open">Open</button>
+        <button id="taskTabDone" onclick="setTaskFilter('done')" data-i18n="task_done">Done</button>
+      </nav>
+      <div id="taskList"></div>
+      <div class="btn-row" id="taskClearRow" style="display:none;margin-top:8px">
+        <button class="btn btn-ghost" onclick="clearCompletedTasks()" data-i18n="task_clear_done">Clear completed</button>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div id="view-notes" style="display:none">
+  <div class="modhead"><button class="backbtn" onclick="goHome()">‹</button><h1>Quick Note</h1><span class="modhead-sp"></span></div>
+  <main>
+    <div class="card">
+      <button class="btn btn-primary" id="noteAddBtn" onclick="toggleNoteForm()" data-i18n="note_add">+ Add note</button>
+      <div id="noteForm" style="display:none">
+        <label for="noteTitle" data-i18n="note_title_lb">Title</label>
+        <input type="text" id="noteTitle" data-i18n-ph="note_title_ph" placeholder="e.g. Supplier number">
+        <label for="noteBody" data-i18n="note_body_lb">Note</label>
+        <textarea id="noteBody" rows="5" class="field-lg" data-i18n-ph="note_body_ph" placeholder="Write it here…"></textarea>
+        <div class="btn-row">
+          <button class="btn btn-primary" onclick="addNote()" data-i18n="note_save">Save note</button>
+          <button class="btn btn-ghost" onclick="cancelNoteForm()" data-i18n="cancel">Cancel</button>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="btn-row">
+        <button class="btn btn-ghost" onclick="exportNotes()" data-i18n="note_export">⬆ Export notes</button>
+        <button class="btn btn-ghost" onclick="document.getElementById('importNotesFile').click()" data-i18n="note_import">⬇ Import notes</button>
+      </div>
+      <input type="file" id="importNotesFile" accept=".json,application/json" style="display:none" onchange="importNotes(this)">
+    </div>
+    <div class="card">
+      <div id="noteList"></div>
+    </div>
+  </main>
+</div>
+
+<div id="view-hours" style="display:none">
+  <div class="modhead"><button class="backbtn" onclick="goHome()">‹</button><h1>Quick Hours</h1><span class="modhead-sp"></span></div>
+  <main>
+    <div class="card">
+      <nav style="margin:0;position:static">
+        <button id="hoursTabLogBtn" class="active" onclick="setHoursTab('log')" data-i18n="hours_tab_log">Log</button>
+        <button id="hoursTabEstBtn" onclick="setHoursTab('est')" data-i18n="hours_tab_est">Estimator</button>
+      </nav>
+    </div>
+    <div id="hoursLogTab">
+    <div class="card">
+      <div id="hoursTotals"></div>
+    </div>
+    <div class="card">
+      <label for="hoursWage" data-i18n="hours_wage_lb">Hourly wage ($)</label>
+      <input type="number" id="hoursWage" inputmode="decimal" min="0" step="0.01" onchange="hoursWageChanged()">
+      <label class="switch-row"><span><span data-i18n="hours_paid_break">Paid meal break</span></span><span class="switch"><input type="checkbox" id="hoursPaidBreak" onchange="togglePaidMealBreak()"><span class="track"></span><span class="knob"></span></span></label>
+    </div>
+    <div class="card">
+      <button class="btn btn-primary" id="hoursAddBtn" onclick="toggleHoursForm()" data-i18n="hours_add_btn">+ Add hours</button>
+      <div id="hoursForm" style="display:none">
+      <label for="hoursDate" data-i18n="hours_date_lb">Date</label>
+      <input type="text" id="hoursDate" readonly onclick="openDatePicker('hoursDate')" data-i18n-ph="date_ph" placeholder="Select date" style="cursor:pointer">
+      <label for="hoursClockIn" data-i18n="hours_clock_in_lb">Clock in</label>
+      <input type="time" id="hoursClockIn">
+      <label for="hoursClockOut" data-i18n="hours_clock_out_lb">Clock out</label>
+      <input type="time" id="hoursClockOut">
+      <div id="hoursMealRow">
+        <label for="hoursMealStart" data-i18n="hours_meal_start">Meal start</label>
+        <input type="time" id="hoursMealStart">
+        <label for="hoursMealEnd" data-i18n="hours_meal_end">Meal end</label>
+        <input type="time" id="hoursMealEnd">
+      </div>
+      <label for="hoursLabel" data-i18n="hours_label_lb">Label</label>
+      <input type="text" id="hoursLabel" data-i18n-ph="hours_label_ph" placeholder="e.g. Morning shift">
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="addManualHours()" data-i18n="hours_save">Save hours</button>
+        <button class="btn btn-ghost" onclick="cancelHoursForm()" data-i18n="cancel">Cancel</button>
+      </div>
+      </div>
+    </div>
+    <div class="card">
+      <div id="hoursList"></div>
+    </div>
+    </div>
+    <div id="hoursEstTab" style="display:none">
+    <div class="card">
+      <label for="estHours" data-i18n="hours_est_hours_lb">Hours</label>
+      <input type="number" id="estHours" inputmode="decimal" min="0" step="0.01" oninput="renderEstimator()" data-i18n-ph="hours_est_hours_ph" placeholder="Enter hours">
+      <div id="estBreakdown"></div>
+    </div>
+    <div class="card">
+      <div class="row" style="margin-bottom:8px"><b data-i18n="hours_ded_title">Deductions</b></div>
+      <div id="hoursDedList"></div>
+      <div style="margin:10px 0 6px"><button class="btn btn-ghost" id="dedAddBtn" onclick="openDedEditor('custom', null, this)" data-i18n="hours_ded_add_btn" style="margin-bottom:0">+ Add deduction</button></div>
+      <div style="margin:10px 0 6px"><span class="sub" data-i18n="hours_ded_preset_lb">Quick add</span></div>
+      <div id="hoursDedPresets" class="row" style="flex-wrap:wrap;gap:8px"></div>
+      <div id="dedEditor" style="display:none">
+      <label for="dedName" data-i18n="hours_ded_name_lb">Name</label>
+      <input type="text" id="dedName" data-i18n-ph="hours_ded_name_ph" placeholder="e.g. Federal tax">
+      <label data-i18n="hours_ded_type_lb">Type</label>
+      <nav style="margin:0 0 10px;position:static">
+        <button id="dedTypePercentBtn" class="active" onclick="setDedFormType('percent')" data-i18n="hours_ded_percent">Percent of gross</button>
+        <button id="dedTypeFixedBtn" onclick="setDedFormType('fixed')" data-i18n="hours_ded_fixed">Fixed amount</button>
+      </nav>
+      <label for="dedValue" id="dedValueLabel">Value (%)</label>
+      <input type="number" id="dedValue" inputmode="decimal" min="0" step="0.01" placeholder="0">
+      <div class="btn-row">
+        <button class="btn btn-primary" id="dedSaveBtn" onclick="saveDeduction()">Add deduction</button>
+        <button class="btn btn-ghost" id="dedCancelBtn" onclick="cancelEditDeduction()" data-i18n="cancel">Cancel</button>
+      </div>
+      </div>
+    </div>
+    </div>
+    <div class="card">
+      <div class="btn-row">
+        <button class="btn btn-ghost" onclick="exportHours()" data-i18n="hours_export">⬆ Export hours</button>
+        <button class="btn btn-ghost" onclick="document.getElementById('importHoursFile').click()" data-i18n="hours_import">⬇ Import hours</button>
+      </div>
+      <input type="file" id="importHoursFile" accept=".json,application/json" style="display:none" onchange="importHours(this)">
+    </div>
+  </main>
+</div>
+
+<div id="view-stock" style="display:none">
+  <div class="modhead"><button class="backbtn" onclick="goHome()">‹</button><h1>Quick Stock</h1><span class="modhead-sp"></span></div>
+  <main>
+    <div class="card">
+      <label class="switch-row"><span><span data-i18n="stock_connect">Connect with Quick Shop catalog</span></span><span class="switch"><input type="checkbox" id="stockConnect" onchange="toggleStockConnect()"><span class="track"></span><span class="knob"></span></span></label>
+    </div>
+    <div class="card">
+      <button class="btn btn-primary" id="stockAddBtn" onclick="toggleStockForm()" data-i18n="stock_add">+ Add item</button>
+      <div id="stockForm" style="display:none">
+        <label for="stockName" data-i18n="stock_name_lb">Item name</label>
+        <input type="text" id="stockName" data-i18n-ph="stock_name_ph" placeholder="e.g. Cups">
+        <label for="stockQty" data-i18n="stock_qty_lb">Quantity</label>
+        <input type="number" id="stockQty" inputmode="numeric" min="0" step="1">
+        <label for="stockThreshold" data-i18n="stock_threshold_lb">Low-stock threshold</label>
+        <input type="number" id="stockThreshold" inputmode="numeric" min="0" step="1">
+        <div class="btn-row">
+          <button class="btn btn-primary" id="stockSaveBtn" onclick="saveStockItem()" data-i18n="stock_save">Save</button>
+          <button class="btn btn-ghost" id="stockCancelBtn" style="display:none" onclick="cancelEditStock()" data-i18n="cancel">Cancel</button>
+        </div>
+      </div>
+    </div>
+    <div class="card" id="stockCatalogCard" style="display:none">
+      <button class="btn btn-primary" onclick="toggleStockPicker()" data-i18n="stock_add_catalog">Add from Quick Shop</button>
+      <div id="stockPicker" style="display:none;margin-top:10px">
+        <input type="search" id="stockCatalogSearch" data-i18n-ph="stock_catalog_search_ph" placeholder="Search catalog…" oninput="renderStockPicker()">
+        <div id="stockCatalogList"></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="btn-row">
+        <button class="btn btn-ghost" onclick="exportStock()" data-i18n="stock_export">⬆ Export stock</button>
+        <button class="btn btn-ghost" onclick="document.getElementById('importStockFile').click()" data-i18n="stock_import">⬇ Import stock</button>
+      </div>
+      <input type="file" id="importStockFile" accept=".json,application/json" style="display:none" onchange="importStock(this)">
+    </div>
+    <div class="card">
+      <div id="stockList"></div>
+    </div>
+  </main>
+</div>
+
+<div id="view-handoff" style="display:none">
+  <div class="modhead"><button class="backbtn" onclick="goHome()">‹</button><h1>Quick Handoff</h1><span class="modhead-sp"></span></div>
+  <main>
+    <div class="card">
+      <button class="btn btn-primary" id="handoffAddBtn" onclick="toggleHandoffForm()" data-i18n="handoff_add">+ Add handoff</button>
+      <div id="handoffForm" style="display:none">
+        <label for="handoffTitle" data-i18n="handoff_title_lb">Title</label>
+        <input type="text" id="handoffTitle" data-i18n-ph="handoff_title_ph" placeholder="e.g. End of shift notes">
+        <label for="handoffMsg" data-i18n="handoff_msg_lb">Message</label>
+        <textarea id="handoffMsg" rows="5" class="field-lg" data-i18n-ph="handoff_msg_ph" placeholder="Write the handoff…"></textarea>
+        <div class="btn-row">
+          <button class="btn btn-primary" onclick="addHandoff()" data-i18n="handoff_save">Save handoff</button>
+          <button class="btn btn-ghost" onclick="cancelHandoffForm()" data-i18n="cancel">Cancel</button>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="btn-row">
+        <button class="btn btn-ghost" onclick="exportHandoffs()" data-i18n="handoff_export">⬆ Export handoffs</button>
+        <button class="btn btn-ghost" onclick="document.getElementById('importHandoffsFile').click()" data-i18n="handoff_import">⬇ Import handoffs</button>
+      </div>
+      <input type="file" id="importHandoffsFile" accept=".json,application/json" style="display:none" onchange="importHandoffs(this)">
+    </div>
+    <div class="card">
+      <div id="handoffList"></div>
+    </div>
+  </main>
+</div>
+
 <div id="view-settings" style="display:none">
   <div class="modhead"><button class="backbtn" onclick="goHome()">‹</button><h1 data-i18n="settings">Settings</h1><span class="modhead-sp"></span></div>
   <main>
@@ -563,6 +832,22 @@ body[data-theme="dark"] .toast { background: #232329; }
   </main>
 </div>
 
+
+<!-- v61: shared custom date picker -->
+<div id="datePickerOverlay" onclick="if(event.target===this) closeDatePicker()">
+  <div id="datePickerBox">
+    <div class="dp-head">
+      <button class="iconbtn" onclick="datePickerNav(-1)">‹</button>
+      <span id="datePickerTitle"></span>
+      <button class="iconbtn" onclick="datePickerNav(1)">›</button>
+    </div>
+    <div class="dp-grid" id="datePickerGrid"></div>
+    <div class="btn-row" style="margin-top:10px">
+      <button class="btn btn-ghost" onclick="datePickerToday()" data-i18n="date_today">Today</button>
+      <button class="btn btn-ghost" onclick="closeDatePicker()" data-i18n="cancel">Cancel</button>
+    </div>
+  </div>
+</div>
 
 <!-- SCANNER OVERLAY -->
 <div id="scanOverlay">
@@ -872,7 +1157,154 @@ rec_not_file: "That file is not a recovery guide.",
 rec_min: "Min", rec_max: "Max",
 rec_back_list: "Back to list",
 default_footer: "Anything beyond these limits: check with your manager.",
-my_shop: "My Shop"
+my_shop: "My Shop",
+tile_tasks_d: "Tasks & to-dos",
+tile_notes_d: "Notes",
+tile_hours_d: "Hours & pay",
+tile_stock_d: "Stock levels",
+tile_handoff_d: "Shift handoff",
+task_add: "+ Add task",
+task_title_lb: "Task",
+task_title_ph: "e.g. Restock cups",
+task_note_lb: "Note",
+task_note_ph: "Add a note…",
+task_due_lb: "Due date",
+task_all: "All",
+task_open: "Open",
+task_done: "Done",
+task_clear_done: "Clear completed",
+task_empty: "No tasks yet.",
+task_del: "Delete this task?",
+task_no_title: "Add a task title first.",
+task_save: "Save task",
+task_export: "⬆ Export tasks",
+task_import: "⬇ Import tasks",
+task_no_export: "Nothing to export yet.",
+task_imported_1: "1 task imported.",
+task_imported_n: "{n} tasks imported.",
+note_add: "+ Add note",
+note_save: "Save note",
+note_title_lb: "Title",
+note_title_ph: "e.g. Supplier number",
+note_body_lb: "Note",
+note_body_ph: "Write it here…",
+note_empty: "No notes yet.",
+note_del: "Delete this note?",
+note_need: "Add a title or some text first.",
+note_export: "⬆ Export notes",
+note_import: "⬇ Import notes",
+note_no_export: "Nothing to export yet.",
+note_imported_1: "1 note imported.",
+note_imported_n: "{n} notes imported.",
+note_tap_edit: "Tap a note to edit it.",
+hours_wage_lb: "Hourly wage ($)",
+hours_wage_show: "Hourly wage",
+hours_paid_break: "Paid meal break",
+hours_date_lb: "Date",
+hours_clock_in_lb: "Clock in",
+hours_clock_out_lb: "Clock out",
+hours_meal_start: "Meal start",
+hours_meal_end: "Meal end",
+hours_hours_lb: "Hours",
+hours_label_lb: "Label",
+hours_label_ph: "e.g. Morning shift",
+hours_add: "+ Log hours",
+hours_add_btn: "+ Add hours",
+hours_save: "Save hours",
+hours_need_times: "Enter clock-in and clock-out times first.",
+hours_total_hours: "Total paid hours",
+hours_est_pay: "Estimated pay",
+hours_break_start: "Break start",
+hours_break_end: "Break end",
+hours_break_ded: "Break deducted",
+hours_paid_hours: "Paid hours",
+hours_empty: "No entries yet.",
+hours_del: "Delete this entry?",
+hours_need: "Enter hours first.",
+hours_export: "⬆ Export hours",
+hours_import: "⬇ Import hours",
+hours_no_export: "Nothing to export yet.",
+hours_imported_1: "1 hours entry imported.",
+hours_imported_n: "{n} hours entries imported.",
+hours_tab_log: "Log",
+hours_tab_est: "Estimator",
+hours_est_hours_lb: "Hours",
+hours_est_hours_ph: "Enter hours",
+hours_est_gross: "Gross pay",
+hours_est_total_ded: "Total deductions",
+hours_est_net: "Net pay",
+hours_est_set_wage: "Set your hourly wage in the Log tab to estimate pay.",
+hours_ded_title: "Deductions",
+hours_ded_name_lb: "Name",
+hours_ded_name_ph: "e.g. Federal tax",
+hours_ded_type_lb: "Type",
+hours_ded_percent: "Percent of gross",
+hours_ded_fixed: "Fixed amount",
+hours_ded_value_pct: "Value (%)",
+hours_ded_value_amt: "Value ($)",
+hours_ded_add: "Add deduction",
+hours_ded_add_btn: "+ Add deduction",
+hours_ded_save: "Save deduction",
+hours_ded_edit: "Edit",
+hours_ded_del: "Delete",
+hours_ded_del_confirm: "Delete this deduction?",
+hours_ded_empty: "No deductions yet.",
+hours_ded_preset_lb: "Quick add",
+hours_ded_need_name: "Enter a name first.",
+hours_ded_preset_federal: "Federal tax",
+hours_ded_preset_state: "State tax",
+hours_ded_preset_ss: "Social Security",
+hours_ded_preset_medicare: "Medicare",
+hours_ded_preset_health: "Health insurance",
+hours_ded_preset_dental: "Dental",
+hours_ded_preset_vision: "Vision",
+hours_ded_preset_401k: "401(k)",
+hours_ded_preset_other: "Other",
+date_today: "Today",
+date_ph: "Select date",
+stock_connect: "Connect with Quick Shop catalog",
+stock_add_catalog: "Add from Quick Shop",
+stock_catalog_search_ph: "Search catalog…",
+stock_add: "+ Add item",
+stock_name_lb: "Item name",
+stock_name_ph: "e.g. Cups",
+stock_qty_lb: "Quantity",
+stock_threshold_lb: "Low-stock threshold",
+stock_empty: "No stock items yet.",
+stock_del: "Delete this item?",
+stock_low: "Low stock",
+stock_need_name: "Add an item name first.",
+stock_export: "⬆ Export stock",
+stock_import: "⬇ Import stock",
+stock_no_export: "Nothing to export yet.",
+stock_imported_1: "1 stock item imported.",
+stock_imported_n: "{n} stock items imported.",
+stock_catalog_empty: "No products in the catalog yet.",
+stock_linked: "Linked",
+stock_save: "Save",
+stock_cancel_edit: "Cancel edit",
+handoff_add: "+ Add handoff",
+handoff_save: "Save handoff",
+handoff_title_lb: "Title",
+handoff_title_ph: "e.g. End of shift notes",
+handoff_msg_lb: "Message",
+handoff_msg_ph: "Write the handoff…",
+handoff_empty: "No handoffs yet.",
+handoff_del: "Delete this entry?",
+handoff_resolve: "Mark resolved",
+handoff_reopen: "Reopen",
+handoff_resolved: "Resolved",
+handoff_need: "Add a title or message first.",
+handoff_export: "⬆ Export handoffs",
+handoff_import: "⬇ Import handoffs",
+handoff_no_export: "Nothing to export yet.",
+handoff_imported_1: "1 handoff imported.",
+handoff_imported_n: "{n} handoffs imported.",
+sset_discount: "Employee discount",
+sset_discount_pct: "Discount %",
+sum_discount: "Discount",
+sum_apply_discount: "Apply discount",
+sum_remove_discount: "Remove discount"
 },
 es: {
 // shared
@@ -1080,7 +1512,154 @@ rec_not_file: "Ese archivo no es una guía de recuperación.",
 rec_min: "Mín", rec_max: "Máx",
 rec_back_list: "Volver a la lista",
 default_footer: "Lo que exceda estos límites, consulta con tu gerente.",
-my_shop: "Mi tienda"
+my_shop: "Mi tienda",
+tile_tasks_d: "Tareas y pendientes",
+tile_notes_d: "Notas",
+tile_hours_d: "Horas y pago",
+tile_stock_d: "Niveles de inventario",
+tile_handoff_d: "Entrega de turno",
+task_add: "+ Añadir tarea",
+task_title_lb: "Tarea",
+task_title_ph: "ej. Reponer vasos",
+task_note_lb: "Nota",
+task_note_ph: "Añade una nota…",
+task_due_lb: "Fecha límite",
+task_all: "Todas",
+task_open: "Pendientes",
+task_done: "Hechas",
+task_clear_done: "Borrar completadas",
+task_empty: "Sin tareas aún.",
+task_del: "¿Eliminar esta tarea?",
+task_no_title: "Escribe el título de la tarea primero.",
+task_save: "Guardar tarea",
+task_export: "⬆ Exportar tareas",
+task_import: "⬇ Importar tareas",
+task_no_export: "Nada que exportar aún.",
+task_imported_1: "1 tarea importada.",
+task_imported_n: "{n} tareas importadas.",
+note_add: "+ Añadir nota",
+note_save: "Guardar nota",
+note_title_lb: "Título",
+note_title_ph: "ej. Número del proveedor",
+note_body_lb: "Nota",
+note_body_ph: "Escríbela aquí…",
+note_empty: "Sin notas aún.",
+note_del: "¿Eliminar esta nota?",
+note_need: "Añade un título o algo de texto primero.",
+note_export: "⬆ Exportar notas",
+note_import: "⬇ Importar notas",
+note_no_export: "Nada que exportar aún.",
+note_imported_1: "1 nota importada.",
+note_imported_n: "{n} notas importadas.",
+note_tap_edit: "Toca una nota para editarla.",
+hours_wage_lb: "Salario por hora ($)",
+hours_wage_show: "Salario por hora",
+hours_paid_break: "Descanso de comida pagado",
+hours_date_lb: "Fecha",
+hours_clock_in_lb: "Entrada",
+hours_clock_out_lb: "Salida",
+hours_meal_start: "Inicio del descanso",
+hours_meal_end: "Fin del descanso",
+hours_hours_lb: "Horas",
+hours_label_lb: "Etiqueta",
+hours_label_ph: "ej. Turno de mañana",
+hours_add: "+ Registrar horas",
+hours_add_btn: "+ Añadir horas",
+hours_save: "Guardar horas",
+hours_need_times: "Ingresa primero la hora de entrada y de salida.",
+hours_total_hours: "Total de horas pagadas",
+hours_est_pay: "Pago estimado",
+hours_break_start: "Inicio del descanso",
+hours_break_end: "Fin del descanso",
+hours_break_ded: "Descanso descontado",
+hours_paid_hours: "Horas pagadas",
+hours_empty: "Sin registros aún.",
+hours_del: "¿Eliminar este registro?",
+hours_need: "Ingresa las horas primero.",
+hours_export: "⬆ Exportar horas",
+hours_import: "⬇ Importar horas",
+hours_no_export: "Nada que exportar aún.",
+hours_imported_1: "1 registro de horas importado.",
+hours_imported_n: "{n} registros de horas importados.",
+hours_tab_log: "Registro",
+hours_tab_est: "Estimador",
+hours_est_hours_lb: "Horas",
+hours_est_hours_ph: "Ingresa horas",
+hours_est_gross: "Pago bruto",
+hours_est_total_ded: "Total de deducciones",
+hours_est_net: "Pago neto",
+hours_est_set_wage: "Establece tu salario por hora en la pestaña Registro para estimar el pago.",
+hours_ded_title: "Deducciones",
+hours_ded_name_lb: "Nombre",
+hours_ded_name_ph: "ej. Impuesto federal",
+hours_ded_type_lb: "Tipo",
+hours_ded_percent: "Porcentaje del bruto",
+hours_ded_fixed: "Cantidad fija",
+hours_ded_value_pct: "Valor (%)",
+hours_ded_value_amt: "Valor ($)",
+hours_ded_add: "Añadir deducción",
+hours_ded_add_btn: "+ Añadir deducción",
+hours_ded_save: "Guardar deducción",
+hours_ded_edit: "Editar",
+hours_ded_del: "Eliminar",
+hours_ded_del_confirm: "¿Eliminar esta deducción?",
+hours_ded_empty: "Sin deducciones aún.",
+hours_ded_preset_lb: "Añadir rápido",
+hours_ded_need_name: "Ingresa primero un nombre.",
+hours_ded_preset_federal: "Impuesto federal",
+hours_ded_preset_state: "Impuesto estatal",
+hours_ded_preset_ss: "Seguro Social",
+hours_ded_preset_medicare: "Medicare",
+hours_ded_preset_health: "Seguro de salud",
+hours_ded_preset_dental: "Dental",
+hours_ded_preset_vision: "Visión",
+hours_ded_preset_401k: "401(k)",
+hours_ded_preset_other: "Otro",
+date_today: "Hoy",
+date_ph: "Seleccionar fecha",
+stock_connect: "Conectar con el catálogo de Quick Shop",
+stock_add_catalog: "Añadir desde Quick Shop",
+stock_catalog_search_ph: "Buscar en el catálogo…",
+stock_add: "+ Añadir artículo",
+stock_name_lb: "Nombre del artículo",
+stock_name_ph: "ej. Vasos",
+stock_qty_lb: "Cantidad",
+stock_threshold_lb: "Límite de stock bajo",
+stock_empty: "Sin artículos en inventario aún.",
+stock_del: "¿Eliminar este artículo?",
+stock_low: "Stock bajo",
+stock_need_name: "Escribe el nombre del artículo primero.",
+stock_export: "⬆ Exportar inventario",
+stock_import: "⬇ Importar inventario",
+stock_no_export: "Nada que exportar aún.",
+stock_imported_1: "1 artículo importado.",
+stock_imported_n: "{n} artículos importados.",
+stock_catalog_empty: "Aún no hay productos en el catálogo.",
+stock_linked: "Vinculado",
+stock_save: "Guardar",
+stock_cancel_edit: "Cancelar edición",
+handoff_add: "+ Añadir entrega",
+handoff_save: "Guardar entrega",
+handoff_title_lb: "Título",
+handoff_title_ph: "ej. Notas de fin de turno",
+handoff_msg_lb: "Mensaje",
+handoff_msg_ph: "Escribe la entrega…",
+handoff_empty: "Sin entregas aún.",
+handoff_del: "¿Eliminar este registro?",
+handoff_resolve: "Marcar resuelto",
+handoff_reopen: "Reabrir",
+handoff_resolved: "Resuelto",
+handoff_need: "Añade un título o mensaje primero.",
+handoff_export: "⬆ Exportar entregas",
+handoff_import: "⬇ Importar entregas",
+handoff_no_export: "Nada que exportar aún.",
+handoff_imported_1: "1 entrega importada.",
+handoff_imported_n: "{n} entregas importadas.",
+sset_discount: "Descuento de empleado",
+sset_discount_pct: "Descuento %",
+sum_discount: "Descuento",
+sum_apply_discount: "Aplicar descuento",
+sum_remove_discount: "Quitar descuento"
 }
 };
 
@@ -1129,6 +1708,7 @@ function renderLangRow() {
 function renderAll() {
   renderHome(); renderOrder(); renderShopName(); loadShopSettingsUI();
   renderContacts(); renderRecovery(); renderModuleToggles();
+  renderTasks(); renderNotes(); renderHours(); renderStock(); renderHandoff();
   renderSettingsProfile(); renderFontSizeRow(); renderThemeRow(); renderLangRow();
   if (document.getElementById("view-profiles").style.display !== "none") renderProfiles();
 }
@@ -1142,8 +1722,13 @@ var sheetCode = null, sheetOverride = null, priceCtx = null, modalImg = null;
 var sheetQty = 1;
 
 function defaultShopSettings() {
-  return { taxEnabled: false, taxRate: 6, taxCash: true, taxCard: false, changeDenoms: true, saveHistory: false, fees: [], cashPicks: [1, 5, 10, 20, 50, 100] };
+  return { taxEnabled: false, taxRate: 6, taxCash: true, taxCard: false, changeDenoms: true, saveHistory: false, fees: [], cashPicks: [1, 5, 10, 20, 50, 100], discountEnabled: false, discountPct: 0 };
 }
+function defaultTasks() { return { items: [] }; }
+function defaultNotes() { return { items: [] }; }
+function defaultHours() { return { wage: 0, paidMealBreak: false, entries: [], deductions: [] }; }
+function defaultStock() { return { connectCatalog: false, items: [] }; }
+function defaultHandoffs() { return { entries: [] }; }
 function defaultContacts() {
   return { departments: [], people: [] };
 }
@@ -1182,7 +1767,8 @@ function blankProfile(name) {
     recovery: { compTypes: [], situations: [], footerNote: t("default_footer") },
     contacts: { departments: [], people: [], templates: [], lastDept: "" },
     info: { items: [] },
-    modules: { shop: true, contacts: true, recovery: true, info: true }, moduleOrder: ["shop", "contacts", "recovery", "info"] };
+    tasks: defaultTasks(), notes: defaultNotes(), hours: defaultHours(), stock: defaultStock(), handoffs: defaultHandoffs(),
+    modules: { shop: true, contacts: true, recovery: true, info: true, tasks: true, notes: true, hours: true, stock: true, handoff: true }, moduleOrder: ["shop", "contacts", "recovery", "info", "tasks", "notes", "hours", "stock", "handoff"] };
 }
 function migrateProfile(p) {
   if (!p.shopName || p.shopName === "Suite Shop" || p.shopName === "My Shop") p.shopName = "";
@@ -1191,6 +1777,8 @@ function migrateProfile(p) {
     if (!Array.isArray(p.shopSettings.fees)) p.shopSettings.fees = [];
     if (!Array.isArray(p.shopSettings.cashPicks)) p.shopSettings.cashPicks = [1, 5, 10, 20, 50, 100];
     if (p.shopSettings.saveHistory === undefined) p.shopSettings.saveHistory = false;
+    if (p.shopSettings.discountEnabled === undefined) p.shopSettings.discountEnabled = false;
+    if (p.shopSettings.discountPct === undefined) p.shopSettings.discountPct = 0;
   }
   if (!Array.isArray(p.shopHistory)) p.shopHistory = [];
   if (p.recovery.footerNote === undefined) p.recovery.footerNote = t("default_footer");
@@ -1198,6 +1786,22 @@ function migrateProfile(p) {
   if (!Array.isArray(p.contacts.templates)) p.contacts.templates = [];
   stripHotelPresets(p);
   if (!p.info || !Array.isArray(p.info.items)) p.info = { items: [] };
+  if (!p.tasks || !Array.isArray(p.tasks.items)) p.tasks = defaultTasks();
+  if (!p.notes || !Array.isArray(p.notes.items)) p.notes = defaultNotes();
+  if (!p.hours || !Array.isArray(p.hours.entries)) p.hours = defaultHours();
+  else {
+    if (typeof p.hours.wage !== "number") p.hours.wage = 0;
+    if (typeof p.hours.paidMealBreak !== "boolean") p.hours.paidMealBreak = false;
+    if ("openPunch" in p.hours) delete p.hours.openPunch;
+    normalizeDeductions(p.hours);
+  }
+  if (!p.stock || !Array.isArray(p.stock.items)) p.stock = defaultStock();
+  else if (typeof p.stock.connectCatalog !== "boolean") p.stock.connectCatalog = false;
+  if (!p.handoffs || !Array.isArray(p.handoffs.entries)) p.handoffs = defaultHandoffs();
+  if (!p.modules) p.modules = {};
+  ["tasks", "notes", "hours", "stock", "handoff"].forEach(function(id){ if (p.modules[id] === undefined) p.modules[id] = true; });
+  if (!Array.isArray(p.moduleOrder)) p.moduleOrder = [];
+  ["tasks", "notes", "hours", "stock", "handoff"].forEach(function(id){ if (p.moduleOrder.indexOf(id) < 0) p.moduleOrder.push(id); });
   return p;
 }
 function loadDB() {
@@ -1365,6 +1969,11 @@ var ICON_GEAR = '<svg viewBox="0 0 48 48">' + SVG_BG +
   '<line x1="32.8" y1="15.2" x2="29.3" y2="18.7"/>' +
   '<line x1="18.7" y1="29.3" x2="15.2" y2="32.8"/></g>' +
   '<circle cx="24" cy="24" r="6" stroke="#fff" stroke-width="3.6" fill="none"/></svg>';
+var ICON_TASKS = '<svg viewBox="0 0 48 48">' + SVG_BG + '<rect x="12" y="10" width="24" height="28" rx="5" fill="none" stroke="#fff" stroke-width="3.2"/><path d="M18 20l3 3 5-6" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M18 29h12M18 33h8" stroke="#fff" stroke-width="3.2" stroke-linecap="round"/></svg>';
+var ICON_NOTES = '<svg viewBox="0 0 48 48">' + SVG_BG + '<path d="M14 9h13l7 7v23H14z" fill="none" stroke="#fff" stroke-width="3.2" stroke-linejoin="round"/><path d="M27 9v7h7" fill="none" stroke="#fff" stroke-width="3.2" stroke-linejoin="round"/><path d="M19 25h10M19 30h10" stroke="#fff" stroke-width="3.2" stroke-linecap="round"/></svg>';
+var ICON_HOURS = '<svg viewBox="0 0 48 48">' + SVG_BG + '<circle cx="24" cy="24" r="13" fill="none" stroke="#fff" stroke-width="3.2"/><path d="M24 17v7l5 3" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+var ICON_STOCK = '<svg viewBox="0 0 48 48">' + SVG_BG + '<path d="M24 11l11 6v14l-11 6-11-6V17z" fill="none" stroke="#fff" stroke-width="3.2" stroke-linejoin="round"/><path d="M24 11v13M13 17l11 6 11-6" fill="none" stroke="#fff" stroke-width="3.2" stroke-linejoin="round"/></svg>';
+var ICON_HANDOFF = '<svg viewBox="0 0 48 48">' + SVG_BG + '<path d="M12 18h20M28 12l6 6-6 6" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M36 30H16M20 24l-6 6 6 6" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 var ICON_GEAR_BARE = '<svg viewBox="0 0 48 48">' +
   '<g stroke="currentColor" stroke-width="4.4" stroke-linecap="round">' +
   '<line x1="24" y1="10" x2="24" y2="16"/>' +
@@ -1382,7 +1991,12 @@ var MODULES = [
   { id: "shop", name: "Quick Shop", icon: ICON_SHOP, descKey: "tile_shop_d" },
   { id: "contacts", name: "Quick Contacts", icon: ICON_CONTACTS, descKey: "tile_contacts_d" },
   { id: "recovery", name: "Quick Recovery", icon: ICON_RECOVERY, descKey: "tile_recovery_d" },
-  { id: "info", name: "Quick Info", icon: ICON_INFO, descKey: "tile_info_d" }
+  { id: "info", name: "Quick Info", icon: ICON_INFO, descKey: "tile_info_d" },
+  { id: "tasks", name: "Quick Tasks", icon: ICON_TASKS, descKey: "tile_tasks_d" },
+  { id: "notes", name: "Quick Note", icon: ICON_NOTES, descKey: "tile_notes_d" },
+  { id: "hours", name: "Quick Hours", icon: ICON_HOURS, descKey: "tile_hours_d" },
+  { id: "stock", name: "Quick Stock", icon: ICON_STOCK, descKey: "tile_stock_d" },
+  { id: "handoff", name: "Quick Handoff", icon: ICON_HANDOFF, descKey: "tile_handoff_d" }
 ];
 /* ---------- Quick Info ---------- */
 var editingInfoId = null;
@@ -1463,12 +2077,918 @@ function importInfo(input) {
   };
   r.readAsText(f);
 }
+/* ================= v61: shared custom date picker ================= */
+var datePickerTarget = null, datePickerView = null;
+function parseIsoDate(s) {
+  var p = String(s || "").split("-");
+  if (p.length !== 3) return null;
+  var d = new Date(+p[0], +p[1] - 1, +p[2]);
+  return isNaN(d.getTime()) ? null : d;
+}
+function openDatePicker(inputId) {
+  datePickerTarget = inputId;
+  var cur = parseIsoDate(document.getElementById(inputId).value) || new Date();
+  datePickerView = { y: cur.getFullYear(), m: cur.getMonth() };
+  renderDatePicker();
+  var ov = document.getElementById("datePickerOverlay"); if (ov) ov.classList.add("open");
+}
+function closeDatePicker() {
+  var ov = document.getElementById("datePickerOverlay"); if (ov) ov.classList.remove("open");
+  datePickerTarget = null;
+}
+function datePickerNav(d) {
+  if (!datePickerView) return;
+  var m = datePickerView.m + d;
+  datePickerView = { y: datePickerView.y + Math.floor(m / 12), m: ((m % 12) + 12) % 12 };
+  renderDatePicker();
+}
+function datePickerToday() {
+  var t = new Date();
+  datePickerView = { y: t.getFullYear(), m: t.getMonth() };
+  renderDatePicker();
+}
+function datePickerPick(iso) {
+  var el = datePickerTarget ? document.getElementById(datePickerTarget) : null;
+  if (el) el.value = iso;
+  closeDatePicker();
+}
+function renderDatePicker() {
+  var grid = document.getElementById("datePickerGrid"); if (!grid || !datePickerView) return;
+  var title = document.getElementById("datePickerTitle");
+  var y = datePickerView.y, m = datePickerView.m;
+  if (title) title.textContent = new Date(y, m, 1).toLocaleDateString(undefined, { month: "long", year: "numeric" });
+  var curVal = datePickerTarget ? document.getElementById(datePickerTarget).value : "";
+  var todayIso = fmtIsoDate(new Date());
+  var html = "";
+  for (var i = 0; i < 7; i++) {
+    var wd = new Date(2021, 7, 1 + i); /* Aug 1 2021 was a Sunday */
+    html += '<span class="dp-wd">' + wd.toLocaleDateString(undefined, { weekday: "short" }) + '</span>';
+  }
+  var first = new Date(y, m, 1).getDay();
+  var days = new Date(y, m + 1, 0).getDate();
+  var prevDays = new Date(y, m, 0).getDate();
+  for (var c = 0; c < first; c++) html += '<span class="dp-day dim">' + (prevDays - first + 1 + c) + '</span>';
+  for (var d = 1; d <= days; d++) {
+    var iso = y + "-" + ("0" + (m + 1)).slice(-2) + "-" + ("0" + d).slice(-2);
+    var cls = "dp-day" + (iso === todayIso ? " today" : "") + (iso === curVal ? " sel" : "");
+    html += '<button type="button" class="' + cls + '" onclick="datePickerPick(\'' + iso + '\')">' + d + '</button>';
+  }
+  var total = first + days, trail = (7 - (total % 7)) % 7;
+  for (var t2 = 1; t2 <= trail; t2++) html += '<span class="dp-day dim">' + t2 + '</span>';
+  grid.innerHTML = html;
+}
+function fmtIsoDate(d) { return d.getFullYear() + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" + ("0" + d.getDate()).slice(-2); }
+
+/* ================= v60: Quick Tasks ================= */
+var taskFilter = "all";
+function renderTasks() {
+  var box = document.getElementById("taskList"); if (!box) return;
+  var items = (state.tasks && state.tasks.items) || [];
+  var tabs = { all: "taskTabAll", open: "taskTabOpen", done: "taskTabDone" };
+  Object.keys(tabs).forEach(function(f){ var b = document.getElementById(tabs[f]); if (b) b.classList.toggle("active", taskFilter === f); });
+  var cr = document.getElementById("taskClearRow"); if (cr) cr.style.display = items.some(function(x){ return x.done; }) ? "" : "none";
+  var shown = items.filter(function(x){ return taskFilter === "all" || (taskFilter === "open" ? !x.done : x.done); });
+  if (!shown.length) { box.innerHTML = '<div class="empty">' + t("task_empty") + '</div>'; return; }
+  box.innerHTML = shown.map(function(x){
+    var sub = [];
+    if (x.note) sub.push(esc(x.note));
+    if (x.due) sub.push(esc(x.due));
+    var subHtml = sub.length ? '<div class="sub">' + sub.join(" · ") + '</div>' : "";
+    return '<div class="item' + (x.done ? " task-done" : "") + '"><div class="row"><input type="checkbox" class="app-check"' + (x.done ? " checked" : "") + ' onchange="toggleTaskDone(\'' + x.id + '\',this.checked)"><span class="name">' + esc(x.title) + '</span><button class="btn btn-ghost" style="padding:6px 8px;margin-left:8px" onclick="delTask(\'' + x.id + '\')">✕</button></div>' + subHtml + '</div>';
+  }).join("");
+}
+function toggleTaskForm(open) {
+  var form = document.getElementById("taskForm"); if (!form) return;
+  var btn = document.getElementById("taskAddBtn");
+  var show = (typeof open === "boolean") ? open : (form.style.display === "none");
+  form.style.display = show ? "" : "none";
+  if (btn) btn.style.display = show ? "none" : "";
+  if (!show) ["taskTitle", "taskNote", "taskDue"].forEach(function(id){ var el = document.getElementById(id); if (el) el.value = ""; });
+}
+function cancelTaskForm() { toggleTaskForm(false); }
+function addTask() {
+  var title = document.getElementById("taskTitle").value.trim();
+  var note = document.getElementById("taskNote").value.trim();
+  var due = document.getElementById("taskDue").value;
+  if (!title) { toast(t("task_no_title")); return; }
+  if (!state.tasks) state.tasks = defaultTasks();
+  state.tasks.items.push({ id: uid("tk"), title: title, note: note, due: due || "", done: false, createdAt: Date.now() });
+  saveState();
+  toggleTaskForm(false);
+  renderTasks();
+}
+function toggleTaskDone(id, done) {
+  var x = ((state.tasks && state.tasks.items) || []).find(function(y){ return y.id === id; });
+  if (!x) return;
+  x.done = !!done; saveState(); renderTasks();
+}
+function delTask(id) {
+  appConfirm(t("task_del")).then(function(ok){
+    if (!ok) return;
+    state.tasks.items = state.tasks.items.filter(function(x){ return x.id !== id; });
+    saveState(); renderTasks();
+  });
+}
+function setTaskFilter(f) { taskFilter = f; renderTasks(); }
+function clearCompletedTasks() {
+  state.tasks.items = state.tasks.items.filter(function(x){ return !x.done; });
+  saveState(); renderTasks();
+}
+function exportTasks() {
+  var items = (state.tasks && state.tasks.items) || [];
+  if (!items.length) { toast(t("task_no_export")); return; }
+  var payload = { app: "quickwork-tasks", version: 1, exportedAt: new Date().toISOString(), items: items };
+  shareOrDownload(new Blob([JSON.stringify(payload)], { type: "application/json" }), exportPrefix() + "quicktask-task.json", t("task_export"));
+}
+function importTasks(input) {
+  var f = input.files && input.files[0]; input.value = "";
+  if (!f) return;
+  var r = new FileReader();
+  r.onload = function(){
+    try {
+      var data = JSON.parse(r.result);
+      var items = data.items || data;
+      if (!Array.isArray(items)) throw 0;
+      if (!state.tasks) state.tasks = defaultTasks();
+      var ids = {}; state.tasks.items.forEach(function(x){ ids[x.id] = 1; });
+      var added = 0;
+      items.forEach(function(x){
+        if (x && (x.title || x.note)) {
+          if (x.id && ids[x.id]) return;
+          var nid = x.id || uid("tk");
+          ids[nid] = 1;
+          state.tasks.items.push({ id: nid, title: String(x.title || ""), note: String(x.note || ""), due: String(x.due || ""), done: !!x.done, createdAt: x.createdAt || Date.now() });
+          added++;
+        }
+      });
+      saveState(); renderTasks();
+      toast(added === 1 ? t("task_imported_1") : tf("task_imported_n", { n: added }));
+    } catch (e) { toast(t("import_failed")); }
+  };
+  r.readAsText(f);
+}
+
+/* ================= v60: Quick Note ================= */
+var editingNoteId = null, expandedNoteId = null;
+function renderNotes() {
+  var box = document.getElementById("noteList"); if (!box) return;
+  var items = (((state.notes && state.notes.items) || []).slice()).sort(function(a, b){ return (b.createdAt || 0) - (a.createdAt || 0); });
+  if (!items.length) { box.innerHTML = '<div class="empty">' + t("note_empty") + '</div>'; return; }
+  box.innerHTML = items.map(function(n){
+    var head = '<div class="name">' + esc(n.title || "") + '</div>';
+    if (editingNoteId === n.id) {
+      return '<div class="item"><input type="text" id="noteEditTitle" value="' + esc(n.title || "") + '"><textarea id="noteEditBody" rows="5" class="field-lg">' + esc(n.body || "") + '</textarea><div class="btn-row"><button class="btn btn-primary" onclick="saveNote(\'' + n.id + '\')">' + t("save") + '</button><button class="btn btn-ghost" onclick="cancelEditNote()">' + t("cancel") + '</button></div></div>';
+    }
+    var bodyHtml = "";
+    if (expandedNoteId === n.id) {
+      bodyHtml = '<div class="sub" style="white-space:pre-wrap">' + esc(n.body || "") + '</div>' +
+        '<div class="btn-row" style="margin-top:8px"><button class="btn btn-primary" onclick="editNote(\'' + n.id + '\')">' + t("edit") + '</button>' +
+        '<button class="btn btn-ghost" onclick="delNote(\'' + n.id + '\')">✕</button></div>';
+    } else if (n.body) {
+      bodyHtml = '<div class="sub">' + esc(n.body.length > 60 ? n.body.slice(0, 60) + "…" : n.body) + '</div>';
+    }
+    return '<div class="item" onclick="toggleNoteExpand(\'' + n.id + '\')">' + head + bodyHtml + '</div>';
+  }).join("");
+}
+function toggleNoteForm(open) {
+  var form = document.getElementById("noteForm"); if (!form) return;
+  var btn = document.getElementById("noteAddBtn");
+  var show = (typeof open === "boolean") ? open : (form.style.display === "none");
+  form.style.display = show ? "" : "none";
+  if (btn) btn.style.display = show ? "none" : "";
+  if (!show) ["noteTitle", "noteBody"].forEach(function(id){ var el = document.getElementById(id); if (el) el.value = ""; });
+}
+function cancelNoteForm() { toggleNoteForm(false); }
+function addNote() {
+  var title = document.getElementById("noteTitle").value.trim();
+  var body = document.getElementById("noteBody").value.trim();
+  if (!title && !body) { toast(t("note_need")); return; }
+  if (!state.notes) state.notes = defaultNotes();
+  state.notes.items.unshift({ id: uid("nt"), title: title, body: body, createdAt: Date.now() });
+  saveState();
+  toggleNoteForm(false);
+  renderNotes();
+}
+function toggleNoteExpand(id) {
+  if (editingNoteId === id) return;
+  expandedNoteId = (expandedNoteId === id) ? null : id;
+  renderNotes();
+}
+function editNote(id) { editingNoteId = id; renderNotes(); }
+function cancelEditNote() { editingNoteId = null; renderNotes(); }
+function saveNote(id) {
+  var n = ((state.notes && state.notes.items) || []).find(function(x){ return x.id === id; });
+  if (!n) return;
+  n.title = document.getElementById("noteEditTitle").value.trim();
+  n.body = document.getElementById("noteEditBody").value.trim();
+  editingNoteId = null; saveState(); renderNotes();
+}
+function delNote(id) {
+  appConfirm(t("note_del")).then(function(ok){
+    if (!ok) return;
+    state.notes.items = state.notes.items.filter(function(x){ return x.id !== id; });
+    if (expandedNoteId === id) expandedNoteId = null;
+    if (editingNoteId === id) editingNoteId = null;
+    saveState(); renderNotes();
+  });
+}
+function exportNotes() {
+  var items = (state.notes && state.notes.items) || [];
+  if (!items.length) { toast(t("note_no_export")); return; }
+  var payload = { app: "quickwork-notes", version: 1, exportedAt: new Date().toISOString(), items: items };
+  shareOrDownload(new Blob([JSON.stringify(payload)], { type: "application/json" }), exportPrefix() + "quicknote-note.json", t("note_export"));
+}
+function importNotes(input) {
+  var f = input.files && input.files[0]; input.value = "";
+  if (!f) return;
+  var r = new FileReader();
+  r.onload = function(){
+    try {
+      var data = JSON.parse(r.result);
+      var items = data.items || data;
+      if (!Array.isArray(items)) throw 0;
+      if (!state.notes) state.notes = defaultNotes();
+      var ids = {}; state.notes.items.forEach(function(x){ ids[x.id] = 1; });
+      var added = 0;
+      items.forEach(function(x){
+        if (x && (x.title || x.body)) {
+          if (x.id && ids[x.id]) return;
+          var nid = x.id || uid("nt");
+          ids[nid] = 1;
+          state.notes.items.push({ id: nid, title: String(x.title || ""), body: String(x.body || ""), createdAt: x.createdAt || Date.now() });
+          added++;
+        }
+      });
+      saveState(); renderNotes();
+      toast(added === 1 ? t("note_imported_1") : tf("note_imported_n", { n: added }));
+    } catch (e) { toast(t("import_failed")); }
+  };
+  r.readAsText(f);
+}
+
+/* ================= v61: Quick Hours ================= */
+function timeToMin(s) { var p = String(s || "").split(":"); return (parseInt(p[0], 10) || 0) * 60 + (parseInt(p[1], 10) || 0); }
+function fmtDateStr(ds) {
+  var p = String(ds || "").split("-");
+  if (p.length !== 3) return esc(ds || "");
+  return new Date(+p[0], +p[1] - 1, +p[2]).toLocaleDateString();
+}
+function todayStr() { var d = new Date(); return d.getFullYear() + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" + ("0" + d.getDate()).slice(-2); }
+function fmtClock(s) { var p = String(s || "").split(":"); if (p.length < 2) return ""; return ("0" + (parseInt(p[0], 10) || 0)).slice(-2) + ":" + ("0" + (parseInt(p[1], 10) || 0)).slice(-2); }
+function hoursEntryShiftMin(e) {
+  if (e.clockIn && e.clockOut) {
+    var s = timeToMin(e.clockIn), en = timeToMin(e.clockOut);
+    if (en < s) en += 1440; /* overnight: ends next day */
+    return en - s;
+  }
+  if (typeof e.hours === "number") return Math.max(0, e.hours * 60); /* v60 legacy duration entry */
+  return 0;
+}
+function hoursEntryBreak(e) {
+  if (state.hours && state.hours.paidMealBreak) return 0;
+  if (!e.mealStart || !e.mealEnd) return 0;
+  var brk = (timeToMin(e.mealEnd) - timeToMin(e.mealStart)) / 60;
+  return brk > 0 ? brk : 0; /* meal end at/before start = no deduction */
+}
+function hoursEntryPaid(e) {
+  return Math.max(0, Math.round((hoursEntryShiftMin(e) / 60 - hoursEntryBreak(e)) * 100) / 100);
+}
+function hoursEntryPay(e) {
+  var wage = (state.hours && parseFloat(state.hours.wage)) || 0;
+  return Math.round(hoursEntryPaid(e) * wage * 100) / 100;
+}
+function renderHours() {
+  var box = document.getElementById("hoursList"); if (!box) return;
+  applyHoursTab();
+  if (!state.hours) state.hours = defaultHours();
+  var h = state.hours;
+  /* v61: migrate older entries — v60 break fields -> meal fields; v59 shifts (startAt/endAt) -> clock times */
+  var migrated = false;
+  if (h.openPunch) { delete h.openPunch; migrated = true; }
+  h.entries.forEach(function(e){
+    if (e.breakStart !== undefined || e.breakEnd !== undefined) {
+      if (e.mealStart === undefined) e.mealStart = e.breakStart || "";
+      if (e.mealEnd === undefined) e.mealEnd = e.breakEnd || "";
+      delete e.breakStart; delete e.breakEnd;
+      migrated = true;
+    }
+    if (e.kind !== "manual") {
+      if (e.startAt && e.endAt) {
+        var sd = new Date(e.startAt), ed = new Date(e.endAt);
+        e.clockIn = fmtClock(sd.getHours() + ":" + sd.getMinutes());
+        e.clockOut = fmtClock(ed.getHours() + ":" + ed.getMinutes());
+        delete e.startAt; delete e.endAt;
+      }
+      e.kind = "manual";
+      migrated = true;
+    }
+  });
+  if (migrated) saveState();
+  var wageEl = document.getElementById("hoursWage");
+  if (wageEl && document.activeElement !== wageEl) wageEl.value = (h.wage || 0) ? Number(h.wage).toFixed(2) : "";
+  var pbEl = document.getElementById("hoursPaidBreak");
+  if (pbEl) pbEl.checked = !!h.paidMealBreak;
+  var dateEl = document.getElementById("hoursDate");
+  if (dateEl && !dateEl.value) dateEl.value = todayStr();
+  var mr = document.getElementById("hoursMealRow");
+  if (mr) mr.style.display = h.paidMealBreak ? "none" : "";
+  var totalPaid = 0, totalPay = 0;
+  h.entries.forEach(function(e){ totalPaid += hoursEntryPaid(e); totalPay += hoursEntryPay(e); });
+  totalPaid = Math.round(totalPaid * 100) / 100; totalPay = Math.round(totalPay * 100) / 100;
+  var totEl = document.getElementById("hoursTotals");
+  if (totEl) {
+    var totalsHtml = '<div style="color:var(--dim)">' + t("hours_wage_show") + ': <b style="color:var(--fg)">' + fmt(h.wage || 0) + '</b></div>' +
+      '<div style="color:var(--dim)">' + t("hours_total_hours") + ': <b style="color:var(--fg)">' + totalPaid + '</b></div>' +
+      '<div><span data-i18n="hours_est_pay">' + t("hours_est_pay") + '</span>: <span class="pay-big">' + fmt(totalPay) + '</span></div>';
+    var deds = Array.isArray(h.deductions) ? h.deductions : [];
+    if (deds.length) {
+      var dc = hoursDeductionLines(totalPay);
+      totalsHtml += '<div style="color:var(--dim)">' + t("hours_est_total_ded") + ': <b style="color:var(--fg)">-' + fmt(dc.total) + '</b></div>' +
+        '<div>' + t("hours_est_net") + ': <span class="pay-big">' + fmt(dc.net) + '</span></div>';
+    }
+    totEl.innerHTML = totalsHtml;
+  }
+  renderEstimator();
+  var entries = h.entries.slice().sort(function(a, b){
+    if (a.date !== b.date) return a.date < b.date ? 1 : -1;
+    return (b.createdAt || 0) - (a.createdAt || 0);
+  });
+  if (!entries.length) { box.innerHTML = '<div class="empty">' + t("hours_empty") + '</div>'; return; }
+  box.innerHTML = entries.map(function(e){
+    var paid = hoursEntryPaid(e), pay = hoursEntryPay(e), brk = hoursEntryBreak(e);
+    var meta = fmtDateStr(e.date);
+    var timeStr = (e.clockIn && e.clockOut) ? (fmtClock(e.clockIn) + " → " + fmtClock(e.clockOut))
+      : ((typeof e.hours === "number") ? (esc(String(e.hours)) + " " + t("hours_hours_lb")) : "");
+    var line = timeStr + (e.label ? " · " + esc(e.label) : "");
+    var mealHtml = "";
+    if (!h.paidMealBreak) {
+      mealHtml = '<div class="row" style="gap:8px;margin-top:8px"><label style="flex:1"><span data-i18n="hours_meal_start">' + t("hours_meal_start") + '</span>' +
+        '<input type="time" value="' + esc(e.mealStart || "") + '" onchange="hoursMealChanged(\'' + e.id + '\',\'mealStart\',this.value)" style="margin-bottom:0"></label>' +
+        '<label style="flex:1"><span data-i18n="hours_meal_end">' + t("hours_meal_end") + '</span>' +
+        '<input type="time" value="' + esc(e.mealEnd || "") + '" onchange="hoursMealChanged(\'' + e.id + '\',\'mealEnd\',this.value)" style="margin-bottom:0"></label></div>';
+    }
+    var dedHtml = brk > 0 ? '<div class="sub">' + t("hours_break_ded") + ': ' + brk + 'h</div>' : "";
+    return '<div class="item"><div class="row"><span class="name">' + esc(meta) + '</span><button class="btn btn-ghost" style="padding:6px 8px;margin-left:8px" onclick="delHoursEntry(\'' + e.id + '\')">✕</button></div>' +
+      '<div class="sub">' + line + '</div>' + mealHtml + dedHtml +
+      '<div class="sub">' + t("hours_paid_hours") + ': ' + paid + 'h · ' + t("hours_est_pay") + ': ' + fmt(pay) + '</div></div>';
+  }).join("");
+}
+function toggleHoursForm(open) {
+  var form = document.getElementById("hoursForm"); if (!form) return;
+  var btn = document.getElementById("hoursAddBtn");
+  var show = (typeof open === "boolean") ? open : (form.style.display === "none");
+  form.style.display = show ? "" : "none";
+  if (btn) btn.style.display = show ? "none" : "";
+  if (!show) ["hoursDate", "hoursClockIn", "hoursClockOut", "hoursMealStart", "hoursMealEnd", "hoursLabel"].forEach(function(id){ var el = document.getElementById(id); if (el) el.value = ""; });
+}
+function cancelHoursForm() { toggleHoursForm(false); }
+function addManualHours() {
+  var date = document.getElementById("hoursDate").value || todayStr();
+  var ci = document.getElementById("hoursClockIn").value;
+  var co = document.getElementById("hoursClockOut").value;
+  var label = document.getElementById("hoursLabel").value.trim();
+  if (!ci || !co) { toast(t("hours_need_times")); return; }
+  if (!state.hours) state.hours = defaultHours();
+  var mealStart = "", mealEnd = "";
+  if (!state.hours.paidMealBreak) {
+    mealStart = document.getElementById("hoursMealStart").value || "";
+    mealEnd = document.getElementById("hoursMealEnd").value || "";
+  }
+  state.hours.entries.unshift({ id: uid("he"), kind: "manual", date: date, clockIn: ci, clockOut: co, mealStart: mealStart, mealEnd: mealEnd, label: label, createdAt: Date.now() });
+  saveState();
+  toggleHoursForm(false);
+  renderHours();
+}
+function hoursWageChanged() {
+  var v = parseFloat(document.getElementById("hoursWage").value);
+  if (!state.hours) state.hours = defaultHours();
+  state.hours.wage = (isNaN(v) || v < 0) ? 0 : Math.round(v * 100) / 100;
+  saveState(); renderHours();
+}
+function togglePaidMealBreak() {
+  if (!state.hours) state.hours = defaultHours();
+  state.hours.paidMealBreak = !!document.getElementById("hoursPaidBreak").checked;
+  saveState(); renderHours();
+}
+function hoursMealChanged(id, field, val) {
+  var e = ((state.hours && state.hours.entries) || []).find(function(x){ return x.id === id; });
+  if (!e) return;
+  e[field] = val; saveState(); renderHours();
+}
+function delHoursEntry(id) {
+  appConfirm(t("hours_del")).then(function(ok){
+    if (!ok) return;
+    state.hours.entries = state.hours.entries.filter(function(x){ return x.id !== id; });
+    saveState(); renderHours();
+  });
+}
+function exportHours() {
+  var items = (state.hours && state.hours.entries) || [];
+  var deds = (state.hours && state.hours.deductions) || [];
+  if (!items.length && !deds.length) { toast(t("hours_no_export")); return; }
+  var payload = { app: "quickwork-hours", version: 2, exportedAt: new Date().toISOString(), items: items,
+    wage: (state.hours && state.hours.wage) || 0, paidMealBreak: !!(state.hours && state.hours.paidMealBreak), deductions: deds };
+  shareOrDownload(new Blob([JSON.stringify(payload)], { type: "application/json" }), exportPrefix() + "quickhours-hours.json", t("hours_export"));
+}
+function importHours(input) {
+  var f = input.files && input.files[0]; input.value = "";
+  if (!f) return;
+  var r = new FileReader();
+  r.onload = function(){
+    try {
+      var data = JSON.parse(r.result);
+      var items = data.items || data;
+      if (!Array.isArray(items)) throw 0;
+      if (!state.hours) state.hours = defaultHours();
+      if (!Array.isArray(state.hours.deductions)) state.hours.deductions = [];
+      var ids = {}; state.hours.entries.forEach(function(x){ ids[x.id] = 1; });
+      var added = 0;
+      items.forEach(function(x){
+        if (!x || typeof x !== "object" || !x.date) return;
+        if (x.id && ids[x.id]) return;
+        var nid = x.id || uid("he");
+        ids[nid] = 1;
+        var entry = { id: nid, kind: "manual", date: String(x.date), label: String(x.label || ""),
+          mealStart: String(x.mealStart || x.breakStart || ""), mealEnd: String(x.mealEnd || x.breakEnd || ""),
+          createdAt: x.createdAt || Date.now() };
+        if (x.clockIn && x.clockOut) {
+          entry.clockIn = String(x.clockIn); entry.clockOut = String(x.clockOut);
+        } else if (x.startAt && x.endAt) { /* v59 shift */
+          var sd = new Date(x.startAt), ed = new Date(x.endAt);
+          entry.clockIn = fmtClock(sd.getHours() + ":" + sd.getMinutes());
+          entry.clockOut = fmtClock(ed.getHours() + ":" + ed.getMinutes());
+        } else {
+          var hrs = parseFloat(x.hours); /* v60 duration entry */
+          if (isNaN(hrs) || hrs < 0) return;
+          entry.hours = Math.round(hrs * 100) / 100;
+        }
+        state.hours.entries.push(entry);
+        added++;
+      });
+      if (typeof data.wage === "number" && data.wage >= 0) state.hours.wage = Math.round(data.wage * 100) / 100;
+      if (typeof data.paidMealBreak === "boolean") state.hours.paidMealBreak = data.paidMealBreak;
+      if (Array.isArray(data.deductions)) {
+        var dexisting = {};
+        (state.hours.deductions || []).forEach(function(d){ dexisting[d.id] = 1; });
+        data.deductions.forEach(function(d){
+          if (!d || typeof d !== "object") return;
+          var name = String(d.name || "").trim(); if (!name) return;
+          var type = (d.type === "percent" || d.type === "fixed") ? d.type : "fixed";
+          var val = parseFloat(d.value); if (isNaN(val) || val < 0) val = 0;
+          var nid = d.id || uid("hd");
+          if (dexisting[nid]) return;
+          dexisting[nid] = 1;
+          state.hours.deductions.push({ id: nid, name: name, type: type, value: Math.round(val * 100) / 100 });
+        });
+      }
+      saveState(); renderHours();
+      toast(added === 1 ? t("hours_imported_1") : tf("hours_imported_n", { n: added }));
+    } catch (e) { toast(t("import_failed")); }
+  };
+  r.readAsText(f);
+}
+
+/* ================= v63: Quick Hours estimator + deductions ================= */
+var hoursTab = "log";
+var dedFormType = "percent";
+var editingDedId = null;
+var HOURS_DED_PRESETS = [
+  { key: "hours_ded_preset_federal", type: "percent", value: 0 },
+  { key: "hours_ded_preset_state", type: "percent", value: 0 },
+  { key: "hours_ded_preset_ss", type: "percent", value: 6.2 },
+  { key: "hours_ded_preset_medicare", type: "percent", value: 1.45 },
+  { key: "hours_ded_preset_health", type: "fixed", value: 0 },
+  { key: "hours_ded_preset_dental", type: "fixed", value: 0 },
+  { key: "hours_ded_preset_vision", type: "fixed", value: 0 },
+  { key: "hours_ded_preset_401k", type: "percent", value: 0 },
+  { key: "hours_ded_preset_other", type: "fixed", value: 0 }
+];
+function normalizeDeductions(h) {
+  if (!Array.isArray(h.deductions)) h.deductions = [];
+  h.deductions = h.deductions.filter(function(d){
+    if (!d || typeof d !== "object") return false;
+    d.name = String(d.name || "").trim();
+    if (!d.name) return false;
+    if (d.type !== "percent" && d.type !== "fixed") d.type = "fixed";
+    d.value = parseFloat(d.value); if (isNaN(d.value) || d.value < 0) d.value = 0;
+    d.value = Math.round(d.value * 100) / 100;
+    if (!d.id) d.id = uid("hd");
+    return true;
+  });
+}
+function applyHoursTab() {
+  var log = document.getElementById("hoursLogTab"), est = document.getElementById("hoursEstTab");
+  if (log) log.style.display = (hoursTab === "est") ? "none" : "";
+  if (est) est.style.display = (hoursTab === "est") ? "" : "none";
+  var lb = document.getElementById("hoursTabLogBtn"), eb = document.getElementById("hoursTabEstBtn");
+  if (lb) lb.classList.toggle("active", hoursTab !== "est");
+  if (eb) eb.classList.toggle("active", hoursTab === "est");
+}
+function setHoursTab(tab) { hoursTab = (tab === "est") ? "est" : "log"; renderHours(); }
+function hoursDeductionLines(gross) {
+  var h = state.hours || defaultHours();
+  var deds = Array.isArray(h.deductions) ? h.deductions : [];
+  var lines = deds.map(function(d){
+    var amt = d.type === "percent" ? gross * (parseFloat(d.value) || 0) / 100 : (parseFloat(d.value) || 0);
+    return { name: d.name, type: d.type, value: parseFloat(d.value) || 0, amount: Math.round(amt * 100) / 100 };
+  });
+  var total = Math.round(lines.reduce(function(s, l){ return s + l.amount; }, 0) * 100) / 100;
+  return { lines: lines, total: total, net: Math.max(0, Math.round((gross - total) * 100) / 100) };
+}
+function renderEstimator() {
+  var br = document.getElementById("estBreakdown"); if (!br) return;
+  if (!state.hours) state.hours = defaultHours();
+  var h = state.hours;
+  normalizeDeductions(h);
+  var hrsEl = document.getElementById("estHours");
+  var hrs = hrsEl ? parseFloat(hrsEl.value) : NaN;
+  if (isNaN(hrs) || hrs < 0) hrs = 0;
+  var wage = parseFloat(h.wage) || 0;
+  var gross = Math.round(hrs * wage * 100) / 100;
+  var dc = hoursDeductionLines(gross);
+  var html = '<div class="row"><span>' + t("hours_est_gross") + '</span><b>' + fmt(gross) + '</b></div>';
+  dc.lines.forEach(function(l){
+    var desc = l.type === "percent" ? esc(l.name) + " (" + l.value + "%)" : esc(l.name);
+    html += '<div class="row"><span>' + desc + '</span><span>-' + fmt(l.amount) + '</span></div>';
+  });
+  html += '<div class="row"><span>' + t("hours_est_total_ded") + '</span><b>-' + fmt(dc.total) + '</b></div>' +
+    '<div class="row"><span>' + t("hours_est_net") + '</span><span class="pay-big">' + fmt(dc.net) + '</span></div>';
+  if (!wage) html += '<div class="sub" style="margin-top:6px">' + t("hours_est_set_wage") + '</div>';
+  br.innerHTML = html;
+  /* deductions list + presets */
+  var list = document.getElementById("hoursDedList");
+  if (list) {
+    if (!h.deductions.length) list.innerHTML = '<div class="empty">' + t("hours_ded_empty") + '</div>';
+    else list.innerHTML = h.deductions.map(function(d){
+      var desc = d.type === "percent" ? d.value + "%" : fmt(d.value);
+      return '<div class="item" data-ded-id="' + d.id + '"><div class="row"><span class="name">' + esc(d.name) + ' · ' + desc + '</span></div>' +
+        '<div class="btn-row" style="margin-top:6px"><button class="btn btn-ghost" onclick="editDeduction(\'' + d.id + '\', this)">' + t("hours_ded_edit") + '</button>' +
+        '<button class="btn btn-ghost" onclick="delDeduction(\'' + d.id + '\')">' + t("hours_ded_del") + '</button></div></div>';
+    }).join("");
+  }
+  var pre = document.getElementById("hoursDedPresets");
+  if (pre) pre.innerHTML = HOURS_DED_PRESETS.map(function(p){
+    return '<button class="btn btn-ghost" style="padding:6px 10px;font-size:14px" data-preset="' + p.key + '" onclick="openDedEditor(\'preset\', \'' + p.key + '\', this)">+ ' + t(p.key) + '</button>';
+  }).join("");
+  placeDedEditor();
+  renderDedForm();
+}
+/* v64: inline deduction editor — one editor node, moved to sit directly under the tapped chip/row/button */
+var dedEditorOpen = false;
+var dedEditorAnchor = null; /* { kind: "preset"|"row"|"custom", ref: preset key | deduction id | null } */
+var dedEditorNode = null; /* persistent ref: innerHTML re-renders detach the node, the ref lets us re-attach it */
+function getDedEditor() {
+  if (!dedEditorNode) dedEditorNode = document.getElementById("dedEditor");
+  return dedEditorNode;
+}
+function parkDedEditor() {
+  var ed = getDedEditor(); if (!ed) return;
+  var home = document.getElementById("hoursDedPresets");
+  if (home && home.parentNode) home.parentNode.insertBefore(ed, home.nextSibling);
+  ed.style.display = "none";
+}
+function dedEditorAnchorEl() {
+  if (!dedEditorAnchor) return null;
+  if (dedEditorAnchor.kind === "preset") return document.querySelector('#hoursDedPresets [data-preset="' + dedEditorAnchor.ref + '"]');
+  if (dedEditorAnchor.kind === "row") return document.querySelector('#hoursDedList [data-ded-id="' + dedEditorAnchor.ref + '"]');
+  return document.getElementById("dedAddBtn");
+}
+function placeDedEditor(el) {
+  var ed = getDedEditor(); if (!ed) return;
+  if (!dedEditorOpen) { parkDedEditor(); return; }
+  var anchor = el || dedEditorAnchorEl();
+  if (!anchor || !anchor.parentNode) { cancelEditDeduction(); return; }
+  anchor.parentNode.insertBefore(ed, anchor.nextSibling);
+  ed.style.display = "";
+}
+function openDedEditor(kind, ref, el) {
+  var name = "", type = "percent", val = "";
+  if (kind === "preset") {
+    var p = null;
+    for (var i = 0; i < HOURS_DED_PRESETS.length; i++) { if (HOURS_DED_PRESETS[i].key === ref) { p = HOURS_DED_PRESETS[i]; break; } }
+    if (!p) return;
+    name = t(p.key); type = p.type; val = p.value;
+    editingDedId = null;
+  } else if (kind === "row") {
+    var d = ((state.hours && state.hours.deductions) || []).find(function(x){ return x.id === ref; });
+    if (!d) return;
+    editingDedId = d.id; name = d.name; type = d.type; val = d.value;
+  } else {
+    editingDedId = null;
+  }
+  dedFormType = type === "fixed" ? "fixed" : "percent";
+  var nameEl = document.getElementById("dedName"), valEl = document.getElementById("dedValue");
+  if (nameEl) nameEl.value = name;
+  if (valEl) valEl.value = val;
+  dedEditorOpen = true;
+  dedEditorAnchor = { kind: kind, ref: ref };
+  renderDedForm();
+  /* anchor: the whole row for edits (editor sits under the row), else the tapped element */
+  var anchorEl = el;
+  if (kind === "row" && el && el.closest) anchorEl = el.closest(".item") || el;
+  placeDedEditor(anchorEl);
+}
+function renderDedForm() {
+  var pb = document.getElementById("dedTypePercentBtn"), fb = document.getElementById("dedTypeFixedBtn");
+  if (pb) pb.classList.toggle("active", dedFormType === "percent");
+  if (fb) fb.classList.toggle("active", dedFormType === "fixed");
+  var vl = document.getElementById("dedValueLabel");
+  if (vl) vl.textContent = t(dedFormType === "percent" ? "hours_ded_value_pct" : "hours_ded_value_amt");
+  var sb = document.getElementById("dedSaveBtn");
+  if (sb) sb.textContent = t(editingDedId ? "hours_ded_save" : "hours_ded_add");
+  var cb = document.getElementById("dedCancelBtn");
+  if (cb) cb.style.display = ""; /* editor only exists while open, so Cancel is always shown */
+}
+function setDedFormType(ty) { dedFormType = (ty === "fixed") ? "fixed" : "percent"; renderDedForm(); }
+function saveDeduction() {
+  var nameEl = document.getElementById("dedName"), valEl = document.getElementById("dedValue");
+  var name = nameEl ? nameEl.value.trim() : "";
+  if (!name) { toast(t("hours_ded_need_name")); return; }
+  var val = valEl ? parseFloat(valEl.value) : NaN;
+  if (isNaN(val) || val < 0) val = 0;
+  val = Math.round(val * 100) / 100;
+  if (!state.hours) state.hours = defaultHours();
+  if (!Array.isArray(state.hours.deductions)) state.hours.deductions = [];
+  if (editingDedId) {
+    var d = state.hours.deductions.find(function(x){ return x.id === editingDedId; });
+    if (d) { d.name = name; d.type = dedFormType; d.value = val; }
+  } else {
+    state.hours.deductions.push({ id: uid("hd"), name: name, type: dedFormType, value: val });
+  }
+  saveState();
+  cancelEditDeduction();
+  renderHours();
+}
+function editDeduction(id, btn) { openDedEditor("row", id, btn); }
+function cancelEditDeduction() {
+  editingDedId = null; dedFormType = "percent";
+  dedEditorOpen = false; dedEditorAnchor = null;
+  parkDedEditor();
+  var nameEl = document.getElementById("dedName"), valEl = document.getElementById("dedValue");
+  if (nameEl) nameEl.value = "";
+  if (valEl) valEl.value = "";
+  renderDedForm();
+}
+function delDeduction(id) {
+  appConfirm(t("hours_ded_del_confirm")).then(function(ok){
+    if (!ok) return;
+    if (!state.hours) return;
+    state.hours.deductions = (state.hours.deductions || []).filter(function(x){ return x.id !== id; });
+    if (editingDedId === id) cancelEditDeduction();
+    saveState(); renderHours();
+  });
+}
+
+/* ================= v60: Quick Stock ================= */
+var stockPickerOpen = false, editingStockId = null;
+function stockDisplayName(it) {
+  if (it.productId && state.products && state.products[it.productId]) return state.products[it.productId].name;
+  return it.name;
+}
+function renderStock() {
+  var box = document.getElementById("stockList"); if (!box) return;
+  if (!state.stock) state.stock = defaultStock();
+  var s = state.stock;
+  var conn = document.getElementById("stockConnect"); if (conn) conn.checked = !!s.connectCatalog;
+  var catCard = document.getElementById("stockCatalogCard"); if (catCard) catCard.style.display = s.connectCatalog ? "" : "none";
+  var picker = document.getElementById("stockPicker"); if (picker) picker.style.display = (s.connectCatalog && stockPickerOpen) ? "" : "none";
+  if (s.connectCatalog && stockPickerOpen) renderStockPicker();
+  var items = s.items || [];
+  if (!items.length) { box.innerHTML = '<div class="empty">' + t("stock_empty") + '</div>'; return; }
+  box.innerHTML = items.map(function(it){
+    var low = it.qty <= it.threshold;
+    var linked = it.productId ? ' <span class="pill">' + t("stock_linked") + '</span>' : "";
+    var lowBadge = low ? ' <span class="pill" style="background:#FDE8E8;color:#b3261e">' + t("stock_low") + '</span>' : "";
+    return '<div class="item' + (low ? " stock-low" : "") + '"><div class="row"><span class="name">' + esc(stockDisplayName(it)) + '</span>' + linked + lowBadge +
+      '<button class="btn btn-ghost" style="padding:6px 8px;margin-left:auto" onclick="editStock(\'' + it.id + '\')">' + t("edit") + '</button>' +
+      '<button class="btn btn-ghost" style="padding:6px 8px" onclick="delStock(\'' + it.id + '\')">✕</button></div>' +
+      '<div class="row" style="gap:8px;margin-top:8px;align-items:center"><button class="btn btn-ghost" style="padding:6px 12px" onclick="stockQtyChange(\'' + it.id + '\',-1)">−</button>' +
+      '<span><b>' + it.qty + '</b> / ' + t("stock_threshold_lb") + ' ' + it.threshold + '</span>' +
+      '<button class="btn btn-ghost" style="padding:6px 12px" onclick="stockQtyChange(\'' + it.id + '\',1)">+</button></div></div>';
+  }).join("");
+}
+function renderStockPicker() {
+  var listEl = document.getElementById("stockCatalogList"); if (!listEl) return;
+  var q = (document.getElementById("stockCatalogSearch").value || "").toLowerCase();
+  var codes = Object.keys(state.products || {}).sort(function(a, b){ return String((state.products[a] || {}).name || "").localeCompare(String((state.products[b] || {}).name || "")); });
+  var filtered = codes.filter(function(c){
+    var p = state.products[c]; if (!p) return false;
+    return !q || String(p.name || "").toLowerCase().indexOf(q) !== -1 || String(c).toLowerCase().indexOf(q) !== -1;
+  });
+  if (!filtered.length) { listEl.innerHTML = '<div class="empty">' + t("stock_catalog_empty") + '</div>'; return; }
+  var linkedIds = {};
+  (state.stock.items || []).forEach(function(it){ if (it.productId) linkedIds[it.productId] = true; });
+  listEl.innerHTML = filtered.map(function(c){
+    var p = state.products[c];
+    var already = linkedIds[c];
+    return '<div class="item"><div class="row"><span class="name">' + esc(p.name || c) + '</span>' +
+      '<button class="btn btn-primary" style="padding:6px 12px;margin-left:auto" onclick="addStockFromCatalog(\'' + c + '\')" ' + (already ? "disabled" : "") + '>' + (already ? t("stock_linked") : t("stock_add")) + '</button></div></div>';
+  }).join("");
+}
+function toggleStockForm(open) {
+  var form = document.getElementById("stockForm"); if (!form) return;
+  var btn = document.getElementById("stockAddBtn");
+  var show = (typeof open === "boolean") ? open : (form.style.display === "none");
+  if (show && !editingStockId) clearStockForm();
+  form.style.display = show ? "" : "none";
+  if (btn) btn.style.display = show ? "none" : "";
+  var cb = document.getElementById("stockCancelBtn"); if (cb) cb.style.display = show ? "" : "none";
+}
+function saveStockItem() {
+  var name = document.getElementById("stockName").value.trim();
+  var qty = parseInt(document.getElementById("stockQty").value, 10); if (isNaN(qty)) qty = 0;
+  var thr = parseInt(document.getElementById("stockThreshold").value, 10); if (isNaN(thr)) thr = 0;
+  if (!state.stock) state.stock = defaultStock();
+  if (editingStockId) {
+    var it = state.stock.items.find(function(x){ return x.id === editingStockId; });
+    if (it) {
+      if (!it.productId) it.name = name;
+      it.qty = Math.max(0, qty); it.threshold = Math.max(0, thr);
+    }
+    editingStockId = null; saveState(); clearStockForm(); toggleStockForm(false); renderStock(); return;
+  }
+  if (!name) { toast(t("stock_need_name")); return; }
+  state.stock.items.push({ id: uid("st"), name: name, qty: Math.max(0, qty), threshold: Math.max(0, thr), productId: null });
+  saveState(); clearStockForm(); toggleStockForm(false); renderStock();
+}
+function clearStockForm() {
+  document.getElementById("stockName").value = "";
+  document.getElementById("stockQty").value = "";
+  document.getElementById("stockThreshold").value = "";
+  document.getElementById("stockName").disabled = false;
+  document.getElementById("stockSaveBtn").textContent = t("stock_save");
+  document.getElementById("stockCancelBtn").style.display = "none";
+}
+function editStock(id) {
+  var it = (state.stock.items || []).find(function(x){ return x.id === id; });
+  if (!it) return;
+  editingStockId = id;
+  var nameEl = document.getElementById("stockName");
+  nameEl.value = stockDisplayName(it);
+  nameEl.disabled = !!it.productId;
+  document.getElementById("stockQty").value = it.qty;
+  document.getElementById("stockThreshold").value = it.threshold;
+  document.getElementById("stockSaveBtn").textContent = t("stock_save");
+  document.getElementById("stockCancelBtn").style.display = "";
+  toggleStockForm(true);
+  renderStock();
+}
+function cancelEditStock() { editingStockId = null; clearStockForm(); toggleStockForm(false); renderStock(); }
+function stockQtyChange(id, d) {
+  var it = (state.stock.items || []).find(function(x){ return x.id === id; });
+  if (!it) return;
+  it.qty = Math.max(0, (it.qty || 0) + d);
+  saveState(); renderStock();
+}
+function delStock(id) {
+  appConfirm(t("stock_del")).then(function(ok){
+    if (!ok) return;
+    state.stock.items = state.stock.items.filter(function(x){ return x.id !== id; });
+    if (editingStockId === id) { editingStockId = null; clearStockForm(); }
+    saveState(); renderStock();
+  });
+}
+function toggleStockConnect() {
+  var on = !!document.getElementById("stockConnect").checked;
+  if (!state.stock) state.stock = defaultStock();
+  if (!on) {
+    /* freezing linked entries: keep last-synced name, drop the link */
+    state.stock.items.forEach(function(it){
+      if (it.productId) { it.name = stockDisplayName(it); it.productId = null; }
+    });
+    stockPickerOpen = false;
+  }
+  state.stock.connectCatalog = on;
+  saveState(); renderStock();
+}
+function toggleStockPicker() { stockPickerOpen = !stockPickerOpen; renderStock(); }
+function addStockFromCatalog(code) {
+  var p = state.products[code]; if (!p) return;
+  if (!state.stock) state.stock = defaultStock();
+  if (state.stock.items.some(function(it){ return it.productId === code; })) return;
+  state.stock.items.push({ id: uid("st"), name: p.name || code, qty: 0, threshold: 0, productId: code });
+  saveState(); renderStock();
+}
+function exportStock() {
+  var items = (state.stock && state.stock.items) || [];
+  if (!items.length) { toast(t("stock_no_export")); return; }
+  var payload = { app: "quickwork-stock", version: 1, exportedAt: new Date().toISOString(), items: items };
+  shareOrDownload(new Blob([JSON.stringify(payload)], { type: "application/json" }), exportPrefix() + "quickstock-stock.json", t("stock_export"));
+}
+function importStock(input) {
+  var f = input.files && input.files[0]; input.value = "";
+  if (!f) return;
+  var r = new FileReader();
+  r.onload = function(){
+    try {
+      var data = JSON.parse(r.result);
+      var items = data.items || data;
+      if (!Array.isArray(items)) throw 0;
+      if (!state.stock) state.stock = defaultStock();
+      var ids = {}; state.stock.items.forEach(function(x){ ids[x.id] = 1; });
+      var added = 0;
+      items.forEach(function(x){
+        if (x && (x.name || x.productId)) {
+          if (x.id && ids[x.id]) return;
+          var nid = x.id || uid("st");
+          ids[nid] = 1;
+          state.stock.items.push({ id: nid, name: String(x.name || ""), qty: Math.max(0, parseInt(x.qty, 10) || 0), threshold: Math.max(0, parseInt(x.threshold, 10) || 0), productId: x.productId || null });
+          added++;
+        }
+      });
+      saveState(); renderStock();
+      toast(added === 1 ? t("stock_imported_1") : tf("stock_imported_n", { n: added }));
+    } catch (e) { toast(t("import_failed")); }
+  };
+  r.readAsText(f);
+}
+
+/* ================= v60: Quick Handoff ================= */
+function renderHandoff() {
+  var box = document.getElementById("handoffList"); if (!box) return;
+  var entries = (((state.handoffs && state.handoffs.entries) || []).slice()).sort(function(a, b){ return (b.createdAt || 0) - (a.createdAt || 0); });
+  if (!entries.length) { box.innerHTML = '<div class="empty">' + t("handoff_empty") + '</div>'; return; }
+  box.innerHTML = entries.map(function(e){
+    var when = new Date(e.createdAt || Date.now()).toLocaleString();
+    var badge = e.resolved ? ' <span class="pill">' + t("handoff_resolved") + '</span>' : "";
+    return '<div class="item' + (e.resolved ? " handoff-resolved" : "") + '"><div class="row"><span class="name">' + esc(e.title || "") + '</span>' + badge +
+      '<button class="btn btn-ghost" style="padding:6px 8px;margin-left:auto" onclick="toggleHandoffResolved(\'' + e.id + '\')">' + (e.resolved ? t("handoff_reopen") : t("handoff_resolve")) + '</button>' +
+      '<button class="btn btn-ghost" style="padding:6px 8px" onclick="delHandoff(\'' + e.id + '\')">✕</button></div>' +
+      '<div class="sub" style="white-space:pre-wrap">' + esc(e.message || "") + '</div>' +
+      '<div class="sub">' + esc(when) + '</div></div>';
+  }).join("");
+}
+function toggleHandoffForm(open) {
+  var form = document.getElementById("handoffForm"); if (!form) return;
+  var btn = document.getElementById("handoffAddBtn");
+  var show = (typeof open === "boolean") ? open : (form.style.display === "none");
+  form.style.display = show ? "" : "none";
+  if (btn) btn.style.display = show ? "none" : "";
+  if (!show) ["handoffTitle", "handoffMsg"].forEach(function(id){ var el = document.getElementById(id); if (el) el.value = ""; });
+}
+function cancelHandoffForm() { toggleHandoffForm(false); }
+function addHandoff() {
+  var title = document.getElementById("handoffTitle").value.trim();
+  var message = document.getElementById("handoffMsg").value.trim();
+  if (!title && !message) { toast(t("handoff_need")); return; }
+  if (!state.handoffs) state.handoffs = defaultHandoffs();
+  state.handoffs.entries.unshift({ id: uid("ho"), title: title, message: message, resolved: false, createdAt: Date.now() });
+  saveState();
+  toggleHandoffForm(false);
+  renderHandoff();
+}
+function toggleHandoffResolved(id) {
+  var e = ((state.handoffs && state.handoffs.entries) || []).find(function(x){ return x.id === id; });
+  if (!e) return;
+  e.resolved = !e.resolved; saveState(); renderHandoff();
+}
+function delHandoff(id) {
+  appConfirm(t("handoff_del")).then(function(ok){
+    if (!ok) return;
+    state.handoffs.entries = state.handoffs.entries.filter(function(x){ return x.id !== id; });
+    saveState(); renderHandoff();
+  });
+}
+function exportHandoffs() {
+  var items = (state.handoffs && state.handoffs.entries) || [];
+  if (!items.length) { toast(t("handoff_no_export")); return; }
+  var payload = { app: "quickwork-handoff", version: 1, exportedAt: new Date().toISOString(), items: items };
+  shareOrDownload(new Blob([JSON.stringify(payload)], { type: "application/json" }), exportPrefix() + "quickhandoff-handoff.json", t("handoff_export"));
+}
+function importHandoffs(input) {
+  var f = input.files && input.files[0]; input.value = "";
+  if (!f) return;
+  var r = new FileReader();
+  r.onload = function(){
+    try {
+      var data = JSON.parse(r.result);
+      var items = data.items || data;
+      if (!Array.isArray(items)) throw 0;
+      if (!state.handoffs) state.handoffs = defaultHandoffs();
+      var ids = {}; state.handoffs.entries.forEach(function(x){ ids[x.id] = 1; });
+      var added = 0;
+      items.forEach(function(x){
+        if (x && (x.title || x.message)) {
+          if (x.id && ids[x.id]) return;
+          var nid = x.id || uid("ho");
+          ids[nid] = 1;
+          state.handoffs.entries.push({ id: nid, title: String(x.title || ""), message: String(x.message || ""), resolved: !!x.resolved, createdAt: x.createdAt || Date.now() });
+          added++;
+        }
+      });
+      saveState(); renderHandoff();
+      toast(added === 1 ? t("handoff_imported_1") : tf("handoff_imported_n", { n: added }));
+    } catch (e) { toast(t("import_failed")); }
+  };
+  r.readAsText(f);
+}
+
 /* ---------- Android back button / in-app history ---------- */
 var qwCurView = "home";
 var qwHistPushed = false;   /* a view entry sits above the base home entry */
 var qwSuppressPop = false;  /* true when we drive history ourselves (UI go-home) */
 function qwRenderView(v) {
-  ["home", "shop", "contacts", "recovery", "info", "settings", "profiles"].forEach(function(x){
+  ["home", "shop", "contacts", "recovery", "info", "tasks", "notes", "hours", "stock", "handoff", "settings", "profiles"].forEach(function(x){
     var el = document.getElementById("view-" + x);
     if (el) el.style.display = x === v ? "" : "none";
   });
@@ -1479,6 +2999,11 @@ function qwRenderView(v) {
   if (v === "contacts") renderContacts();
   if (v === "recovery") renderRecovery();
   if (v === "info") renderInfo();
+  if (v === "tasks") renderTasks();
+  if (v === "notes") renderNotes();
+  if (v === "hours") renderHours();
+  if (v === "stock") renderStock();
+  if (v === "handoff") renderHandoff();
   if (v === "settings") { renderModuleToggles(); renderSettingsProfile(); renderFontSizeRow(); renderThemeRow(); renderLangRow(); }
   if (v === "profiles") renderProfiles();
 }
@@ -1521,7 +3046,7 @@ function qwCloseTopOverlay() {
 window.addEventListener("popstate", function(e) {
   if (qwSuppressPop) { qwSuppressPop = false; return; }
   var st = e.state && e.state.qw;
-  if (st && st !== "home" && ["shop", "contacts", "recovery", "info", "settings", "profiles"].indexOf(st) !== -1) {
+  if (st && st !== "home" && ["shop", "contacts", "recovery", "info", "tasks", "notes", "hours", "stock", "handoff", "settings", "profiles"].indexOf(st) !== -1) {
     /* forward (or back) to a view entry */
     qwHistPushed = true;
     qwRenderView(st);
@@ -1711,7 +3236,26 @@ function resetJobUI() {
   sheetQty = 1; scanMode = null;
   var s = document.getElementById("search"); if (s) s.value = "";
   var pf = document.getElementById("prodFilter"); if (pf) pf.value = "";
+  /* v60 new apps: clear in-progress UI state only; stored per-job data stays untouched */
+  taskFilter = "all"; editingNoteId = null; expandedNoteId = null;
+  editingStockId = null; stockPickerOpen = false;
+  discountApplied = false;
+  /* v63 hours: reset tab to Log, clear estimator + deduction-form drafts; stored entries/deductions/wage stay */
+  hoursTab = "log"; editingDedId = null; dedFormType = "percent";
+  dedEditorOpen = false; dedEditorAnchor = null;
+  var dedEd = document.getElementById("dedEditor"); if (dedEd) dedEd.style.display = "none";
+  toggleTaskForm(false); toggleNoteForm(false); toggleHandoffForm(false); toggleStockForm(false); toggleHoursForm(false);
+  closeDatePicker();
+  ["taskTitle", "taskNote", "taskDue", "noteTitle", "noteBody", "hoursDate", "hoursClockIn", "hoursClockOut",
+   "hoursMealStart", "hoursMealEnd", "hoursLabel", "estHours", "dedName", "dedValue",
+   "stockName", "stockQty", "stockThreshold", "stockCatalogSearch", "handoffTitle", "handoffMsg"].forEach(function(id){
+    var el = document.getElementById(id); if (el) el.value = "";
+  });
+  var sb = document.getElementById("stockSaveBtn"); if (sb) sb.textContent = t("stock_save");
+  var cb = document.getElementById("stockCancelBtn"); if (cb) cb.style.display = "none";
+  var sn = document.getElementById("stockName"); if (sn) sn.disabled = false;
   renderOrder(); renderSearch(); renderShopName(); loadShopSettingsUI(); renderProducts(); updateBulkBar();
+  renderTasks(); renderNotes(); renderHours(); renderStock(); renderHandoff();
 }
 function addProfile() {
   appPrompt(t("prompt_job_name"), "").then(function(val){
@@ -2006,7 +3550,7 @@ function chQty(idx, d) {
 function rmLine(idx) { order.splice(idx, 1); renderOrder(); }
 function clearOrder() {
   if (!order.length) return;
-  appConfirm(t("shop_confirm_clear")).then(function(ok){ if (ok) { order = []; renderOrder(); } });
+  appConfirm(t("shop_confirm_clear")).then(function(ok){ if (ok) { order = []; discountApplied = false; renderOrder(); } });
 }
 function renderSearch() {
   var q = document.getElementById("search").value.trim().toLowerCase();
@@ -2422,6 +3966,12 @@ function priceSave(scope) {
 
 /* ---------- order summary ---------- */
 var payMethod = "card";
+var discountApplied = false;
+function discountAvailable() {
+  var s = state.shopSettings || {};
+  return !!(s.discountEnabled && (parseFloat(s.discountPct) || 0) > 0);
+}
+function toggleDiscount() { discountApplied = !discountApplied; renderSummary(); }
 function showSummary() {
   if (!order.length) { toast(t("sum_no_items")); return; }
   payMethod = "card";
@@ -2439,10 +3989,12 @@ function calcTotals() {
     if (amt > 0) { feeTotal += amt; feeLines.push({ name: f.name || "Fee", amt: amt }); }
   });
   feeTotal = Math.round(feeTotal * 100) / 100;
+  var discPct = discountAvailable() ? (parseFloat(s.discountPct) || 0) : 0;
+  var discount = (discountApplied && discPct > 0) ? Math.round(sub * discPct) / 100 : 0;
   var taxApplies = !!(s.taxEnabled && ((payMethod === "cash" && s.taxCash) || (payMethod === "card" && s.taxCard)));
-  var tax = taxApplies ? Math.round((sub + feeTotal) * (parseFloat(s.taxRate) || 0)) / 100 : 0;
-  var total = Math.round((sub + feeTotal + tax) * 100) / 100;
-  return { sub: sub, count: count, feeLines: feeLines, tax: tax, taxApplies: taxApplies, total: total };
+  var tax = taxApplies ? Math.round((sub - discount + feeTotal) * (parseFloat(s.taxRate) || 0)) / 100 : 0;
+  var total = Math.round((sub - discount + feeTotal + tax) * 100) / 100;
+  return { sub: sub, count: count, feeLines: feeLines, tax: tax, taxApplies: taxApplies, total: total, discount: discount, discountPct: discPct };
 }
 function renderSummary() {
   var tot = calcTotals();
@@ -2460,10 +4012,16 @@ function renderSummary() {
   tot.feeLines.forEach(function(f){
     html += '<div class="sumline2"><span>' + esc(f.name) + '</span><span>' + fmt(f.amt) + '</span></div>';
   });
+  if (tot.discount > 0) {
+    html += '<div class="sumline2"><span>' + t("sum_discount") + ' (' + tot.discountPct + '%)</span><span>-' + fmt(tot.discount) + '</span></div>';
+  }
   if (tot.taxApplies) {
     html += '<div class="sumline2"><span>' + tf("sum_tax", { r: (parseFloat((state.shopSettings || {}).taxRate) || 0) }) + '</span><span>' + fmt(tot.tax) + '</span></div>';
   }
   html += '<div class="row grand"><span>' + t("sum_total") + '</span><span>' + fmt(tot.total) + '</span></div></div>';
+  if (discountAvailable()) {
+    html += '<div class="btn-row" style="margin-top:12px"><button class="btn ' + (discountApplied ? "btn-ghost" : "btn-primary") + '" onclick="toggleDiscount()">' + (discountApplied ? t("sum_remove_discount") : t("sum_apply_discount")) + '</button></div>';
+  }
   html += '<div class="btn-row" style="margin-top:12px">' +
     '<button class="paybtn' + (payMethod === "cash" ? " active" : "") + '" onclick="setPayMethod(\'cash\')"><span class="btn-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px;display:block"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/><path d="M6 12h.01M18 12h.01"/></svg></span>' + t("sum_cash") + '</button>' +
     '<button class="paybtn' + (payMethod === "card" ? " active" : "") + '" onclick="setPayMethod(\'card\')"><span class="btn-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px;display:block"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg></span>' + t("sum_card") + '</button></div>';
@@ -2522,11 +4080,13 @@ function newOrderAfterSummary() {
       id: uid("h"), at: Date.now(),
       items: order.map(function(l){ return { name: l.name, price: l.price, qty: l.qty }; }),
       sub: t.sub, feeLines: t.feeLines || [], tax: t.tax, total: t.total,
+      discount: t.discount || 0, discountPct: (t.discount || 0) > 0 ? t.discountPct : 0,
       payMethod: payMethod, cashGiven: given, change: change
     });
     if (state.shopHistory.length > 200) state.shopHistory.length = 200;
     saveState();
   }
+  discountApplied = false;
   closeSummary(); order = []; renderOrder(); showTab("checkout");
 }
 function renderHistory() {
@@ -2541,6 +4101,9 @@ function renderHistory() {
     }).join("");
     var meta = new Date(h.at).toLocaleString() + " · " + (h.payMethod === "cash" ? t("sum_cash") : t("sum_card"));
     var extra = "";
+    if (h.discount) {
+      extra = '<div class="sumline2"><span>' + t("sum_discount") + (h.discountPct ? " (" + h.discountPct + "%)" : "") + '</span><span>-' + fmt(h.discount) + '</span></div>';
+    }
     if (h.payMethod === "cash" && h.cashGiven != null) {
       extra = '<div class="sumline2"><span>' + t("hist_cash_given") + '</span><span>' + fmt(h.cashGiven) + '</span></div>' +
         '<div class="sumline2"><span>' + t("hist_change") + '</span><span>' + fmt(h.change) + '</span></div>';
@@ -2659,6 +4222,9 @@ function saveShopSettings() {
   s.taxCash = document.getElementById("setTaxCash").checked;
   s.taxCard = document.getElementById("setTaxCard").checked;
   s.changeDenoms = document.getElementById("setDenoms").checked;
+  s.discountEnabled = document.getElementById("setDiscountOn").checked;
+  var dp = parseFloat(document.getElementById("setDiscountPct").value);
+  s.discountPct = (isNaN(dp) || dp < 0) ? 0 : Math.min(100, Math.round(dp * 100) / 100);
   saveState();
 }
 function loadShopSettingsUI() {
@@ -2669,6 +4235,8 @@ function loadShopSettingsUI() {
   document.getElementById("setTaxCard").checked = !!s.taxCard;
   document.getElementById("setDenoms").checked = s.changeDenoms !== false;
   document.getElementById("setSaveHistory").checked = !!s.saveHistory;
+  document.getElementById("setDiscountOn").checked = !!s.discountEnabled;
+  document.getElementById("setDiscountPct").value = s.discountPct || "";
   renderFees();
   renderCashPickSettings();
 }
