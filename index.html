@@ -2252,6 +2252,7 @@ function bulkDelete() {
 
 /* ---------- tabs ---------- */
 function showTab(which) {
+  if (which === "products") clearCheckoutSearch();
   document.getElementById("tab-checkout").style.display = which === "checkout" ? "" : "none";
   document.getElementById("tab-products").style.display = which === "products" ? "" : "none";
   document.getElementById("tabBtnCheckout").classList.toggle("active", which === "checkout");
@@ -3370,6 +3371,7 @@ var qwCurView = "home";
 var qwHistPushed = false;   /* a view entry sits above the base home entry */
 var qwSuppressPop = false;  /* true when we drive history ourselves (UI go-home) */
 function qwRenderView(v) {
+  if (v !== "shop") clearCheckoutSearch();
   ["home", "shop", "contacts", "recovery", "info", "tasks", "notes", "hours", "stock", "handoff", "settings", "profiles"].forEach(function(x){
     var el = document.getElementById("view-" + x);
     if (el) el.style.display = x === v ? "" : "none";
@@ -3954,6 +3956,14 @@ function rmLine(idx) { order.splice(idx, 1); renderOrder(); }
 function clearOrder() {
   if (!order.length) return;
   appConfirm(t("shop_confirm_clear")).then(function(ok){ if (ok) { order = []; appliedDiscountId = null; discountPickerId = null; renderOrder(); } });
+}
+/* v82: checkout search resets when the user leaves the checkout context —
+   switching to the Products tab, or exiting Quick Shop to any other view —
+   so returning to checkout always starts from a blank field. Closing the
+   product sheet or the order summary leaves the text alone. */
+function clearCheckoutSearch() {
+  var s = document.getElementById("search"); if (s) s.value = "";
+  var box = document.getElementById("searchResults"); if (box) box.innerHTML = "";
 }
 function renderSearch() {
   var q = document.getElementById("search").value.trim().toLowerCase();
