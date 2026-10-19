@@ -396,7 +396,10 @@ body[data-theme="dark"] .pay-big { color: #A5B4FC; }
 .tile-placeholder { background: rgba(79,70,229,.10); border: 2px dashed rgba(79,70,229,.45); border-radius: 16px; min-height: 118px; }
 /* v83: dragged list item (Contacts, Info) + drop placeholder */
 .ldragging { position: fixed; margin: 0; z-index: 60; pointer-events: none; transform: scale(.98); opacity: 1; box-shadow: 0 18px 36px rgba(79,70,229,.35); }
-.list-placeholder { background: rgba(79,70,229,.10); border: 2px dashed rgba(79,70,229,.45); border-radius: 16px; margin-bottom: 10px; }
+/* v84: draggable list items mirror the home tiles (pan-y so lists still
+   scroll; no long-press callout on the tel:/sms: links) */
+#contactList .rec-card, #infoList .infocard { touch-action: pan-y; -webkit-touch-callout: none; }
+#contactList .rec-card.ldragging, #infoList .infocard.ldragging { touch-action: none; }
 body[data-theme="dark"] header { background: #000; border-bottom: 1px solid #1C1C1E; }
 body[data-theme="dark"] .brandlogo { background: #000; }
 body[data-theme="dark"] .logoglow::before { background: conic-gradient(from 0deg, transparent 0deg, rgba(165,180,252,.32) 40deg, transparent 90deg, transparent 180deg, rgba(129,140,248,.26) 230deg, transparent 280deg); }
@@ -3636,6 +3639,11 @@ function listDragStart() {
   ldrag.ox = ldrag.sx - r.left;
   ldrag.oy = ldrag.sy - r.top;
   el.classList.add("ldragging");
+  /* v84: hands-off signal to the browser — without this, the browser claims
+     the gesture for scrolling / pull-to-refresh as soon as the finger moves,
+     even with pointer capture set. Cleared with the rest of the inline styles
+     on drop. */
+  el.style.touchAction = "none";
   el.style.width = r.width + "px";
   el.style.height = r.height + "px";
   el.style.left = r.left + "px";
@@ -3643,6 +3651,7 @@ function listDragStart() {
   ldrag.active = true;
   try { el.setPointerCapture(ldrag.pid); } catch (e) {}
   try { if (navigator.vibrate) navigator.vibrate(20); } catch (e2) {}
+  if (typeof requestAnimationFrame === "function") ldrag.raf = requestAnimationFrame(listDragAutoScroll);
 }
 function listDragMove(e) {
   if (!ldrag) return;
@@ -3655,19 +3664,62 @@ function listDragMove(e) {
   var el = ldrag.el, cont = document.getElementById(ldrag.containerId), ph = ldrag.ph;
   el.style.left = (e.clientX - ldrag.ox) + "px";
   el.style.top = (e.clientY - ldrag.oy) + "px";
-  var pel = document.elementFromPoint(e.clientX, e.clientY);
+  ldrag.px = e.clientX; ldrag.py = e.clientY;
+  listDragUpdateTarget(e.clientX, e.clientY);
+}
+/* Move the drop placeholder to whatever the pointer is over (shared by
+   pointer moves and the auto-scroll loop, which has no pointer events). */
+function listDragUpdateTarget(x, y) {
+  if (!ldrag || !ldrag.active) return;
+  var el = ldrag.el, cont = document.getElementById(ldrag.containerId), ph = ldrag.ph;
+  var pel = document.elementFromPoint(x, y);
   var over = pel && pel.closest ? pel.closest(ldrag.itemSel) : null;
   if (!over || over === el || !cont.contains(over)) return;
   var orect = over.getBoundingClientRect();
-  var after = e.clientY > orect.top + orect.height / 2;
+  var after = y > orect.top + orect.height / 2;
   var ref = after ? over.nextSibling : over;
   if (ref === ph) return;
   if (!after && ph.nextSibling === over) return;
+  /* v84: same push-aside FLIP animation as the home tile drag — siblings
+     glide out of the placeholder's way instead of jumping. */
+  var settled = Array.prototype.filter.call(cont.querySelectorAll(ldrag.itemSel), function(t){ return t !== el; });
+  var first = settled.map(function(t){ return [t, t.getBoundingClientRect()]; });
   cont.insertBefore(ph, ref);
+  first.forEach(function(pair){
+    var t = pair[0], f = pair[1], l = t.getBoundingClientRect();
+    var dx = f.left - l.left, dy = f.top - l.top;
+    if (dx || dy) {
+      t.style.transition = "none";
+      t.style.transform = "translate(" + dx + "px," + dy + "px)";
+      void t.offsetWidth;
+      t.style.transition = "transform .3s cubic-bezier(.25,.8,.3,1)";
+      t.style.transform = "";
+      setTimeout((function(tt){ return function(){ tt.style.transition = ""; }; })(t), 340);
+    }
+  });
+}
+/* v85: edge auto-scroll — while a card is picked up and the finger rests
+   near the top/bottom of the screen, scroll the page so the drop target
+   can be reached in a long list. Speed ramps up closer to the edge. The
+   placeholder is re-targeted after each scroll step, since a stationary
+   finger produces no pointer events while the page moves under it. */
+function listDragAutoScroll() {
+  if (!ldrag || !ldrag.active) return;
+  var zone = 64, y = ldrag.py, dir = 0, speed = 0;
+  if (typeof y === "number") {
+    if (y < zone) { dir = -1; speed = 2 + (1 - y / zone) * 14; }
+    else if (y > window.innerHeight - zone) { dir = 1; speed = 2 + (1 - (window.innerHeight - y) / zone) * 14; }
+  }
+  if (dir) {
+    window.scrollBy(0, dir * speed);
+    listDragUpdateTarget(ldrag.px, ldrag.py);
+  }
+  if (typeof requestAnimationFrame === "function") ldrag.raf = requestAnimationFrame(listDragAutoScroll);
 }
 function listDragEnd() {
   if (!ldrag) return;
   clearTimeout(ldrag.timer);
+  if (ldrag.raf) { try { cancelAnimationFrame(ldrag.raf); } catch (e) {} }
   if (ldrag.active) {
     (function(el, ph, onDrop){
       var pr = ph.getBoundingClientRect();
