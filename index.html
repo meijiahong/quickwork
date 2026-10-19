@@ -394,6 +394,9 @@ body[data-theme="dark"] .pay-big { color: #A5B4FC; }
 .modtile { transition: box-shadow .18s ease; }
 .modtile.dragging { position: fixed; margin: 0; z-index: 60; pointer-events: none; transform: scale(.88); opacity: 1; box-shadow: 0 22px 44px rgba(79,70,229,.42); transition: transform .18s ease; }
 .tile-placeholder { background: rgba(79,70,229,.10); border: 2px dashed rgba(79,70,229,.45); border-radius: 16px; min-height: 118px; }
+/* v83: dragged list item (Contacts, Info) + drop placeholder */
+.ldragging { position: fixed; margin: 0; z-index: 60; pointer-events: none; transform: scale(.98); opacity: 1; box-shadow: 0 18px 36px rgba(79,70,229,.35); }
+.list-placeholder { background: rgba(79,70,229,.10); border: 2px dashed rgba(79,70,229,.45); border-radius: 16px; margin-bottom: 10px; }
 body[data-theme="dark"] header { background: #000; border-bottom: 1px solid #1C1C1E; }
 body[data-theme="dark"] .brandlogo { background: #000; }
 body[data-theme="dark"] .logoglow::before { background: conic-gradient(from 0deg, transparent 0deg, rgba(165,180,252,.32) 40deg, transparent 90deg, transparent 180deg, rgba(129,140,248,.26) 230deg, transparent 280deg); }
@@ -404,6 +407,7 @@ body[data-theme="dark"] nav button.active { background: #4F46E5; color: #fff; bo
 body[data-theme="dark"] .btn-ghost { background: #232329; color: #C7D2FE; }
 body[data-theme="dark"] .btn-primary { box-shadow: 0 4px 16px rgba(79,70,229,.45); }
 body[data-theme="dark"] .tile-placeholder { background: rgba(129,140,248,.10); border-color: rgba(129,140,248,.5); }
+body[data-theme="dark"] .list-placeholder { background: rgba(129,140,248,.10); border-color: rgba(129,140,248,.5); }
 @media (min-width: 900px) {
   main, .homehead, .modhead { max-width: 780px; }
   nav { max-width: 780px; margin: 12px auto 0; }
@@ -2329,11 +2333,27 @@ function renderInfo() {
   if (!list.length) { box.innerHTML = '<div class="card"><div class="empty">' + t("info_empty") + '</div></div>'; return; }
   box.innerHTML = list.map(function(it){
     var js = "'" + it.id.replace(/'/g, "\\'") + "'";
-    return '<div class="infocard"><h4>' + esc(it.title || t("info_untitled")) + '</h4>' +
+    return '<div class="infocard" data-iid="' + esc(it.id) + '"><h4>' + esc(it.title || t("info_untitled")) + '</h4>' +
       (it.body ? '<div class="infobody">' + esc(it.body) + '</div>' : '') +
       '<div class="inforow"><button class="iconbtn" onclick="openInfoModal(' + js + ')">\u270E</button>' +
       '<button class="iconbtn" onclick="askDelInfo(' + js + ')">\u2715</button></div></div>';
   }).join("");
+  bindInfoDrag();
+}
+/* v83: persist info order after a hold-and-drag drop (the DOM is already
+   in the new order; this just writes the array to match and saves). */
+function saveInfoOrder() {
+  var ids = Array.prototype.map.call(document.querySelectorAll("#infoList [data-iid]"), function(n){ return n.getAttribute("data-iid"); });
+  var byId = {};
+  (state.info.items || []).forEach(function(x){ byId[x.id] = x; });
+  var next = [];
+  ids.forEach(function(id){ if (byId[id]) next.push(byId[id]); });
+  (state.info.items || []).forEach(function(x){ if (ids.indexOf(x.id) === -1) next.push(x); });
+  state.info.items = next;
+  saveState();
+}
+function bindInfoDrag() {
+  listDragBind("infoList", ".infocard", null, saveInfoOrder);
 }
 function openInfoModal(id) {
   editingInfoId = id || null;
@@ -3578,6 +3598,94 @@ function endTileDrag() {
     setTimeout(function(){ suppressTileClick = false; }, 400);
   }
   tdrag = null;
+}
+/* ---------- v83: hold-and-drag reorder for vertical lists (Contacts, Info) ----------
+   Same feel as the home tile drag: hold ~350ms on touch (or drag 8px with a
+   mouse) to pick up, move to reposition, drop to save. While a drag is
+   pending, a scroll gesture (move > 12px before pickup) cancels it, so
+   normal list scrolling is unaffected. After a drop, the shared
+   suppressTileClick flag swallows the trailing click so a drag never
+   triggers a card button or link. */
+var ldrag = null;
+function listDragBind(containerId, itemSel, canDrag, onDrop) {
+  var cont = document.getElementById(containerId); if (!cont) return;
+  Array.prototype.forEach.call(cont.querySelectorAll(itemSel), function(el){
+    el.addEventListener("pointerdown", function(e){ listDragDown(e, el, containerId, itemSel, canDrag, onDrop); });
+  });
+}
+function listDragDown(e, el, containerId, itemSel, canDrag, onDrop) {
+  if (e.button !== undefined && e.button > 0) return;
+  if (ldrag) return;
+  if (canDrag && !canDrag()) return;
+  var isMouse = e.pointerType === "mouse";
+  ldrag = { el: el, sx: e.clientX, sy: e.clientY, pid: e.pointerId, active: false, mouse: isMouse,
+    containerId: containerId, itemSel: itemSel, onDrop: onDrop,
+    timer: isMouse ? null : setTimeout(listDragStart, 350) };
+}
+function listDragStart() {
+  if (!ldrag) return;
+  var el = ldrag.el, cont = document.getElementById(ldrag.containerId);
+  if (!cont || !el.parentNode) { ldrag = null; return; }
+  var r = el.getBoundingClientRect();
+  var ph = document.createElement("div");
+  ph.className = "list-placeholder";
+  ph.setAttribute("aria-hidden", "true");
+  ph.style.height = r.height + "px";
+  cont.insertBefore(ph, el);
+  ldrag.ph = ph;
+  ldrag.ox = ldrag.sx - r.left;
+  ldrag.oy = ldrag.sy - r.top;
+  el.classList.add("ldragging");
+  el.style.width = r.width + "px";
+  el.style.height = r.height + "px";
+  el.style.left = r.left + "px";
+  el.style.top = r.top + "px";
+  ldrag.active = true;
+  try { el.setPointerCapture(ldrag.pid); } catch (e) {}
+  try { if (navigator.vibrate) navigator.vibrate(20); } catch (e2) {}
+}
+function listDragMove(e) {
+  if (!ldrag) return;
+  if (!ldrag.active) {
+    var moved = Math.hypot(e.clientX - ldrag.sx, e.clientY - ldrag.sy);
+    if (ldrag.mouse) { if (moved > 8) listDragStart(); return; }
+    if (moved > 12) { clearTimeout(ldrag.timer); ldrag = null; }
+    return;
+  }
+  var el = ldrag.el, cont = document.getElementById(ldrag.containerId), ph = ldrag.ph;
+  el.style.left = (e.clientX - ldrag.ox) + "px";
+  el.style.top = (e.clientY - ldrag.oy) + "px";
+  var pel = document.elementFromPoint(e.clientX, e.clientY);
+  var over = pel && pel.closest ? pel.closest(ldrag.itemSel) : null;
+  if (!over || over === el || !cont.contains(over)) return;
+  var orect = over.getBoundingClientRect();
+  var after = e.clientY > orect.top + orect.height / 2;
+  var ref = after ? over.nextSibling : over;
+  if (ref === ph) return;
+  if (!after && ph.nextSibling === over) return;
+  cont.insertBefore(ph, ref);
+}
+function listDragEnd() {
+  if (!ldrag) return;
+  clearTimeout(ldrag.timer);
+  if (ldrag.active) {
+    (function(el, ph, onDrop){
+      var pr = ph.getBoundingClientRect();
+      el.style.transition = "left .22s ease, top .22s ease, transform .22s ease";
+      el.style.transform = "scale(1)";
+      el.style.left = pr.left + "px";
+      el.style.top = pr.top + "px";
+      setTimeout(function(){
+        el.classList.remove("ldragging");
+        el.removeAttribute("style");
+        if (ph.parentNode) ph.parentNode.replaceChild(el, ph);
+        suppressTileClick = true;
+        setTimeout(function(){ suppressTileClick = false; }, 400);
+        if (onDrop) onDrop();
+      }, 240);
+    })(ldrag.el, ldrag.ph, ldrag.onDrop);
+  }
+  ldrag = null;
 }
 function renderModuleToggles() {
   document.getElementById("moduleToggles").innerHTML = MODULES.map(function(m){
@@ -5212,7 +5320,29 @@ var editingContactId = null;
 var contactDeptPick = "";
 function telHref(phone) { return "tel:" + String(phone).replace(/[^+\d]/g, ""); }
 function smsHref(phone) { return "sms:" + String(phone).replace(/[^+\d]/g, ""); }
-function renderContacts() { renderDeptChips(); renderContactList(); renderDeptList(); renderTemplates(); }
+function renderContacts() { renderDeptChips(); renderContactList(); bindContactDrag(); renderDeptList(); renderTemplates(); }
+/* v83: persist contact order after a hold-and-drag drop (the DOM is already
+   in the new order; this just writes the array to match and saves). */
+function saveContactOrder() {
+  var ids = Array.prototype.map.call(document.querySelectorAll("#contactList [data-cid]"), function(n){ return n.getAttribute("data-cid"); });
+  var byId = {};
+  state.contacts.people.forEach(function(p){ byId[p.id] = p; });
+  var next = [];
+  ids.forEach(function(id){ if (byId[id]) next.push(byId[id]); });
+  state.contacts.people.forEach(function(p){ if (ids.indexOf(p.id) === -1) next.push(p); });
+  state.contacts.people = next;
+  saveState();
+}
+/* Drag only when the full list is showing: a search or department filter
+   would reorder just the visible subset. */
+function contactDragAllowed() {
+  if (contactDeptFilter !== -1) return false;
+  var q = document.getElementById("contactSearch");
+  return !(q && q.value.trim());
+}
+function bindContactDrag() {
+  listDragBind("contactList", ".rec-card", contactDragAllowed, saveContactOrder);
+}
 
 /* ---------- message templates (v17) ---------- */
 function exampleTemplates() {
@@ -5521,7 +5651,7 @@ function renderContactList() {
   box.innerHTML = list.map(function(p){
     var st = availStatusInfo(p.availability);
     var sum = availSummaryText(p.availability);
-    return '<div class="rec-card">' +
+    return '<div class="rec-card" data-cid="' + esc(p.id) + '">' +
       '<div style="display:flex;justify-content:space-between;align-items:center;gap:8px">' +
         '<span style="display:flex;align-items:center;gap:8px;min-width:0"><span class="rtitle" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">' + esc(p.name) + '</span>' +
         '<span class="avail-chip ' + st.cls + '"><span class="avail-dot ' + st.cls + '"></span>' + st.label + '</span></span>' +
@@ -5711,9 +5841,18 @@ renderHome();
 document.getElementById("moduleGrid").addEventListener("click", function(e){
   if (suppressTileClick) { e.stopPropagation(); e.preventDefault(); }
 }, true);
+document.getElementById("contactList").addEventListener("click", function(e){
+  if (suppressTileClick) { e.stopPropagation(); e.preventDefault(); }
+}, true);
+document.getElementById("infoList").addEventListener("click", function(e){
+  if (suppressTileClick) { e.stopPropagation(); e.preventDefault(); }
+}, true);
 document.addEventListener("pointermove", tilePointerMove);
 document.addEventListener("pointerup", endTileDrag);
 document.addEventListener("pointercancel", endTileDrag);
+document.addEventListener("pointermove", listDragMove);
+document.addEventListener("pointerup", listDragEnd);
+document.addEventListener("pointercancel", listDragEnd);
 document.getElementById("importTargetModal").addEventListener("click", function(e) {
   if (e.target === this) closeImportTarget();
 });
